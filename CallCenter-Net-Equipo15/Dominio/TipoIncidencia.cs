@@ -8,7 +8,7 @@ namespace Dominio
 {
     public class TipoIncidencia
     {
-        public int Oid { get; set; }
+        public long Oid { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
     }
