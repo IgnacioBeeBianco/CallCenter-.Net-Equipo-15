@@ -24,7 +24,7 @@ namespace DAO
 
         public AccesoADatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CallCenter-TPC-Equipo15; integrated security=true"); //la database hay que cambiarla si se usa otro nombre
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CallCenter; integrated security=true"); //la database hay que cambiarla si se usa otro nombre
             comando = new SqlCommand();
         }
 
