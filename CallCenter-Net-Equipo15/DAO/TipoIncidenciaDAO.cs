@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Dominio.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
