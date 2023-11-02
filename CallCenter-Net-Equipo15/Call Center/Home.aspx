@@ -3,5 +3,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>HomePage</h1>
-    <p>HomePage en creación... ir a creac incidencia para ver contenido</p>
+    <p>HomePage en creación... ir a crear incidencia para ver contenido</p>
+    <div>
+        <asp:GridView ID="dgvTiposIncidencias" runat="server" CssClass="table"></asp:GridView>
+    </div>
+    
 </asp:Content>

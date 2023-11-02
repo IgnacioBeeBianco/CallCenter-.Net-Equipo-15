@@ -53,9 +53,10 @@
       <Name>Dominio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="ScriptDB\CallCenter-TPC-Equipo15.sql" />
+    <Content Include="ScriptDB\Callcenter_DB_CREATE.sql" />
+    <Content Include="ScriptDB\Callcenter_TBL_TipoIncidencia_CREATE.sql" />
+    <Content Include="ScriptDB\Callcenter_TBL_TipoIncidencia_VALUES.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
