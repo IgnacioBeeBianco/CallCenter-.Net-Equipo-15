@@ -33,12 +33,7 @@
         </div>
         <div class="mb-3">
           <label for="tipoIncidencia" class="form-label">Tipo de Incidencia:</label>
-          <select class="form-select" id="tipoIncidencia">
-            <option selected>Selecciona un tipo de incidencia</option>
-            <option value="tecnica">Técnica</option>
-            <option value="administrativa">Administrativa</option>
-            <option value="otro">Otro</option>
-          </select>
+          <asp:DropDownList ID="ddlTipoIncidencia" runat="server" CssClass="form-select"></asp:DropDownList>
         </div>
         <button type="submit" class="btn btn-primary">Crear</button>
     </div>

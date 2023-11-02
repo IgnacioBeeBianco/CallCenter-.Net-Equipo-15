@@ -1,5 +1,5 @@
 ﻿using Dominio;
-using Dominio.Enums;
+//using Dominio.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TiposIncidencia";
+                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
