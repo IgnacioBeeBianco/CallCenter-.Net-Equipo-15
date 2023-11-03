@@ -1,19 +1,17 @@
-﻿using Dominio;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Call_Center
+namespace Call_Center.ABM
 {
-    public partial class AdminPanel : System.Web.UI.Page
+    public partial class Prioridad : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
-
-
     }
 }

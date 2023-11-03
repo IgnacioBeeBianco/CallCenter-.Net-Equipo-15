@@ -14,7 +14,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mas...
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="dropdown-item">Crear</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/ABM/Prioridad.aspx" CssClass="dropdown-item">Crear</asp:HyperLink>
                             <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="dropdown-item">Editar</asp:HyperLink>
                             <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="dropdown-item">Eliminar</asp:HyperLink>
                             <asp:TextBox ID="txbBusquedaPrioridad" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item"></asp:TextBox>
@@ -28,6 +28,8 @@
             </div>
         </div>
 
+
+        <!--
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -181,6 +183,8 @@
                 </div>
             </div>
         </div>
+
+    -->
 
     </div>
 </asp:Content>
