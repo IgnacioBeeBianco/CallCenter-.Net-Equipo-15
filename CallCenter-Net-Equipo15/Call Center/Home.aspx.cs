@@ -12,8 +12,7 @@ namespace Call_Center
         protected void Page_Load(object sender, EventArgs e)
         {
             TipoIncidenciaDAO tipoIncidenciaDAO = new TipoIncidenciaDAO();
-            dgvTiposIncidencias.DataSource = tipoIncidenciaDAO.List();
-            dgvTiposIncidencias.DataBind();
+            
         }
     }
 }

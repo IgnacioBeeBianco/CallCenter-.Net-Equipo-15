@@ -13,32 +13,36 @@
 <body>
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <asp:HyperLink runat="server" NavigateUrl="~/Home.aspx" CssClass="navbar-brand">Call Center</asp:HyperLink>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <asp:HyperLink runat="server" NavigateUrl="~/Home.aspx" CssClass="nav-link">Inicio</asp:HyperLink>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Incidencias
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <asp:HyperLink runat="server" NavigateUrl="~/CrearIncidencia.aspx" CssClass="dropdown-item">Crear incidencia</asp:HyperLink>
-                                <!-- ACA PODEMOS AGREGAR MAS AL DROPDOWN -->
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Mas...</a>
-                        </li>
-                    </ul>
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Grupo 15</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Productos</a>
+                </li>
+              </ul>
+                <div class="d-flex gap-2">
+                    <span class="navbar-text">
+                        <button class="btn btn-primary text-white">Logueate</button>
+                    </span>
+                    <span class="navbar-text">
+                        <button class="btn btn-outline-secondary">Crear cuenta</button>
+                    </span>
                 </div>
+                  
             </div>
+          </div>
         </nav>
+
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
