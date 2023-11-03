@@ -14,7 +14,8 @@ namespace DAO
         {
             try
             {
-                string consulta = "SELECT id_rol FROM Cuenta WHERE email = @email AND password = @password";
+                string consulta = "SELECT id_rol FROM Cuenta WHERE email = @email AND password_ = @password";
+                accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@email", cuenta.Email);
                 accesoADatos.setearParametro("@password", cuenta.Password);
                 accesoADatos.consultar(consulta);
@@ -22,11 +23,18 @@ namespace DAO
 
                 while (accesoADatos.Lector.Read())
                 {
+                    cuenta.Rol.Id = (int)accesoADatos.Lector["id_rol"];
 
                 }
+                if(cuenta.Rol != null)
+                {
+                    return true;
 
-                return true;
-
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

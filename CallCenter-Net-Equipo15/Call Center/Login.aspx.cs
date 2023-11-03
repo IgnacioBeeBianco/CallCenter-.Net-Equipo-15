@@ -19,14 +19,20 @@ namespace Call_Center
         protected void LoginButton_Click(object sender, EventArgs e)
         {
             Cuenta cuenta = new Cuenta();
-            EmailInput.Value = cuenta.Email;
-            PasswordInput.Value = cuenta.Password;
+            cuenta.Email = EmailInput.Value; 
+            cuenta.Password = PasswordInput.Value;
+            
 
             CuentaNegocio cuentaNegocio = new CuentaNegocio();
 
             if (cuentaNegocio.Login(cuenta))
             {
+                Session.Add("Cuenta", cuenta);
                 Response.Redirect("Home.aspx");
+            }
+            else
+            {
+                Session.Add("NoAccountFound", true);
             };
 
         }

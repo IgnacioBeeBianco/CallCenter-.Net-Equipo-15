@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
+    <style>
+        .transition-effect {
+            opacity: 0; 
+            transition: opacity 0.2s ease-in-out; 
+        }
+
+    </style>
     <form id="form1" runat="server" class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-primary-subtle">
         <div class="container">
             <div class="row d-flex justify-content-center">
@@ -30,18 +37,36 @@
                             <a class="btn"><p>Olvidó su contraseña?</p></a>
                         </div>
 
-                        <div class="button-container d-grid">
+                        <div class="button-container d-grid gap-2">
                             <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary" OnClick="LoginButton_Click" />
                         </div>
+
                     </div>
+
+
+                    <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"]) { %>
+                        <div class="alert alert-danger transition-effect" role="alert">
+                            Oops... <br /> 
+                            Parece que hay algo inválido en tus datos
+                        </div>
+                    <% } %>
+
+
+
                 </div>
             </div>
         </div>
-
-
     </form>
 
 
+    <script>
+        setTimeout(function () {
+            var element = document.querySelector(".transition-effect");
+            if (element) {
+                element.style.opacity = 1; // Cambia la opacidad a 1 después de una pequeña pausa
+            }
+        }, 100); // 100 ms de pausa
+    </script>
 
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
