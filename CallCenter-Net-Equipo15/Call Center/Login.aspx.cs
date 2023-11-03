@@ -36,5 +36,10 @@ namespace Call_Center
             };
 
         }
+
+        protected void RegistrarseButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CrearCliente.aspx");
+        }
     }
 }

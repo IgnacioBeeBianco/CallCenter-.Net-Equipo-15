@@ -67,7 +67,9 @@
   <ItemGroup>
     <Content Include="ABM\Prioridad.aspx" />
     <Content Include="AdminPanel.aspx" />
+    <Content Include="CrearCliente.aspx" />
     <Content Include="CrearIncidencia.aspx" />
+    <Content Include="CrearUsuario.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
@@ -89,12 +91,26 @@
     <Compile Include="AdminPanel.aspx.designer.cs">
       <DependentUpon>AdminPanel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CrearCliente.aspx.cs">
+      <DependentUpon>CrearCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CrearCliente.aspx.designer.cs">
+      <DependentUpon>CrearCliente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CrearIncidencia.aspx.cs">
       <DependentUpon>CrearIncidencia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CrearIncidencia.aspx.designer.cs">
       <DependentUpon>CrearIncidencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CrearUsuario.aspx.cs">
+      <DependentUpon>CrearUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CrearUsuario.aspx.designer.cs">
+      <DependentUpon>CrearUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
