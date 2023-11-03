@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoADatos.cs" />
+    <Compile Include="CuentaDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoIncidenciaDAO.cs" />
   </ItemGroup>

@@ -18,12 +18,12 @@
                         <div class="header mb-5">
                             <h3 class="display-5">Bienvenido!</h3>
                         </div>
-                        <div class="input-group mb-4">
-                            <input runat="server" type="email" class="form-control rounded" placeholder="Dirección de email" aria-label="Username" aria-describedby="basic-addon1"/>
+                        <div class="input-group mb-4">                            
+                            <input runat="server" id="EmailInput" type="email" class="form-control rounded" placeholder="Dirección de email" aria-label="Username" aria-describedby="basic-addon1"/>
                         </div>
 
                         <div class="input-group mb-4">
-                            <input runat="server" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1"/>
+                            <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1"/>
                         </div>
 
                         <div class="forgot-text text-end">
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="button-container d-grid">
-                            <button class="btn btn-primary">Iniciar sesión</button>
+                            <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary" OnClick="LoginButton_Click" />
                         </div>
                     </div>
                 </div>
