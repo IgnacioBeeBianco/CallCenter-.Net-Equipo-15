@@ -40,11 +40,10 @@
 
                         <div class="button-container d-grid gap-2">
                             <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary" OnClick="LoginButton_Click" />
+                            <asp:Button ID="RegistrarseButton" runat="server" Text="Registrarse" CssClass="btn btn-success" OnClick="RegistrarseButton_Click" />
                         </div>
                        
-                        <div class="button-container d-grid gap-2">
-                            <asp:Button ID="RegistrarseButton" runat="server" Text="Registrarse" CssClass="btn btn-primary" OnClick="RegistrarseButton_Click" />
-                        </div>
+      
 
                     </div>
 
@@ -67,9 +66,9 @@
         setTimeout(function () {
             var element = document.querySelector(".transition-effect");
             if (element) {
-                element.style.opacity = 1; // Cambia la opacidad a 1 después de una pequeña pausa
+                element.style.opacity = 1;
             }
-        }, 100); // 100 ms de pausa
+        }, 100);
     </script>
 
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
