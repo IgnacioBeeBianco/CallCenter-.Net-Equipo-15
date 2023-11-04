@@ -15,5 +15,20 @@ namespace Call_Center
         }
 
 
+        protected void mostrarPrioridades(object sender, EventArgs e)
+        {
+            modalPrioridad.Style["display"] = "block";
+        }
+
+        protected void submitPrioridades(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void cancelarPrioridades(object sender, EventArgs e)
+        {
+            modalPrioridad.Style["display"] = "none";
+        }
+
     }
 }
