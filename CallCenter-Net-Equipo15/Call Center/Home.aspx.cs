@@ -15,8 +15,6 @@ namespace Call_Center
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
             }
-
-            TipoIncidenciaDAO tipoIncidenciaDAO = new TipoIncidenciaDAO();
             
         }
     }

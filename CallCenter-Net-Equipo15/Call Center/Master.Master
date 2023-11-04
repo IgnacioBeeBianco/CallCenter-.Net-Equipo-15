@@ -21,21 +21,12 @@
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="#">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Productos</a>
                 </li>
               </ul>
                 <div class="d-flex gap-2">
                     <span class="navbar-text">
-                        <a  class="btn btn-primary">Logueate</a>
-                    </span>
-                    <span class="navbar-text">
-                        <a class="btn btn-outline-secondary">Crear cuenta</a>
+                        <button class="btn btn-danger text-white">Cerrar sesión</button>
                     </span>
                 </div>
                   

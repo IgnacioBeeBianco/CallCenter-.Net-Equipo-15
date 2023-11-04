@@ -10,13 +10,13 @@ namespace Negocio
 {
     public class CuentaNegocio
     {
-        public bool Login(Cuenta cuenta)
+        public Usuario Login(Cuenta cuenta)
         {
             try
             {
                 CuentaDAO cuentaDAO = new CuentaDAO();
-                bool logueado = cuentaDAO.Login(cuenta);
-                return logueado;
+                Usuario userloggued = cuentaDAO.Login(cuenta);
+                return userloggued;
             }catch (Exception ex)
             {
                 throw ex;
