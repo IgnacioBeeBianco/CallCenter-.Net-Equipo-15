@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <section class="hero-section vw-100 vh-100 d-flex align-items-center justify-content-center bg-primary-subtle">
+    <section class="hero-section vh-100 d-flex align-items-center justify-content-center bg-primary-subtle">
         <div class="px-4 py-5 my-5 text-center container bg-white rounded shadow-lg">
             <div class="row">
                 <div class="col-12">

@@ -37,7 +37,14 @@ namespace DAO
                     cuenta.Rol.Nombre = accesoADatos.Lector["nombre_rol"].ToString();
                 }
 
-                return usuario;
+                if(usuario.Nombre != null)
+                {
+                    return usuario;
+                }
+                else
+                {
+                    return null;
+                };
             }
             catch (Exception ex)
             {
