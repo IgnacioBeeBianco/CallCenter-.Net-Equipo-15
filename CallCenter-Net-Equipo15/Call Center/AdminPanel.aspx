@@ -4,6 +4,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <style>
+        .custom-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 80%;
+            background-color: white;
+            border: 1px solid black;
+        }
+    </style>
+
     <div class="row">
 
         <div class="col-md-3">
@@ -14,10 +27,11 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mas...
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <asp:HyperLink runat="server" NavigateUrl="~/ABM/Prioridad.aspx" CssClass="dropdown-item">Crear</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="dropdown-item">Editar</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/" CssClass="dropdown-item">Eliminar</asp:HyperLink>
-                            <asp:TextBox ID="txbBusquedaPrioridad" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item"></asp:TextBox>
+                            <div>
+                                <asp:Button ID="Priocreate" runat="server" Text="Crear" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" />
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -27,6 +41,38 @@
                 </div>
             </div>
         </div>
+
+        <asp:ScriptManager ID="SMmodalPrioridad" runat="server" />
+        <asp:UpdatePanel ID="upPrioridad" runat="server">
+            <ContentTemplate>
+                <div id="modalPrioridad" runat="server" style="display: none;">
+                    <div class="custom-modal card">
+                        <div class="card-header">
+                            <h5 class="card-title">Prioridades</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <asp:TextBox ID="txbSearhPrio" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item" table="Prioridad"></asp:TextBox>
+                                <asp:Button ID="btnSearchPrio" runat="server" Text="Buscar!" OnClick="realizarBusqueda" CssClass="btn btn-primary" table="Prioridad" />
+                                <asp:TextBox ID="txbPrioNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
+                                <div class="alert alert-info">
+                                    <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <asp:Button ID="btnPrioSub" runat="server" Text="Crear" OnClick="submitModal" CssClass="btn btn-primary" table="Prioridad" action="create" />
+                            <asp:Button ID="btnPrioModify" runat="server" Text="Modificar" OnClick="submitModal" CssClass="btn btn-warning" table="Prioridad" action="modify" />
+                            <asp:Button ID="btnPriodelete" runat="server" Text="Eliminar" OnClick="submitModal" CssClass="btn btn-danger" table="Prioridad" action="delete" />
+                            <asp:Button ID="btnPrioCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-secondary" table="Prioridad" />
+
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+
 
 
         <!--

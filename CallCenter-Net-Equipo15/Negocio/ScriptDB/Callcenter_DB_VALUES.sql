@@ -8,6 +8,10 @@ INSERT INTO TipoIncidencia(nombre) VALUES ('Requerimiento')
 GO
 INSERT INTO Rol (nombre) VALUES ('Administrador');
 GO
+INSERT INTO Prioridad (nombre) VALUES ('Alta');
+INSERT INTO Prioridad (nombre) VALUES ('Media');
+INSERT INTO Prioridad (nombre) VALUES ('Baja');
+GO
 INSERT INTO Cuenta (email, password_, id_rol) VALUES ('admin@gmail.com', 'admin', (
     SELECT id FROM Rol WHERE nombre = 'Administrador'
 ))

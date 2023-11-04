@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio
+namespace Negocio
 {
-    public class Prioridad
+    internal class PrioridadNegocio
     {
-        public long Id { get; set; }
-        public string Nombre { get; set;}
     }
 }
