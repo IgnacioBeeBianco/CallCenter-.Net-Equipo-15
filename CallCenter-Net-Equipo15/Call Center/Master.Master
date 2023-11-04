@@ -36,10 +36,10 @@
                     </ul>
                     <hr />
                     <div class="user-info">
-                        <a href="UsuarioPanel.aspx">
+                        <a href="UsuarioPanel.aspx" class="text-decoration-none">
                             <img src="Images/profile_3135768.png" class="w-25" />
-                            <span class="d-sm-none d-md-inline">
-                                <%#(Session["Usuario"] as Dominio.Usuario).Nombre %>
+                            <span class="d-sm-none d-md-inline ms-2">
+                                <asp:Label runat="server" ID="Username" CssClass="d-sm-none d-md-inline text-white"></asp:Label>
                             </span>
                         </a>
                         
@@ -76,6 +76,7 @@
         </div>
         
     </form>
+   
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
