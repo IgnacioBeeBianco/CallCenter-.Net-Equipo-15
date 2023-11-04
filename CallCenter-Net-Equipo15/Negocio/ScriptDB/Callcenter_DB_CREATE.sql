@@ -49,6 +49,17 @@ BEGIN
 END
 GO
 
+-- Verificar si la tabla "TipoIncidencia" existe, y si no, crearla
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Prioridad')
+BEGIN
+    CREATE TABLE Prioridad (
+        id BIGINT IDENTITY(1,1),
+        nombre NVARCHAR(150) NOT NULL UNIQUE,
+        PRIMARY KEY (id)
+    )
+END
+GO
+
 -- Verificar si la tabla "Cliente" existe, y si no, crearla
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Cliente')
 BEGIN

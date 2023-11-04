@@ -65,7 +65,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ABM\Prioridad.aspx" />
     <Content Include="AdminPanel.aspx" />
     <Content Include="CrearCliente.aspx" />
     <Content Include="CrearIncidencia.aspx" />
@@ -77,13 +76,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM\Prioridad.aspx.cs">
-      <DependentUpon>Prioridad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ABM\Prioridad.aspx.designer.cs">
-      <DependentUpon>Prioridad.aspx</DependentUpon>
-    </Compile>
     <Compile Include="AdminPanel.aspx.cs">
       <DependentUpon>AdminPanel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -28,9 +28,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <div>
-                                <asp:Button ID="btnAgregarPrioridades" runat="server" Text="Crear" OnClick="mostrarPrioridades" CssClass="dropdown-item" />
-                                <asp:Button ID="btnModificarPrioridades" runat="server" Text="Modificar" OnClick="mostrarPrioridades" CssClass="dropdown-item" />
-                                <asp:Button ID="btnEliminarPrioridades" runat="server" Text="Eliminar" OnClick="mostrarPrioridades" CssClass="dropdown-item" />
+                                <asp:Button ID="Priocreate" runat="server" Text="Crear" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="create" />
+                                <asp:Button ID="Priomodify" runat="server" Text="Modificar" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="modify" />
+                                <asp:Button ID="Priodelete" runat="server" Text="Eliminar" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="delete" />
                                 <asp:TextBox ID="txbBusquedaPrioridad" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item"></asp:TextBox>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <asp:Button ID="btnPrioSub" runat="server" Text="Crear" OnClick="submitPrioridades" CssClass="btn btn-primary" />
-                            <asp:Button ID="btnPrioCancelar" runat="server" Text="Cancelar" OnClick="cancelarPrioridades" CssClass="btn btn-danger" />
+                            <asp:Button ID="btnPrioSub" runat="server" Text="Crear" OnClick="submitModal" CssClass="btn btn-primary" table="Prioridad" />
+                            <asp:Button ID="btnPrioCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-danger" table="Prioridad" />
 
                         </div>
                     </div>

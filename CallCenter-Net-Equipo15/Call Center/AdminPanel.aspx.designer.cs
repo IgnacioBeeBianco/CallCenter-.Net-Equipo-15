@@ -15,31 +15,31 @@ namespace Call_Center
     {
 
         /// <summary>
-        /// Control btnAgregarPrioridades.
+        /// Control Priocreate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarPrioridades;
+        protected global::System.Web.UI.WebControls.Button Priocreate;
 
         /// <summary>
-        /// Control btnModificarPrioridades.
+        /// Control Priomodify.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModificarPrioridades;
+        protected global::System.Web.UI.WebControls.Button Priomodify;
 
         /// <summary>
-        /// Control btnEliminarPrioridades.
+        /// Control Priodelete.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEliminarPrioridades;
+        protected global::System.Web.UI.WebControls.Button Priodelete;
 
         /// <summary>
         /// Control txbBusquedaPrioridad.
