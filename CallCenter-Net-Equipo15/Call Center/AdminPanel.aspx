@@ -28,10 +28,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <div>
-                                <asp:Button ID="Priocreate" runat="server" Text="Crear" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="create" />
-                                <asp:Button ID="Priomodify" runat="server" Text="Modificar" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="modify" />
-                                <asp:Button ID="Priodelete" runat="server" Text="Eliminar" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" action="delete" />
-                                <asp:TextBox ID="txbBusquedaPrioridad" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item"></asp:TextBox>
+                                <asp:Button ID="Priocreate" runat="server" Text="Crear" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" />
+
+
                             </div>
                         </div>
                     </div>
@@ -53,12 +52,19 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
+                                <asp:TextBox ID="txbSearhPrio" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item" table="Prioridad"></asp:TextBox>
+                                <asp:Button ID="btnSearchPrio" runat="server" Text="Buscar!" OnClick="realizarBusqueda" CssClass="btn btn-primary" table="Prioridad" />
                                 <asp:TextBox ID="txbPrioNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
+                                <div class="alert alert-info">
+                                    <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <asp:Button ID="btnPrioSub" runat="server" Text="Crear" OnClick="submitModal" CssClass="btn btn-primary" table="Prioridad" />
-                            <asp:Button ID="btnPrioCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-danger" table="Prioridad" />
+                            <asp:Button ID="btnPrioSub" runat="server" Text="Crear" OnClick="submitModal" CssClass="btn btn-primary" table="Prioridad" action="create" />
+                            <asp:Button ID="btnPrioModify" runat="server" Text="Modificar" OnClick="submitModal" CssClass="btn btn-warning" table="Prioridad" action="modify" />
+                            <asp:Button ID="btnPriodelete" runat="server" Text="Eliminar" OnClick="submitModal" CssClass="btn btn-danger" table="Prioridad" action="delete" />
+                            <asp:Button ID="btnPrioCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-secondary" table="Prioridad" />
 
                         </div>
                     </div>

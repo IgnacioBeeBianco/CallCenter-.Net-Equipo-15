@@ -20,34 +20,13 @@ namespace Call_Center
         {
             Button btn = sender as Button;
 
+
             switch (btn.Attributes["table"])
             {
+
                 case "Prioridad":
 
                     modalPrioridad.Style["display"] = "block";
-                    PrioridadDAO prioridadDAO = new PrioridadDAO();
-
-                    
-
-                    switch (btn.Attributes["action"])
-                    {
-                        case "create":
-
-                            break;
-
-                        case "modify":
-                        case "delete":
-                            Prioridad prioridad = new Prioridad();
-                            prioridad = prioridadDAO.getPrioridad(txbBusquedaPrioridad.Text);
-                            txbPrioNombre.Text = prioridad.Nombre;
-                            txbBusquedaPrioridad.Text = null;
-                            break;
-
-                        default:
-                            // Acción por defecto si el ID no coincide con ninguno de los casos anteriores
-                            break;
-                    }
-
                     break;
 
                 default:
@@ -59,6 +38,51 @@ namespace Call_Center
 
         protected void submitModal(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            try
+            {
+                switch (btn.Attributes["table"])
+                {
+                    case "Prioridad":
+                        PrioridadDAO prioridadDAO = new PrioridadDAO();
+                        Prioridad prioridad = new Prioridad();
+                        switch (btn.Attributes["action"])
+                        {
+                            case "create":
+                                prioridad.Nombre = txbPrioNombre.Text;
+                                //Validar y mostrar alert
+                                prioridadDAO.Create(prioridad);
+
+                                break;
+
+                            case "modify":
+                                prioridad.Nombre = txbPrioNombre.Text;
+                                prioridadDAO.Update(prioridad);
+                                break;
+
+                            case "delete":
+                                prioridad = prioridadDAO.getPrioridad(txbPrioNombre.Text);
+                                prioridadDAO.Delete(prioridad.Id);
+                                break;
+
+                            default:
+
+                                break;
+                        }
+                        
+                        modalPrioridad.Style["display"] = "none";
+
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
@@ -79,7 +103,32 @@ namespace Call_Center
                     break;
             }
 
-           
+
+        }
+
+        protected void realizarBusqueda(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+
+            switch (btn.Attributes["table"])
+            {
+
+                case "Prioridad":
+
+                    modalPrioridad.Style["display"] = "block";
+                    PrioridadDAO prioridadDAO = new PrioridadDAO();
+                    Prioridad prioridad = new Prioridad();
+                    prioridad = prioridadDAO.getPrioridad(txbSearhPrio.Text);
+                    txbPrioNombre.Text = prioridad.Nombre;
+                    txbSearhPrio.Text = null;
+
+                    break;
+
+                default:
+
+                    break;
+            }
         }
 
     }

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
-    public class PrioridadDAO : DAO
+    public class PrioridadDAO
     {
 
         private List<Prioridad> prioridades;
+        private AccesoADatos accesoADatos;
 
-        public override DAO LoadTipoIncidencia(ref AccesoADatos accesoADatos)
+        private Prioridad LoadTipoIncidencia(ref AccesoADatos accesoADatos)
         {
             Prioridad prioridad = new Prioridad();
             prioridad.Id = (long)accesoADatos.Lector["id"];
@@ -21,7 +22,7 @@ namespace DAO
             return prioridad;
         }
 
-        public override DAO getPrioridad(long Id)
+        public Prioridad getPrioridad(long Id)
         {
             accesoADatos = new AccesoADatos();
             Prioridad prioridad = new Prioridad();
@@ -51,7 +52,7 @@ namespace DAO
             }
         }
 
-        public override DAO getPrioridad(string Nombre)
+        public Prioridad getPrioridad(string Nombre)
         {
             accesoADatos = new AccesoADatos();
             Prioridad prioridad = new Prioridad();
@@ -81,7 +82,7 @@ namespace DAO
             }
         }
 
-        public override List<DAO> List()
+        public List<Prioridad> List()
         {
             accesoADatos = new AccesoADatos();
             prioridades = new List<Prioridad>();
@@ -110,7 +111,7 @@ namespace DAO
             }
         }
 
-        public override List<DAO> List(string Nombre)
+        public List<Prioridad> List(string Nombre)
         {
             accesoADatos = new AccesoADatos();
             prioridades = new List<Prioridad>();
@@ -140,7 +141,7 @@ namespace DAO
             }
         }
 
-        public override void Create(Prioridad prioridad)
+        public void Create(Prioridad prioridad)
         {
             accesoADatos = new AccesoADatos();
 
@@ -163,7 +164,7 @@ namespace DAO
             }
         }
 
-        public override void Update(Prioridad prioridad)
+        public void Update(Prioridad prioridad)
         {
             accesoADatos = new AccesoADatos();
 
@@ -188,7 +189,7 @@ namespace DAO
             }
         }
 
-        public override void Delete(long Id)
+        public void Delete(long Id)
         {
             accesoADatos = new AccesoADatos();
 
