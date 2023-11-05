@@ -16,7 +16,17 @@ namespace Call_Center
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
             }
-            Username.Text = ((Usuario)Session["Usuario"]).Nombre + " " + ((Usuario)Session["Usuario"]).Apellido;
+            Usuario usuario = new Usuario();
+            usuario = (Usuario)Session["Usuario"];
+            Cuenta cuenta = new Cuenta();
+            cuenta = (Cuenta)Session["Cuenta"];
+
+            Username.Text = (usuario.Nombre + " " + usuario.Apellido);
+
+            if( cuenta.Rol.Nombre != "Administrador")
+            {
+                adminDashboard.Style["display"] = "none";
+            }
         }
     }
 }

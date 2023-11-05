@@ -26,7 +26,7 @@
                                 <span class="d-sm-none d-md-inline">Dashboard</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="adminDashboard" runat="server">
                             <a class="nav-link text-white" href="AdminPanel.aspx">
                                 <i class="bi bi-gear me-2"></i>
                                 <span class="d-sm-none d-md-inline">Admin Panel</span>
