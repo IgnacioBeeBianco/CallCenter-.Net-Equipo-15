@@ -55,5 +55,26 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
         }
+
+        public int crearNuevaCuentaCliente(Cuenta nuevo)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+            try
+            {
+                accesoADatos.setearProcedimiento("insertarNuevaCuentaCliente");
+                accesoADatos.setearParametro("@email", nuevo.Email);
+                accesoADatos.setearParametro("@password", nuevo.Password);
+                return accesoADatos.ejecutarAccionScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
     }
 }

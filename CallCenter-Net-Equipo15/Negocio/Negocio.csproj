@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CuentaNegocio.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="PrioridadNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ScriptDB\Callcenter_DB_CREATE.sql" />
+    <Content Include="ScriptDB\CallCenter_DB_PROCEDURE.sql" />
     <Content Include="ScriptDB\Callcenter_DB_VALUES.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
