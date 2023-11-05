@@ -12,7 +12,7 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Username.Text = ((Usuario)Session["Usuario"]).Nombre + ((Usuario)Session["Usuario"]).Apellido;
+            Username.Text = ((Usuario)Session["Usuario"]).Nombre + " " + ((Usuario)Session["Usuario"]).Apellido;
         }
     }
 }
