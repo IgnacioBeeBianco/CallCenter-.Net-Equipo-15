@@ -22,7 +22,7 @@
                     <hr />
                     <ul class="nav d-flex justify-content-around flex-column mb-auto text-decoration-none">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#"><i class="bi bi-house me-2"></i>
+                            <a class="nav-link text-white" href="Home.aspx"><i class="bi bi-house me-2"></i>
                                 <span class="d-sm-none d-md-inline">Dashboard</span>
                             </a>
                         </li>

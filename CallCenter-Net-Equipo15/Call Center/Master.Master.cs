@@ -12,7 +12,11 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Username.Text = ((Usuario)Session["Usuario"]).Nombre + " " + ((Usuario)Session["Usuario"]).Apellido;
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
+            }
+            Username.Text = ((Usuario)Session["Usuario"]).Nombre + " " + ((Usuario)Session["Usuario"]).Apellido;
         }
     }
 }

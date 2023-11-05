@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Call_Center
+namespace Call_Center.ABML
 {
 
 
-    public partial class AdminPanel
+    public partial class TipoIncidencia
     {
     }
 }
