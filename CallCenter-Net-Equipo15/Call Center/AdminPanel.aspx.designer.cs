@@ -24,15 +24,6 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Button Priocreate;
 
         /// <summary>
-        /// Control lblPrioridad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrioridad;
-
-        /// <summary>
         /// Control SMmodalPrioridad.
         /// </summary>
         /// <remarks>
@@ -78,6 +69,15 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Button btnSearchPrio;
 
         /// <summary>
+        /// Control lblPrioBuscada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrioBuscada;
+
+        /// <summary>
         /// Control txbPrioNombre.
         /// </summary>
         /// <remarks>
@@ -85,6 +85,15 @@ namespace Call_Center
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txbPrioNombre;
+
+        /// <summary>
+        /// Control alertPrio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertPrio;
 
         /// <summary>
         /// Control lblPrioErrores.

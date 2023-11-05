@@ -18,26 +18,18 @@
     </style>
 
     <div class="row">
-
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">Prioridad</h5>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mas...
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div>
-                                <asp:Button ID="Priocreate" runat="server" Text="Crear" OnClick="mostrarModal" CssClass="dropdown-item" table="Prioridad" />
+                    <div class="d-flex justify-content-end">
+                        <i class="bi bi-gear me-2"></i>
 
-
-                            </div>
-                        </div>
+                        <asp:Button ID="Priocreate" runat="server" Text="Opciones" OnClick="mostrarModal" CssClass="" table="Prioridad" />
                     </div>
                 </div>
                 <div class="card-body">
-                    <label>Cant. elementos:</label>
-                    <asp:Label ID="lblPrioridad" runat="server" Text="0"></asp:Label>
+                    <p>Mide el grado de importancia de un ticket</p>
                 </div>
             </div>
         </div>
@@ -54,8 +46,9 @@
                             <div class="form-group">
                                 <asp:TextBox ID="txbSearhPrio" placeholder="Busqueda..." runat="server" CssClass="form-control dropdown-item" table="Prioridad"></asp:TextBox>
                                 <asp:Button ID="btnSearchPrio" runat="server" Text="Buscar!" OnClick="realizarBusqueda" CssClass="btn btn-primary" table="Prioridad" />
+                                <asp:Label ID="lblPrioBuscada" runat="server" Text="" prioId=""></asp:Label>
                                 <asp:TextBox ID="txbPrioNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
-                                <div class="alert alert-info">
+                                <div class="alert alert-danger" id="alertPrio" runat="server" style="display: none;">
                                     <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>
                                 </div>
                             </div>

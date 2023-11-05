@@ -147,7 +147,7 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Prioridad(nombre) VALUES (@Nombre)";
+                string consulta = "INSERT INTO Prioridad VALUES (@Nombre)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", prioridad.Nombre);
@@ -164,7 +164,7 @@ namespace DAO
             }
         }
 
-        public void Update(Prioridad prioridad)
+        public void Update(string newValue, long id)
         {
             accesoADatos = new AccesoADatos();
 
@@ -173,8 +173,8 @@ namespace DAO
                 string consulta = "UPDATE Prioridad SET nombre = @Nombre WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Nombre", prioridad.Nombre);
-                accesoADatos.setearParametro("@Id", prioridad.Id);
+                accesoADatos.setearParametro("@Nombre",newValue);
+                accesoADatos.setearParametro("@Id", id);
                 accesoADatos.consultar(consulta);
 
                 accesoADatos.ejecutarAccion();
