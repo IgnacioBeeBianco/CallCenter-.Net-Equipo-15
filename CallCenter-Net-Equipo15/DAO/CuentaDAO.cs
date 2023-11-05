@@ -56,15 +56,21 @@ namespace DAO
             }
         }
 
-        public int crearNuevaCuentaCliente(Cuenta nuevo)
+        public void crearNuevaCuentaCliente(Cuenta nuevo, Usuario cliente)
         {
             AccesoADatos accesoADatos = new AccesoADatos();
             try
             {
-                accesoADatos.setearProcedimiento("insertarNuevaCuentaCliente");
+                accesoADatos.setearProcedimiento("InsertarClienteYAsociarCuenta");
+                accesoADatos.setearParametro("@nombre", cliente.Nombre);
+                accesoADatos.setearParametro("@apellido", cliente.Apellido);
+                accesoADatos.setearParametro("@dni", cliente.DNI);
+                accesoADatos.setearParametro("@domicilio", cliente.Domicilio);
+                accesoADatos.setearParametro("@telefono", cliente.Telefono);
+                accesoADatos.setearParametro("@genero", cliente.Genero);
                 accesoADatos.setearParametro("@email", nuevo.Email);
-                accesoADatos.setearParametro("@password", nuevo.Password);
-                return accesoADatos.ejecutarAccionScalar();
+                accesoADatos.setearParametro("@password_", nuevo.Password);
+                //return accesoADatos.ejecutarAccionScalar();
             }
             catch (Exception ex)
             {
@@ -76,5 +82,7 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
         }
+
+
     }
 }

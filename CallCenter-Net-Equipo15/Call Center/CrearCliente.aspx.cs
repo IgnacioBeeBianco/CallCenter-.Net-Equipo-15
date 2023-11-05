@@ -22,16 +22,25 @@ namespace Call_Center
             try
             {
                 Cuenta cuenta = new Cuenta();
+                Usuario cliente = new Usuario();
                 CuentaDAO cuentaDAO = new CuentaDAO();
                 EmailService emailService = new EmailService();
 
+
+                cliente.Nombre = Nombre.Value;
+                cliente.Apellido= Apellido.Value;
+                cliente.DNI = DNI.Value;
+                cliente.Domicilio = Domicilio.Value;
+                cliente.Telefono = Telefono.Value;
+                cliente.Genero = Genero.Value[0];
                 cuenta.Email = EmailInput.Value;
                 cuenta.Password = PasswordInput.Value;
-                int id = cuentaDAO.crearNuevaCuentaCliente(cuenta);
+                cuentaDAO.crearNuevaCuentaCliente(cuenta, cliente);
 
-                emailService.armarCorreo(cuenta.Email, "Bienvenid@ al Call Center Grupo 15", "A partir de ahora podras ver los estados de las incidencias que realices");
-                emailService.enviarEmail();
+                /*emailService.armarCorreo(cuenta.Email, "Bienvenid@ al Call Center Grupo 15", "A partir de ahora podras ver los estados de las incidencias que realices");
+                emailService.enviarEmail();*/
                 Response.Redirect("Login.aspx", false);
+
 
             }
             catch (Exception ex)

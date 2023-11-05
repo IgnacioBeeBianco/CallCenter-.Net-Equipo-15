@@ -20,3 +20,13 @@ INSERT INTO Cuenta (email, password_, id_rol) VALUES ('admin@gmail.com', 'admin'
 GO
 INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id) 
 VALUES ('Juan', 'Rodriguez', '43900200', 'Irusta 900', '11458901', 'M', 1) 
+
+EXEC InsertarClienteYAsociarCuenta 
+    @nombre = 'Juan',
+    @apellido = 'Pérez',
+    @dni = '12345678',
+    @domicilio='test 123',
+    @telefono='1145454847',
+    @genero='M',
+    @email = 'juan@example.com',
+    @password_ = 'contraseña123'

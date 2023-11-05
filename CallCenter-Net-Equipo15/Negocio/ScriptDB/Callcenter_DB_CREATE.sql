@@ -60,22 +60,6 @@ BEGIN
 END
 GO
 
--- Verificar si la tabla "Cliente" existe, y si no, crearla
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Cliente')
-BEGIN
-    CREATE TABLE Cliente (
-        id INT IDENTITY(1,1),
-        nombre VARCHAR(50) NOT NULL,
-        apellido VARCHAR(50) NOT NULL,
-        dni VARCHAR(8) NOT NULL,
-        cuenta_id INT NOT NULL,
-        PRIMARY KEY (id),
-        FOREIGN KEY (cuenta_id) REFERENCES Cuenta(id),
-        UNIQUE(dni)
-    )
-END
-GO
-
 -- Verificar si la tabla "Usuario" existe, y si no, crearla
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Usuario')
 BEGIN
