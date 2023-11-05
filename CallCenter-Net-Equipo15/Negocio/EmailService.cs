@@ -16,10 +16,10 @@ namespace Negocio
         public EmailService()
         {
             server = new SmtpClient();
-            server.Credentials = new NetworkCredential();
+            server.Credentials = new NetworkCredential("f887163ae3399c", "fbe92c8145dda9");//Cambiar la credencial para que ande
             server.EnableSsl = true;
-            server.Port = 0;
-            server.Host = "localhost";
+            server.Port = 2525;
+            server.Host = "sandbox.smtp.mailtrap.io";
         }
 
         public void armarCorreo(string correoDestino, string asunto, string cuerpo)
@@ -29,7 +29,7 @@ namespace Negocio
             mail.To.Add(correoDestino);
             mail.Subject = asunto;
             mail.IsBodyHtml = true;
-            mail.Body = "Se a registrado al Call Center para visualizar sus incidencias con exito";
+            mail.Body = cuerpo;
         }
 
         public void enviarEmail()
