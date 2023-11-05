@@ -76,7 +76,6 @@ namespace DAO
             comando.Connection = conexion;
             try
             {
-                conexion.Open();
                 comando.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -102,7 +101,6 @@ namespace DAO
             
             try
             {
-                conexion.Open();
                 return int.Parse(comando.ExecuteScalar().ToString());
             }
             catch (Exception ex)
