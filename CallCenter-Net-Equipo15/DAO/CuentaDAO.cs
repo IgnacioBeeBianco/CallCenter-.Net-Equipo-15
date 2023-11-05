@@ -70,11 +70,10 @@ namespace DAO
                 accesoADatos.setearParametro("@genero", cliente.Genero);
                 accesoADatos.setearParametro("@email", nuevo.Email);
                 accesoADatos.setearParametro("@password_", nuevo.Password);
-                //return accesoADatos.ejecutarAccionScalar();
+                accesoADatos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally

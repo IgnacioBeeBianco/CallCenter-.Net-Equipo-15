@@ -99,6 +99,7 @@ namespace DAO
         public int ejecutarAccionScalar()
         {
             comando.Connection = conexion;
+            
             try
             {
                 conexion.Open();
