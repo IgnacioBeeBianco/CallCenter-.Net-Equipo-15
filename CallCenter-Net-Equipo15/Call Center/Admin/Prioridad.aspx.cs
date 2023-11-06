@@ -60,13 +60,38 @@ namespace Call_Center.ABML
             {
                 Dominio.Prioridad prioridad = new Dominio.Prioridad();
                 prioridad.Nombre = txbPrioNombre.Text;
+                //Validaciones
+                if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
+                {
+                    alertPrio.Style["display"] = "block";
+                    lblPrioErrores.Text = "La prioridad debe tener nombre...";
+                    return;
+                }
+                if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
+                {
+                    alertPrio.Style["display"] = "block";
+                    lblPrioErrores.Text = "Prioridad ya creada...";
+                    return;
+                }
                 prioridadDAO.Create(prioridad);
             }
             else
             {
                 long id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
                 string newValue = txbPrioNombre.Text;
-
+                //Validamos antes de efectuar ningun cambio
+                if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
+                {
+                    alertPrio.Style["display"] = "block";
+                    lblPrioErrores.Text = "No hay una prioridad buscada";
+                    return;
+                }
+                if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
+                {
+                    alertPrio.Style["display"] = "block";
+                    lblPrioErrores.Text = "Prioridad ya creada...";
+                    return;
+                }
                 prioridadDAO.Update(newValue, id);
             }
 
