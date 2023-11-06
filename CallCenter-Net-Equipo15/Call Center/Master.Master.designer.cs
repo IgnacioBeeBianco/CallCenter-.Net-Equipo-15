@@ -51,6 +51,24 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Label Username;
 
         /// <summary>
+        /// Control PageNameLabel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageNameLabel;
+
+        /// <summary>
+        /// Control LogoutButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LogoutButton;
+
+        /// <summary>
         /// Control ContentPlaceHolder1.
         /// </summary>
         /// <remarks>
