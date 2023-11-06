@@ -12,7 +12,9 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["Usuario"] == null)
+            string currentPageName = System.IO.Path.GetFileNameWithoutExtension(Request.Url.LocalPath);
+            PageNameLabel.InnerText = currentPageName;
+            if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
             }
@@ -26,7 +28,15 @@ namespace Call_Center
             if( cuenta.Rol.Nombre != "Administrador")
             {
                 adminDashboard.Style["display"] = "none";
-            }*/
+            }
+        }
+
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            Session.Remove("Usuario");
+            Session.Remove("Cuenta");
+
+            Response.Redirect("Login.aspx");
         }
     }
 }
