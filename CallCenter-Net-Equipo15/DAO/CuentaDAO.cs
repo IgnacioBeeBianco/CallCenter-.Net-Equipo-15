@@ -61,6 +61,7 @@ namespace DAO
             AccesoADatos accesoADatos = new AccesoADatos();
             try
             {
+                accesoADatos.AbrirConexion();
                 accesoADatos.setearProcedimiento("InsertarClienteYAsociarCuenta");
                 accesoADatos.setearParametro("@nombre", cliente.Nombre);
                 accesoADatos.setearParametro("@apellido", cliente.Apellido);
