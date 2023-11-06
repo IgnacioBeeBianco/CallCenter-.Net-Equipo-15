@@ -14,7 +14,7 @@ namespace Call_Center
         {
             string currentPageName = System.IO.Path.GetFileNameWithoutExtension(Request.Url.LocalPath);
             PageNameLabel.InnerText = currentPageName;
-            if (Session["Usuario"] == null)
+            /*if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
             }
@@ -28,7 +28,7 @@ namespace Call_Center
             if( cuenta.Rol.Nombre != "Administrador")
             {
                 adminDashboard.Style["display"] = "none";
-            }
+            }*/
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
