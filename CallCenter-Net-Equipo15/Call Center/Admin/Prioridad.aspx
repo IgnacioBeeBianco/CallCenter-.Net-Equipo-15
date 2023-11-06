@@ -5,6 +5,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <!-- ACA PONER TODOS LOS MIEMBROS DEL OBJETO QUE SE TENGA -->
                 <th class="d-none">Id</th>
                 <th>Nombre</th>
                 <th style="width: 10%" class="text-center">Modificar</th>
@@ -43,6 +44,8 @@
         }
     </style>
 
+
+    <!-- ACA PONER EL FORMULARIO ENTERO DE AGREGAR/MODIFICAR -->
     <asp:ScriptManager ID="SMModal" runat="server" />
         <asp:UpdatePanel ID="upModal" runat="server">
                 <ContentTemplate>
