@@ -11,6 +11,7 @@ namespace Call_Center.ABML
 {
     public partial class Prioridad : System.Web.UI.Page
     {
+        PrioridadDAO prioridadDAO = new PrioridadDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
             PrioridadDAO prioridadDAO = new PrioridadDAO();
@@ -24,7 +25,9 @@ namespace Call_Center.ABML
 
         protected void btnQuitar(object sender, EventArgs e)
         {
-
+            long id = long.Parse(((Button)sender).CommandArgument);
+            prioridadDAO.Delete(id);
+            Response.Redirect("Prioridad.aspx");
         }
 
         protected void abrirModal(object sender, EventArgs e)
@@ -35,11 +38,14 @@ namespace Call_Center.ABML
             switch (btn.Attributes["action"])
             {
                 case "create":
-                    lblTitle.Text = "Crear nueva prioridad";
+                    lblTitle.Text = "Crear";
                     break;
 
                 case "modify":
-                    lblTitle.Text = "Modificar a";
+                    long id = long.Parse(((Button)sender).CommandArgument);
+                    txbPrioNombre.Text = prioridadDAO.getPrioridad(id).Nombre;
+                    lblTitle.Text = "Modificar a ";
+                    lblNombre.Text = txbPrioNombre.Text;
                     break;
 
                 default:
@@ -50,6 +56,30 @@ namespace Call_Center.ABML
 
         protected void submitModal(object sender, EventArgs e)
         {
+            if (lblTitle.Text == "Crear")
+            {
+                Dominio.Prioridad prioridad = new Dominio.Prioridad();
+                prioridad.Nombre = txbPrioNombre.Text;
+                prioridadDAO.Create(prioridad);
+            }
+            else
+            {
+                long id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
+                string newValue = txbPrioNombre.Text;
+
+                prioridadDAO.Update(newValue, id);
+            }
+
+            Response.Redirect("Prioridad.aspx");
+        }
+
+        protected void cancelarModal(object sender, EventArgs e)
+        {
+
+            modalPrioridad.Style["display"] = "none";
+            txbPrioNombre.Text = "";
+            alertPrio.Style["display"] = "none";
+
 
         }
     }
