@@ -36,9 +36,10 @@ namespace Call_Center
                 cuenta.Email = EmailInput.Value;
                 cuenta.Password = PasswordInput.Value;
                 cuentaDAO.crearNuevaCuentaCliente(cuenta, cliente);
-                
+                /*
+                 * HABILITAR UNA VEZ FINALIZADO EL TP!!!!
                 emailService.armarCorreo(cuenta.Email, "Bienvenid@ al Call Center Grupo 15", "A partir de ahora podras ver los estados de las incidencias que realices");
-                emailService.enviarEmail();
+                emailService.enviarEmail();*/
                 Response.Redirect("Login.aspx", false);
             }
             catch (Exception ex)
