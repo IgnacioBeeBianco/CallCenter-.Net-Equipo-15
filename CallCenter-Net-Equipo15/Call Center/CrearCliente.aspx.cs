@@ -26,6 +26,7 @@ namespace Call_Center
                 CuentaDAO cuentaDAO = new CuentaDAO();
                 EmailService emailService = new EmailService();
 
+                //Falta agregar validaciones para que no se pueda crear un cliente con datos vacios
 
                 cliente.Nombre = Nombre.Value;
                 cliente.Apellido= Apellido.Value;
