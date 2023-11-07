@@ -120,8 +120,11 @@ namespace Call_Center.ABML
             modalPrioridad.Style["display"] = "none";
             txbPrioNombre.Text = "";
             alertPrio.Style["display"] = "none";
+        }
 
-
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AdminPanel.aspx");
         }
     }
 }

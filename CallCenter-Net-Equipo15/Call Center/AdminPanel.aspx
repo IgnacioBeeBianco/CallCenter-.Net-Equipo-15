@@ -20,7 +20,6 @@
                     <h5 class="card-title">Prioridad</h5>
                     <a href="Admin/Prioridad.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
@@ -35,7 +34,6 @@
                     <h5 class="card-title">Estado</h5>
                     <a href="Admin/Estado.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
@@ -50,7 +48,6 @@
                     <h5 class="card-title">Tipo Incidencia</h5>
                     <a href="Admin/TipoIncidencia.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
@@ -65,7 +62,6 @@
                     <h5 class="card-title">Usuario</h5>
                     <a href="CrearUsuario.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
@@ -80,7 +76,6 @@
                     <h5 class="card-title">Cuenta</h5>
                     <a href="Admin/Cuenta.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
@@ -96,7 +91,6 @@
                     <h5 class="card-title">Rol</h5>
                     <a href="Admin/Rol.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
-                        Ver mas
                     </a>
                 </div>
                 <div class="card-body">
