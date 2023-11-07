@@ -16,7 +16,7 @@
             <asp:Repeater ID="rptPrioridades" runat="server">
                 <ItemTemplate>
                     <tr>
-                        <td class="d-none" name="id"<%# Eval("id") %></td>
+                        <td class="d-none" name="id"><%# Eval("id") %></td>
                         <td><%# Eval("nombre") %></td>
                         <td style="width: 6%; text-align: center;">
 

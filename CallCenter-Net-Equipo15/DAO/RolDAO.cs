@@ -29,7 +29,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Rol WHERE Id = @Id";
+                string consulta = "SELECT id, nombre FROM Rol WHERE id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -212,6 +212,4 @@ namespace DAO
             }
         }
     }
-}
-
 }
