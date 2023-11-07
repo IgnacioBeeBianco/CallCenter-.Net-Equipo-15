@@ -23,10 +23,70 @@ namespace DAO
             return tipoIncidencia;
         }
 
+        public TipoIncidencia getTipoIncidencia(long Id)
+        {
+            accesoADatos = new AccesoADatos();
+            TipoIncidencia tipoIncidencia = new TipoIncidencia();
+
+            try
+            {
+                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE oId = @Id";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Id", Id);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    tipoIncidencia = LoadTipoIncidencia(ref accesoADatos);
+                }
+
+                return tipoIncidencia;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public TipoIncidencia getTipoIncidencia(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+            TipoIncidencia tipoIncidencia = new TipoIncidencia();
+
+            try
+            {
+                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    tipoIncidencia = LoadTipoIncidencia(ref accesoADatos);
+                }
+
+                return tipoIncidencia;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
         public List<TipoIncidencia> List()
         {
             accesoADatos = new AccesoADatos();
-            Tipos = new List<TipoIncidencia>(); 
+            Tipos = new List<TipoIncidencia>();
 
             try
             {
@@ -35,13 +95,14 @@ namespace DAO
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
 
-                while(accesoADatos.Lector.Read())
+                while (accesoADatos.Lector.Read())
                 {
                     Tipos.Add(LoadTipoIncidencia(ref accesoADatos));
                 }
 
                 return Tipos;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -57,14 +118,15 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO TipoIncidencia(nombre, descripcion) VALUES (@Nombre, @Descripcion)";
+                string consulta = "INSERT INTO TipoIncidencia VALUES (@Nombre, @Descripcion)";
                 accesoADatos.AbrirConexion();
-                accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", tipoIncidencia.Nombre);
                 accesoADatos.setearParametro("@Descripcion", tipoIncidencia.Descripcion);
+                accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarAccion();
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -74,22 +136,23 @@ namespace DAO
             }
         }
 
-        public void Update(TipoIncidencia tipoIncidencia)
+        public void Update(TipoIncidencia newValue, long id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE TipoIncidencia SET nombre = @Nombre, descripcion = @Descripcion WHERE oid = @Oid";
+                string consulta = "UPDATE TipoIncidencia SET nombre = @Nombre, descripcion = @Descripcion WHERE oid = @Id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Nombre", tipoIncidencia.Nombre);
-                accesoADatos.setearParametro("@Descripcion", tipoIncidencia.Descripcion);
-                accesoADatos.setearParametro("@Oid", tipoIncidencia.Oid);
+                accesoADatos.setearParametro("@Nombre", newValue.Nombre);
+                accesoADatos.setearParametro("@Descripcion", newValue.Descripcion);
+                accesoADatos.setearParametro("@Id", id);
                 accesoADatos.consultar(consulta);
 
                 accesoADatos.ejecutarAccion();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -111,7 +174,8 @@ namespace DAO
                 accesoADatos.setearParametro("@Oid", oid);
                 accesoADatos.consultar(consultar);
                 accesoADatos.ejecutarAccion();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
