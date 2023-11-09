@@ -10,8 +10,16 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <asp:Image runat="server" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl="~/Images/profile_3135768.png"/>
-                                <asp:Label ID="Label1" runat="server" Text="<%# (Session["Usuario"] as Dominio.Usuario).Nombre %>"></asp:Label>
+                                <asp:Image ID="imagenUsuario" runat="server" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl="~/Images/profile_3135768.png" />
+                            </div>
+                            <div>
+                                <asp:Label ID="lblNombre" runat="server"></asp:Label>
+                                <asp:Label ID="lblApellido" runat="server"></asp:Label>
+                                <asp:Label ID="lblDomicilio" runat="server"></asp:Label>
+                                <asp:Label ID="lblTelefono" runat="server"></asp:Label>
+                                <asp:Label ID="lblDNI" runat="server"></asp:Label>
+                                <asp:Label ID="lblGenero" runat="server"></asp:Label>
+                                <asp:Label ID="lblRol" runat="server"></asp:Label>
                             </div>
                         </div>
                     </div>
@@ -19,14 +27,13 @@
             </div>
             <div class="col-8">
                 <main>
-
                 </main>
             </div>
-            
-            
+
+
 
         </div>
-        
+
     </section>
-    
+
 </asp:Content>
