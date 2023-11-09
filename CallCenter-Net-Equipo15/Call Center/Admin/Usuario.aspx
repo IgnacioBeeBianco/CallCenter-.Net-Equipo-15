@@ -144,6 +144,12 @@
                                     <div class="input-group mb-3">
                                         <asp:TextBox ID="TxbUsuarioTelefono" runat="server" placeholder="Teléfono:" CssClass="form-control" TextMode="Phone"></asp:TextBox>
                                     </div>
+                                    <asp:RadioButtonList ID="GenderRadioButtons" runat="server">
+                                        <asp:ListItem Text="M" Value="M" />
+                                        <asp:ListItem Text="F" Value="F" />
+                                        <asp:ListItem Text="X" Value="X" />
+                                    </asp:RadioButtonList>
+
 
                                     <div class="section mb-3">
                                         <asp:Label runat="server" CssClass="mb-3">Datos de la cuenta</asp:Label>
@@ -156,7 +162,7 @@
                                         <asp:TextBox ID="TxbPassword" runat="server" placeholder="Contraseña:" CssClass="form-control" TextMode="Password"></asp:TextBox>
                                     </div>
                                     <asp:DropDownList ID="RoleDropdown" runat="server">
-                                            <asp:ListItem Text='<%#Eval("Nombre") %>' Value='<%#Eval("Id") %>'></asp:ListItem>
+                                            <asp:ListItem></asp:ListItem>
                                     </asp:DropDownList>
                                     <div class="alert alert-danger" id="alertPrio" runat="server" style="display: none;">
                                         <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>

@@ -10,12 +10,16 @@ namespace Call_Center.ABML
 {
     public partial class Usuario : System.Web.UI.Page
     {
-        UsuarioDAO usuarioDAO = new UsuarioDAO(); 
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        RolDAO rolDAO = new RolDAO();
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack) { 
-
+            if(!IsPostBack) {
+                RoleDropdown.DataSource = rolDAO.List();
+                RoleDropdown.DataTextField = "Nombre";
+                RoleDropdown.DataValueField = "Id";
+                RoleDropdown.DataBind();
                 rptUsuarios.DataSource = usuarioDAO.GetUsuarios();
                 rptUsuarios.DataBind();
             }
@@ -61,11 +65,15 @@ namespace Call_Center.ABML
                 
                 cuenta.Email = TxbEMail.Text;
                 cuenta.Password = TxbPassword.Text;
+                cuenta.Rol = new Dominio.Rol();
+                cuenta.Rol.Id = int.Parse(RoleDropdown.SelectedValue);
                 usuario.Nombre = txbUsuarioNombre.Text;
                 usuario.Apellido = TxbUsuarioApellido.Text;
                 usuario.Domicilio = TxbUsuarioDomicilio.Text;
                 usuario.Telefono = TxbUsuarioTelefono.Text;
                 usuario.DNI = TxbUsuarioDNI.Text;
+                usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+
             }
             else
             {
