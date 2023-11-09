@@ -5,6 +5,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <!-- ACA PONER TODOS LOS MIEMBROS DEL OBJETO QUE SE TENGA -->
                 <th class="d-none">Id</th>
                 <th>Nombre</th>
                 <th style="width: 10%" class="text-center">Modificar</th>
@@ -15,7 +16,7 @@
             <asp:Repeater ID="rptPrioridades" runat="server">
                 <ItemTemplate>
                     <tr>
-                        <td class="d-none" name="id"<%# Eval("id") %></td>
+                        <td class="d-none" name="id"><%# Eval("id") %></td>
                         <td><%# Eval("nombre") %></td>
                         <td style="width: 6%; text-align: center;">
 
@@ -43,6 +44,8 @@
         }
     </style>
 
+
+    <!-- ACA PONER EL FORMULARIO ENTERO DE AGREGAR/MODIFICAR -->
     <asp:ScriptManager ID="SMModal" runat="server" />
         <asp:UpdatePanel ID="upModal" runat="server">
                 <ContentTemplate>
@@ -76,6 +79,6 @@
         </asp:UpdatePanel>
 
     <asp:Button ID="Button1" runat="server" Text="Crear" OnClick="abrirModal" CssClass="btn btn-primary" action="create" />
-
+    <asp:Button ID="Volver" runat="server" Text="Volver" OnClick="Volver_Click" CssClass="btn btn-primary" action="volver" />
 
 </asp:Content>

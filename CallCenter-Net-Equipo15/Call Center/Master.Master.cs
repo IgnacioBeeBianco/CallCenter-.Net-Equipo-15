@@ -12,8 +12,6 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentPageName = System.IO.Path.GetFileNameWithoutExtension(Request.Url.LocalPath);
-            PageNameLabel.InnerText = currentPageName;
             /*if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
@@ -38,5 +36,6 @@ namespace Call_Center
 
             Response.Redirect("Login.aspx");
         }
+
     }
 }

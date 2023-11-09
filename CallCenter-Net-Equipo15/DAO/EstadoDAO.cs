@@ -1,5 +1,5 @@
 ﻿using Dominio;
-//using Dominio.Enums;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +8,28 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
-    public class TipoIncidenciaDAO
+    public class EstadoDAO
     {
-        private List<TipoIncidencia> Tipos;
+        private List<Estado> estado;
         private AccesoADatos accesoADatos;
 
-        private TipoIncidencia LoadTipoIncidencia(ref AccesoADatos accesoADatos)
+        private Estado LoadEstado(ref AccesoADatos accesoADatos)
         {
-            TipoIncidencia tipoIncidencia = new TipoIncidencia();
-            tipoIncidencia.Oid = (long)accesoADatos.Lector["oid"];
-            tipoIncidencia.Nombre = accesoADatos.Lector["nombre"].ToString();
-            tipoIncidencia.Descripcion = accesoADatos.Lector["descripcion"].ToString();
+            Estado estado = new Estado();
+            estado.Id = (int)accesoADatos.Lector["id"];
+            estado.Nombre = accesoADatos.Lector["nombre"].ToString();
 
-            return tipoIncidencia;
+            return estado;
         }
 
-        public TipoIncidencia getTipoIncidencia(long Id)
+        public Estado getEstado(int Id)
         {
             accesoADatos = new AccesoADatos();
-            TipoIncidencia tipoIncidencia = new TipoIncidencia();
+            Estado estado = new Estado();
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE oId = @Id";
+                string consulta = "SELECT id, nombre FROM Estado WHERE Id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -38,10 +37,10 @@ namespace DAO
 
                 while (accesoADatos.Lector.Read())
                 {
-                    tipoIncidencia = LoadTipoIncidencia(ref accesoADatos);
+                    estado = LoadEstado(ref accesoADatos);
                 }
 
-                return tipoIncidencia;
+                return estado;
             }
             catch (Exception ex)
             {
@@ -53,14 +52,14 @@ namespace DAO
             }
         }
 
-        public TipoIncidencia getTipoIncidencia(string Nombre)
+        public Estado getEstado(string Nombre)
         {
             accesoADatos = new AccesoADatos();
-            TipoIncidencia tipoIncidencia = new TipoIncidencia();
+            Estado estado = new Estado();
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre FROM Estado WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -68,10 +67,10 @@ namespace DAO
 
                 while (accesoADatos.Lector.Read())
                 {
-                    tipoIncidencia = LoadTipoIncidencia(ref accesoADatos);
+                    estado = LoadEstado(ref accesoADatos);
                 }
 
-                return tipoIncidencia;
+                return estado;
             }
             catch (Exception ex)
             {
@@ -83,24 +82,24 @@ namespace DAO
             }
         }
 
-        public List<TipoIncidencia> List()
+        public List<Estado> List()
         {
             accesoADatos = new AccesoADatos();
-            Tipos = new List<TipoIncidencia>();
+            estado = new List<Estado>();
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia";
+                string consulta = "SELECT id, nombre FROM Estado";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
 
                 while (accesoADatos.Lector.Read())
                 {
-                    Tipos.Add(LoadTipoIncidencia(ref accesoADatos));
+                    estado.Add(LoadEstado(ref accesoADatos));
                 }
 
-                return Tipos;
+                return estado;
             }
             catch (Exception ex)
             {
@@ -112,17 +111,46 @@ namespace DAO
             }
         }
 
-        public void Create(TipoIncidencia tipoIncidencia)
+        public List<Estado> List(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+            estado = new List<Estado>();
+
+            try
+            {
+                string consulta = "SELECT id, nombre FROM Estado WHERE Nombre LIKE @Nombre";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", "%" + Nombre + "%");
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    estado.Add(LoadEstado(ref accesoADatos));
+                }
+
+                return estado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public void Create(Estado estado)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "INSERT INTO TipoIncidencia VALUES (@Nombre, @Descripcion)";
+                string consulta = "INSERT INTO Estado VALUES (@Nombre)";
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Nombre", tipoIncidencia.Nombre);
-                accesoADatos.setearParametro("@Descripcion", tipoIncidencia.Descripcion);
                 accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", estado.Nombre);
                 accesoADatos.ejecutarAccion();
 
             }
@@ -136,17 +164,16 @@ namespace DAO
             }
         }
 
-        public void Update(TipoIncidencia newValue, long id)
+        public void Update(string nombre, int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE TipoIncidencia SET nombre = @Nombre, descripcion = @Descripcion WHERE oid = @Id";
+                string consulta = "UPDATE Estado SET nombre = @Nombre WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Nombre", newValue.Nombre);
-                accesoADatos.setearParametro("@Descripcion", newValue.Descripcion);
+                accesoADatos.setearParametro("@Nombre", nombre);
                 accesoADatos.setearParametro("@Id", id);
                 accesoADatos.consultar(consulta);
 
@@ -162,16 +189,16 @@ namespace DAO
             }
         }
 
-        public void Delete(long oid)
+        public void Delete(int Id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consultar = "DELETE FROM TipoIncidencia WHERE oid = @Oid";
+                string consultar = "DELETE FROM Estado WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Oid", oid);
+                accesoADatos.setearParametro("@Id", Id);
                 accesoADatos.consultar(consultar);
                 accesoADatos.ejecutarAccion();
             }

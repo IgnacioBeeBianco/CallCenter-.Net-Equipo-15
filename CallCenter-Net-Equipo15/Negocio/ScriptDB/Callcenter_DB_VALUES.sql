@@ -10,6 +10,8 @@ INSERT INTO Rol (nombre) VALUES ('Administrador');
 GO
 INSERT INTO Rol (nombre) VALUES ('Cliente');
 GO
+INSERT INTO Rol (nombre) VALUES ('Telefonista'), ('Supervisor');
+GO
 INSERT INTO Prioridad (nombre) VALUES ('Alta');
 INSERT INTO Prioridad (nombre) VALUES ('Media');
 INSERT INTO Prioridad (nombre) VALUES ('Baja');
@@ -20,7 +22,11 @@ INSERT INTO Cuenta (email, password_, id_rol) VALUES ('admin@gmail.com', 'admin'
 GO
 INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id) 
 VALUES ('Juan', 'Rodriguez', '43900200', 'Irusta 900', '11458901', 'M', 1) 
-
+GO
+INSERT INTO Estado (nombre) VALUES ('Abierto'), ('En Análisis'), 
+('Cerrado'), ('Reabierto'), 
+('Asignado'), ('Resuelto');
+GO
 EXEC InsertarClienteYAsociarCuenta 
     @nombre = 'Juan',
     @apellido = 'Pérez',

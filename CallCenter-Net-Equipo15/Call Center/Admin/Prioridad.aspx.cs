@@ -17,7 +17,7 @@ namespace Call_Center.ABML
             PrioridadDAO prioridadDAO = new PrioridadDAO();
 
             
-
+            //Aca cargamos el repeater
             rptPrioridades.DataSource = prioridadDAO.List();
             rptPrioridades.DataBind();
 
@@ -25,6 +25,7 @@ namespace Call_Center.ABML
 
         protected void btnQuitar(object sender, EventArgs e)
         {
+            //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             long id = long.Parse(((Button)sender).CommandArgument);
             prioridadDAO.Delete(id);
             Response.Redirect("Prioridad.aspx");
@@ -32,6 +33,7 @@ namespace Call_Center.ABML
 
         protected void abrirModal(object sender, EventArgs e)
         {
+            //Logica que abre el modal y le carga datos segun si es crear o modificar"
             Button btn = sender as Button;
             modalPrioridad.Style["display"] = "block";
 
@@ -56,6 +58,7 @@ namespace Call_Center.ABML
 
         protected void submitModal(object sender, EventArgs e)
         {
+            //Verificamos si es crear o modificar, y ejecutamos las acciones respectivas
             if (lblTitle.Text == "Crear")
             {
                 Dominio.Prioridad prioridad = new Dominio.Prioridad();
@@ -100,12 +103,17 @@ namespace Call_Center.ABML
 
         protected void cancelarModal(object sender, EventArgs e)
         {
-
+            //Limpiamos el modal
             modalPrioridad.Style["display"] = "none";
             txbPrioNombre.Text = "";
             alertPrio.Style["display"] = "none";
 
 
+        }
+
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AdminPanel.aspx");
         }
     }
 }

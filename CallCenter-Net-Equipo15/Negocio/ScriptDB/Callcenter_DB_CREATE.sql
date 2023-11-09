@@ -79,3 +79,12 @@ BEGIN
 END
 GO
 
+-- Verificar si la tabla "Estado" existe, y si no, crearla
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Estado')
+BEGIN
+    CREATE TABLE Estado (
+        id INT IDENTITY(1,1),
+        nombre NVARCHAR(100) NOT NULL,
+        PRIMARY KEY (id)
+    )
+END

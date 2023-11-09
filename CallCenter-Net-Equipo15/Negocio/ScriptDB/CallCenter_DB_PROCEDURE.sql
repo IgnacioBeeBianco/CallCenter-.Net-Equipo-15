@@ -1,13 +1,8 @@
 USE Callcenter
 GO
-CREATE PROCEDURE insertarNuevaCuentaCliente
-@email VARCHAR(50), @password VARCHAR(50)
-AS
-INSERT INTO Cuenta (email, password_, id_rol) OUTPUT INSERTED.id
-VALUES (@email, @password,(SELECT id FROM Rol WHERE nombre = 'Cliente'))
-
-GO
-
+--USAR POR SI YA ESTA CREADO EL SP ANTERIOR:
+--DROP PROCEDURE InsertarClienteYAsociarCuenta
+--DROP PROCEDURE insertarNuevaCuentaCliente --(Por si tenian este que ya no se usa)
 CREATE PROCEDURE InsertarClienteYAsociarCuenta
     @nombre VARCHAR(50),
     @apellido VARCHAR(50),
@@ -19,15 +14,21 @@ CREATE PROCEDURE InsertarClienteYAsociarCuenta
     @password_ VARCHAR(300)
 AS
 BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
 
-    INSERT INTO Cuenta (email, password_, id_rol)
-    SELECT @email, @password_, id
-    FROM Rol
-    WHERE nombre = 'Cliente'
+        INSERT INTO Cuenta (email, password_, id_rol)
+        SELECT @email, @password_, (SELECT id FROM Rol WHERE nombre = 'Cliente')
 
-    DECLARE @cuenta_id INT
-    SET @cuenta_id = SCOPE_IDENTITY()
+        DECLARE @cuenta_id INT
+        SET @cuenta_id = SCOPE_IDENTITY()
 
-    INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id)
-    VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id)
+        INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id)
+        VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id)
+
+        COMMIT TRANSACTION
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION
+    END CATCH
 END
