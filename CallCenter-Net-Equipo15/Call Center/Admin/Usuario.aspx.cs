@@ -74,6 +74,8 @@ namespace Call_Center.ABML
                 usuario.DNI = TxbUsuarioDNI.Text;
                 usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
 
+                usuarioDAO.Create(cuenta, usuario);
+
             }
             else
             {
