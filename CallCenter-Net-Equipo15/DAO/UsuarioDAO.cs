@@ -49,15 +49,11 @@ namespace DAO
         {
             try
             {
-                if (id == 0)
-                {
-                    string consulta = "DELETE FROM Usuarios WHERE id = @id";
-                    accesoADatos.setearParametro("@id", id);
-                    accesoADatos.AbrirConexion();
-                    accesoADatos.consultar(consulta);
-                    accesoADatos.ejecutarAccionScalar();
-
-                }
+                string consulta = "DELETE FROM Usuario WHERE id = @id";
+                accesoADatos.setearParametro("@id", id);
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();  
             }
             catch (Exception ex)
             {

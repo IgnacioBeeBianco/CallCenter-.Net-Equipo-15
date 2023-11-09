@@ -1,0 +1,5 @@
+ALTER TABLE Usuario 
+DROP Estado BIT DEFAULT 1
+
+UPDATE Usuario
+SET Estado = 1
