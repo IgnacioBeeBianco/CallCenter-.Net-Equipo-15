@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="vh-100">
         <div class="row" style="--bs-gutter-x: none">
             <div class="col-2">
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100">
@@ -20,14 +20,14 @@
                         <span>Tu callcenter</span>
                     </a>
                     <hr />
-                    <ul class="nav d-flex justify-content-around flex-column mb-auto text-decoration-none">
+                    <ul class="nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Home.aspx"><i class="bi bi-house me-2"></i>
+                            <a class="text-white text-decoration-none" href="/Home.aspx"><i class="bi bi-house me-2"></i>
                                 <span class="d-sm-none d-md-inline">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item" id="adminDashboard" runat="server">
-                            <a class="nav-link text-white" href="/AdminPanel.aspx">
+                            <a class="text-white text-decoration-none" href="/AdminPanel.aspx">
                                 <i class="bi bi-gear me-2"></i>
                                 <span class="d-sm-none d-md-inline">Admin Panel</span>
 
@@ -59,7 +59,7 @@
 
                     </div>
                 </div>
-                <div>
+                <div class="p-3 bg-light">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>

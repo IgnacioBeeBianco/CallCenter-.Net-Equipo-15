@@ -63,7 +63,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">Usuario</h5>
-                    <a href="CrearUsuario.aspx" class="ver-mas">
+                    <a href="Admin/Usuario.aspx" class="ver-mas">
                         <i class="bi bi-gear me-2"></i>
                         Ver mas
                     </a>
