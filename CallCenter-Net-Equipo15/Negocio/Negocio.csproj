@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="ScriptDB\Callcenter_DB_CREATE.sql" />
     <Content Include="ScriptDB\CallCenter_DB_PROCEDURE.sql" />
+    <Content Include="ScriptDB\Callcenter_DB_TRIGGER.sql" />
     <Content Include="ScriptDB\Callcenter_DB_VALUES.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
