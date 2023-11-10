@@ -34,7 +34,7 @@ namespace Call_Center
             Session.Remove("Usuario");
             Session.Remove("Cuenta");
 
-            Response.Redirect("Login.aspx");
+            Response.Redirect("~/Login.aspx");
         }
 
     }

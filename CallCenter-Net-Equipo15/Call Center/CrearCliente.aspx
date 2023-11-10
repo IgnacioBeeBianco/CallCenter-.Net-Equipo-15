@@ -74,7 +74,7 @@
 
                         <div class="button-container d-grid gap-2">
                             <asp:Button ID="RegistrarseButton" runat="server" Text="Registrarse" CssClass="btn btn-success" OnClick="RegistrarseButton_Click" autopostback="false"/>
-                            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" />
+                            <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" CausesValidation="False"/>
                         </div>
                     </div>
                     
