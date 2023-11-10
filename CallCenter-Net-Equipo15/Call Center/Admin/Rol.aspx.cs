@@ -44,7 +44,9 @@ namespace Call_Center.ABML
 
                 case "modify":
                     int id = int.Parse(((Button)sender).CommandArgument);
-                    txbRolNombre.Text = rolDAO.getRol(id).Nombre;
+                    Dominio.Rol rol = rolDAO.getRol(id);
+                    Session.Add("RolModificado", rol);
+                    txbRolNombre.Text = rol.Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbRolNombre.Text;
                     break;
@@ -79,7 +81,7 @@ namespace Call_Center.ABML
             }
             else
             {
-                int id = rolDAO.getRol(txbRolNombre.Text).Id;
+                Dominio.Rol rol = Session["RolModificado"] as Dominio.Rol;
                 string nombre = txbRolNombre.Text;
                 //Validamos antes de efectuar ningun cambio
                 if (txbRolNombre.Text == "" || txbRolNombre.Text == null)
@@ -94,7 +96,7 @@ namespace Call_Center.ABML
                     lblRolErrores.Text = "Rol ya creado...";
                     return;
                 }
-                rolDAO.Update(nombre, id);
+                rolDAO.Update(nombre, rol.Id);
             }
 
             Response.Redirect("Rol.aspx");

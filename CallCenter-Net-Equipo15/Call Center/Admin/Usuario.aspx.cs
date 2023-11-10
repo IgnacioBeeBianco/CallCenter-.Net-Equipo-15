@@ -116,5 +116,10 @@ namespace Call_Center.ABML
 
 
         }
+
+        protected void Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/AdminPanel.aspx");
+        }
     }
 }

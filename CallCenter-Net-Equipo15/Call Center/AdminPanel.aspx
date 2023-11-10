@@ -8,7 +8,6 @@
         .ver-mas {
             color: inherit;
             text-decoration: none;
-            /* Restablece el cursor a su valor predeterminado */
             cursor: pointer;
         }
 
@@ -53,7 +52,6 @@
             color: #007bff;
         }
 
-        /* Colors for different sections */
         .prioridad {
             background-color: #F9EBEA;
         }

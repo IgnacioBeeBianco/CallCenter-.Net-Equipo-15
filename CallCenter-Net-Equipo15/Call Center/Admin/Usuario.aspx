@@ -179,4 +179,5 @@
         </asp:UpdatePanel>
 
     <asp:Button ID="Button1" runat="server" Text="Crear" OnClick="abrirModal" CssClass="btn btn-primary" action="create" />
+    <asp:Button ID="Volver" runat="server" Text="Volver" OnClick="Volver_Click" CssClass="btn btn-primary" action="volver" />
 </asp:Content>
