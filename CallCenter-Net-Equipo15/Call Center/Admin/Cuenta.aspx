@@ -16,21 +16,18 @@
             </tr>
         </thead>
         <tbody>
-            <asp:Repeater ID="rptUsuarios" runat="server">
+            <asp:Repeater ID="RptCuentas" runat="server">
                 <ItemTemplate>
                     <tr>
-                        <td class="d-none" name="id"<%# Eval("id") %></td>
-                        <td><%# Eval("Nombre") %></td>
-                        <td><%# Eval("Apellido") %></td>
-                        <td><%# Eval("DNI") %></td>
-                        <td><%# Eval("Telefono") %></td>
-                        <td><%# Eval("Domicilio") %></td>
+                        <td> class="d-none" name="id"<%# Eval("id") %></td>
+                        <td><%# Eval("Email") %></td>
+                        <td><%# Eval("Password") %></td>
                         <td style="width: 6%; text-align: center;">
 
                             <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="⛏️" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify"/>
                         </td>
                         <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id"/>
+                            <asp:Button Enabled="false" ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" CommandArgument='<%#Eval("id") %>' CommandName="id"/>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -66,8 +63,14 @@
                                 <div class="form-group">
 
                                     <asp:TextBox ID="txbId" runat="server" Text="" style="display: none;"></asp:TextBox>
-                                    
-                                    
+
+                                    <div class="input-group mb-3">
+                                        <asp:TextBox ID="TxbEmail" runat="server" placeholder="DNI:" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <asp:TextBox ID="TxbPassword" runat="server" placeholder="Localidad:" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                                    </div>
+                                   
 
                                     <div class="alert alert-danger" id="alertPrio" runat="server" style="display: none;">
                                         <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>

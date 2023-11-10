@@ -105,15 +105,6 @@ namespace Call_Center.ABML
         protected global::System.Web.UI.WebControls.TextBox TxbUsuarioDNI;
 
         /// <summary>
-        /// Control TxbUsuarioLocalidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxbUsuarioLocalidad;
-
-        /// <summary>
         /// Control TxbUsuarioDomicilio.
         /// </summary>
         /// <remarks>

@@ -15,13 +15,13 @@ namespace Call_Center.ABML
     {
 
         /// <summary>
-        /// Control rptUsuarios.
+        /// Control RptCuentas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUsuarios;
+        protected global::System.Web.UI.WebControls.Repeater RptCuentas;
 
         /// <summary>
         /// Control SMModal.
@@ -76,6 +76,24 @@ namespace Call_Center.ABML
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txbId;
+
+        /// <summary>
+        /// Control TxbEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxbEmail;
+
+        /// <summary>
+        /// Control TxbPassword.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxbPassword;
 
         /// <summary>
         /// Control alertPrio.

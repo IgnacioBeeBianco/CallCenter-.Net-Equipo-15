@@ -20,7 +20,7 @@ namespace Call_Center.ABML
                 RoleDropdown.DataTextField = "Nombre";
                 RoleDropdown.DataValueField = "Id";
                 RoleDropdown.DataBind();
-                rptUsuarios.DataSource = usuarioDAO.GetUsuarios();
+                rptUsuarios.DataSource = usuarioDAO.GetUsuarios().Where(user => user.Estado);
                 rptUsuarios.DataBind();
             }
         }
@@ -45,9 +45,20 @@ namespace Call_Center.ABML
 
                 case "modify":
                     int id = int.Parse(((Button)sender).CommandArgument);
-                    txbUsuarioNombre.Text = usuarioDAO.GetUsuario(id).Nombre;
+                 
+                    Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
+                    Session.Add("ModificandoUsuario", usuario);
+                    txbUsuarioNombre.Text = usuario.Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbUsuarioNombre.Text;
+                    TxbUsuarioApellido.Text = usuario.Apellido;
+                    TxbUsuarioDNI.Text = usuario.DNI;
+                    TxbUsuarioDomicilio.Text = usuario.Domicilio;
+                    TxbUsuarioTelefono.Text = usuario.Telefono;
+                    TxbEMail.Text = usuario.CuentaId.Email;
+                    TxbPassword.Text = usuario.CuentaId.Password;
+                    string genero = usuario.Genero.ToString();
+                    GenderRadioButtons.SelectedValue  = genero;
                     break;
 
                 default:
@@ -79,7 +90,18 @@ namespace Call_Center.ABML
             }
             else
             {
-                
+                Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
+
+                usuario.Nombre = txbUsuarioNombre.Text;
+                usuario.Apellido = TxbUsuarioApellido.Text;
+                usuario.Domicilio = TxbUsuarioDomicilio.Text;
+                usuario.Telefono = TxbUsuarioTelefono.Text;
+                usuario.DNI = TxbUsuarioDNI.Text;
+                usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+                usuario.CuentaId.Email = TxbEMail.Text;
+                usuario.CuentaId.Password = TxbPassword.Text;
+
+                usuarioDAO.Update(usuario);
             }
 
             Response.Redirect("Usuario.aspx");

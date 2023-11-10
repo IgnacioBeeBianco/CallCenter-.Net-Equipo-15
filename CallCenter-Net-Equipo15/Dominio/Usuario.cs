@@ -16,5 +16,6 @@ namespace Dominio
         public string Telefono { get; set; }
         public char Genero { get; set; }
         public Cuenta CuentaId { get; set; }
+        public bool Estado { get; set; }
     }
 }

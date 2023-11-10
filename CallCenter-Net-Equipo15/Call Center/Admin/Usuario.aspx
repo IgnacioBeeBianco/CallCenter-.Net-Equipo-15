@@ -72,7 +72,7 @@
             <asp:Repeater ID="rptUsuarios" runat="server">
                 <ItemTemplate>
                     <tr>
-                        <td class="d-none" name="id"<%# Eval("id") %></td>
+                        <td class="d-none" name="id"<%# Eval("id") %> ></td>
                         <td><%# Eval("Nombre") %></td>
                         <td><%# Eval("Apellido") %></td>
                         <td><%# Eval("DNI") %></td>
@@ -135,9 +135,7 @@
                                     <div class="input-group mb-3">
                                         <asp:TextBox ID="TxbUsuarioDNI" runat="server" placeholder="DNI:" CssClass="form-control" TextMode="Number" MaxLength="8"></asp:TextBox>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <asp:TextBox ID="TxbUsuarioLocalidad" runat="server" placeholder="Localidad:" CssClass="form-control"></asp:TextBox>
-                                    </div>
+                     
                                     <div class="input-group mb-3">
                                         <asp:TextBox ID="TxbUsuarioDomicilio" runat="server" placeholder="Domicilio:" CssClass="form-control"></asp:TextBox>
                                     </div>
