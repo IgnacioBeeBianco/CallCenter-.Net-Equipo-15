@@ -70,7 +70,8 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <!--TODO: Definir si el alta de cuenta sera desde Usuario !-->
+        <!--<div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">Cuenta</h5>
@@ -82,7 +83,7 @@
                     <p>Todas las cuentas existentes en la DB</p>
                 </div>
             </div>
-        </div>
+        </div>!-->
 
         
         <div class="col-md-3">
