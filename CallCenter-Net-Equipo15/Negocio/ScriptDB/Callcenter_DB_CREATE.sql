@@ -72,6 +72,7 @@ BEGIN
         telefono VARCHAR(10) NOT NULL,
         genero CHAR NOT NULL CHECK (genero = 'M' or genero = 'F' or genero = 'X'),
         cuenta_id INT NOT NULL,
+        Estado BIT DEFAULT 1,
         PRIMARY KEY (id),
         FOREIGN KEY (cuenta_id) REFERENCES Cuenta(id),
         UNIQUE(dni)
