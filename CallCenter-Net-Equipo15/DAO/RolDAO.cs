@@ -52,7 +52,7 @@ namespace DAO
             }
         }
 
-        public Rol  getRol(string Nombre)
+        public Rol getRol(string Nombre)
         {
             accesoADatos = new AccesoADatos();
             Rol rol = new Rol();

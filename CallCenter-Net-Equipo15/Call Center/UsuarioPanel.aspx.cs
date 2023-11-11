@@ -22,15 +22,13 @@ namespace Call_Center
                 h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
                 txtNombre.Text = (Session["Usuario"] as Dominio.Usuario).Nombre;
                 txtApellido.Text = (Session["Usuario"] as Dominio.Usuario).Apellido;
-                //txtDNI.Text = (Session["Usuario"] as Dominio.Usuario).DNI.ToString(); Me llega vacio
+                txtDNI.Text = (Session["Usuario"] as Dominio.Usuario).DNI;
                 txtDomicilio.Text = (Session["Usuario"] as Dominio.Usuario).Domicilio;
                 txtTelefono.Text = (Session["Usuario"] as Dominio.Usuario).Telefono;
-                //txtGenero.Text = (Session["Usuario"] as Dominio.Usuario).Genero.ToString(); NO me anda
+                txtGenero.Text = (Session["Usuario"] as Dominio.Usuario).Genero.ToString();
                 txtRol.Text = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
                 txtMail.Text = (Session["Cuenta"] as Dominio.Cuenta).Email;
                 txtPassword.Text = (Session["Cuenta"] as Dominio.Cuenta).Password;
-
-
             }
             else
             {
@@ -38,19 +36,26 @@ namespace Call_Center
             }
 
         }
-
+        /*
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-            //Revisar porque no me actualiza el perfil
-            /*
+            //NO me actualiza el perfil!!!!!! :-(
+
             try
             {
                 // Obtén la información actualizada del usuario desde los controles en tu página
                 Dominio.Usuario usuarioActualizado = new Dominio.Usuario();
+                Dominio.Cuenta cuentaActualizada = new Dominio.Cuenta();
                 DAO.RolDAO rolDAO = new DAO.RolDAO();
                 Dominio.Rol rol = rolDAO.getRol(txtRol.Text);
-                usuarioActualizado.Id = (Session["Usuario"] as Dominio.Usuario).Id;
 
+                if (rol == null)
+                {
+                    lblMensaje.Text = "Rol no encontrado";
+                    return;
+                }
+
+                usuarioActualizado.Id = (Session["Usuario"] as Dominio.Usuario).Id;
                 usuarioActualizado.Nombre = txtNombre.Text;
                 usuarioActualizado.Apellido = txtApellido.Text;
                 usuarioActualizado.DNI = txtDNI.Text;
@@ -58,29 +63,68 @@ namespace Call_Center
                 usuarioActualizado.Telefono = txtTelefono.Text;
                 usuarioActualizado.Genero = Convert.ToChar(txtGenero.Text);
 
-                usuarioActualizado.CuentaId = new Dominio.Cuenta
-                {
-                    Email = txtMail.Text,
-                    Password = txtPassword.Text,
-                    Rol = new Dominio.Rol
-                    {
-                        Id = rol.Id
-                    }
-                };
+                cuentaActualizada.Id = (Session["Cuenta"] as Dominio.Cuenta).Id;
+                cuentaActualizada.Email = txtMail.Text;
+                cuentaActualizada.Password = txtPassword.Text;
+                cuentaActualizada.Rol = rol;
+
+                //usuarioActualizado.CuentaId = cuentaActualizada;
 
                 // Llama al método de actualización en el DAO
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 usuarioDAO.Update(usuarioActualizado);
-                lblMensaje.Text = "¡Perfil actualizado correctamente!";
+                //lblMensaje.Text = "¡Perfil actualizado correctamente!";
+                lblMensaje.Text = "Perfil actualizado correctamente!" +
+            $"<br />Nombre: {cuentaActualizada.Id}";
+            
 
             }
             catch (Exception ex)
             {
                 lblMensaje.Text = "Error al actualizar el perfil. Detalles del error: " + ex.Message;
             }
-            */
+
         }
+        
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtén la información actualizada del usuario desde los controles en tu página
+                Dominio.Usuario usuarioActualizado = new Dominio.Usuario();
+                DAO.RolDAO rolDAO = new DAO.RolDAO();
+                Dominio.Rol rol = rolDAO.getRol(txtRol.Text);
 
+                if (rol == null)
+                {
+                    lblMensaje.Text = "Rol no encontrado";
+                    return;
+                }
 
+                usuarioActualizado.Id = (Session["Usuario"] as Dominio.Usuario).Id;
+                usuarioActualizado.Nombre = txtNombre.Text;
+                usuarioActualizado.Apellido = txtApellido.Text;
+                usuarioActualizado.DNI = txtDNI.Text;
+                usuarioActualizado.Domicilio = txtDomicilio.Text;
+                usuarioActualizado.Telefono = txtTelefono.Text;
+                usuarioActualizado.Genero = Convert.ToChar(txtGenero.Text);
+                usuarioActualizado.CuentaId = new Dominio.Cuenta();
+                usuarioActualizado.CuentaId.Email = txtMail.Text;
+                usuarioActualizado.CuentaId.Password = txtPassword.Text;
+                usuarioActualizado.CuentaId.Rol = rol;
+
+                // Llama al método de actualización en el DAO
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                usuarioDAO.UpdatePerfil(usuarioActualizado);
+                Session["Usuario"] = usuarioActualizado;
+                Session["Cuenta"] = usuarioActualizado.CuentaId;
+                lblMensaje.Text = "¡Perfil actualizado correctamente!";
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al actualizar el perfil. Detalles del error: " + ex.Message;
+            }
+        }
+        */
     }
 }
