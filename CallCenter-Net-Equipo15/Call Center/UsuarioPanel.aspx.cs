@@ -14,9 +14,11 @@ namespace Call_Center
 {
     public partial class UsuarioPanel : System.Web.UI.Page
     {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        RolDAO rolDAO = new RolDAO();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (Session["Usuario"] != null && Session["Cuenta"] != null)
             {
                 h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
@@ -36,95 +38,63 @@ namespace Call_Center
             }
 
         }
-        /*
-        protected void btnActualizar_Click(object sender, EventArgs e)
+
+        protected void abrirModal(object sender, EventArgs e)
         {
-            //NO me actualiza el perfil!!!!!! :-(
+            Button btn = sender as Button;
+            modalUsuarios.Style["display"] = "block";
 
-            try
+            switch (btn.Attributes["action"])
             {
-                // Obtén la información actualizada del usuario desde los controles en tu página
-                Dominio.Usuario usuarioActualizado = new Dominio.Usuario();
-                Dominio.Cuenta cuentaActualizada = new Dominio.Cuenta();
-                DAO.RolDAO rolDAO = new DAO.RolDAO();
-                Dominio.Rol rol = rolDAO.getRol(txtRol.Text);
+                case "modify":
+                    int id = (Session["Usuario"] as Dominio.Usuario).Id;
 
-                if (rol == null)
-                {
-                    lblMensaje.Text = "Rol no encontrado";
-                    return;
-                }
+                    Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
+                    Session.Add("ModificandoUsuario", usuario);
+                    txbUsuarioNombre.Text = usuario.Nombre;
+                    lblTitle.Text = "Modificar a ";
+                    lblNombre.Text = txbUsuarioNombre.Text;
+                    TxbUsuarioApellido.Text = usuario.Apellido;
+                    TxbUsuarioDNI.Text = usuario.DNI;
+                    TxbUsuarioDomicilio.Text = usuario.Domicilio;
+                    TxbUsuarioTelefono.Text = usuario.Telefono;
+                    TxbEMail.Text = usuario.CuentaId.Email;
+                    TxbPassword.Text = usuario.CuentaId.Password;
+                    string genero = usuario.Genero.ToString();
+                    GenderRadioButtons.SelectedValue = genero;
 
-                usuarioActualizado.Id = (Session["Usuario"] as Dominio.Usuario).Id;
-                usuarioActualizado.Nombre = txtNombre.Text;
-                usuarioActualizado.Apellido = txtApellido.Text;
-                usuarioActualizado.DNI = txtDNI.Text;
-                usuarioActualizado.Domicilio = txtDomicilio.Text;
-                usuarioActualizado.Telefono = txtTelefono.Text;
-                usuarioActualizado.Genero = Convert.ToChar(txtGenero.Text);
+                    break;
 
-                cuentaActualizada.Id = (Session["Cuenta"] as Dominio.Cuenta).Id;
-                cuentaActualizada.Email = txtMail.Text;
-                cuentaActualizada.Password = txtPassword.Text;
-                cuentaActualizada.Rol = rol;
+                default:
 
-                //usuarioActualizado.CuentaId = cuentaActualizada;
-
-                // Llama al método de actualización en el DAO
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.Update(usuarioActualizado);
-                //lblMensaje.Text = "¡Perfil actualizado correctamente!";
-                lblMensaje.Text = "Perfil actualizado correctamente!" +
-            $"<br />Nombre: {cuentaActualizada.Id}";
-            
-
-            }
-            catch (Exception ex)
-            {
-                lblMensaje.Text = "Error al actualizar el perfil. Detalles del error: " + ex.Message;
-            }
-
-        }
-        
-        protected void btnActualizar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Obtén la información actualizada del usuario desde los controles en tu página
-                Dominio.Usuario usuarioActualizado = new Dominio.Usuario();
-                DAO.RolDAO rolDAO = new DAO.RolDAO();
-                Dominio.Rol rol = rolDAO.getRol(txtRol.Text);
-
-                if (rol == null)
-                {
-                    lblMensaje.Text = "Rol no encontrado";
-                    return;
-                }
-
-                usuarioActualizado.Id = (Session["Usuario"] as Dominio.Usuario).Id;
-                usuarioActualizado.Nombre = txtNombre.Text;
-                usuarioActualizado.Apellido = txtApellido.Text;
-                usuarioActualizado.DNI = txtDNI.Text;
-                usuarioActualizado.Domicilio = txtDomicilio.Text;
-                usuarioActualizado.Telefono = txtTelefono.Text;
-                usuarioActualizado.Genero = Convert.ToChar(txtGenero.Text);
-                usuarioActualizado.CuentaId = new Dominio.Cuenta();
-                usuarioActualizado.CuentaId.Email = txtMail.Text;
-                usuarioActualizado.CuentaId.Password = txtPassword.Text;
-                usuarioActualizado.CuentaId.Rol = rol;
-
-                // Llama al método de actualización en el DAO
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.UpdatePerfil(usuarioActualizado);
-                Session["Usuario"] = usuarioActualizado;
-                Session["Cuenta"] = usuarioActualizado.CuentaId;
-                lblMensaje.Text = "¡Perfil actualizado correctamente!";
-            }
-            catch (Exception ex)
-            {
-                lblMensaje.Text = "Error al actualizar el perfil. Detalles del error: " + ex.Message;
+                    break;
             }
         }
-        */
+
+        protected void submitModal(object sender, EventArgs e)
+        {
+            Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
+
+            usuario.Nombre = txbUsuarioNombre.Text;
+            usuario.Apellido = TxbUsuarioApellido.Text;
+            usuario.Domicilio = TxbUsuarioDomicilio.Text;
+            usuario.Telefono = TxbUsuarioTelefono.Text;
+            usuario.DNI = TxbUsuarioDNI.Text;
+            usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+            usuario.CuentaId.Email = TxbEMail.Text;
+            usuario.CuentaId.Password = TxbPassword.Text;
+
+            usuarioDAO.Update(usuario);
+            Session["Usuario"] = usuario;
+            Session["Cuenta"] = usuario.CuentaId;
+
+            Response.Redirect("UsuarioPanel.aspx");
+        }
+        protected void cancelarModal(object sender, EventArgs e)
+        {
+            modalUsuarios.Style["display"] = "none";
+            txbUsuarioNombre.Text = "";
+            alertPrio.Style["display"] = "none";
+        }
     }
 }
