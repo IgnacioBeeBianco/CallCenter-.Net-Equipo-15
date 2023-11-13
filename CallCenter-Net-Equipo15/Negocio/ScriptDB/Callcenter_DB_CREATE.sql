@@ -89,3 +89,27 @@ BEGIN
         PRIMARY KEY (id)
     )
 END
+
+-- Verificar si la tabla "Incidencia" existe, y si no, crearla
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Incidencia')
+BEGIN
+    CREATE TABLE Incidencia (
+        id INT IDENTITY(1,1),
+        creador_id INT NOT NULL,
+        asignado_id INT NOT NULL,
+        fecha_creacion DATETIME NOT NULL,
+        fecha_cierre DATETIME NOT NULL,
+        estado_id INT NOT NULL,
+        prioridad_id BIGINT NOT NULL,
+        tipo_incidencia_id BIGINT NOT NULL,
+        comentario_cierra NVARCHAR(300),
+        problematica NVARCHAR(500)
+
+        PRIMARY KEY(id),
+        FOREIGN KEY(creador_id) REFERENCES Usuario(id),
+        FOREIGN KEY(asignado_id) REFERENCES Usuario(id),
+        FOREIGN KEY(estado_id) REFERENCES Estado(id),
+        FOREIGN KEY(prioridad_id) REFERENCES Prioridad(id),
+        FOREIGN KEY(tipo_incidencia_id) REFERENCES TipoIncidencia(oid)
+    )
+END
