@@ -68,3 +68,46 @@ BEGIN
     END CATCH
 
 END 
+
+GO
+
+CREATE PROCEDURE SP_UpdatePerfil(
+    @id INT,
+    @nombre VARCHAR(50),
+    @apellido VARCHAR(50),
+    @dni VARCHAR(8),
+    @domicilio VARCHAR(100),
+    @telefono VARCHAR(10),
+    @genero CHAR,
+    @email VARCHAR(300),
+    @password_ VARCHAR(300),
+    @id_rol INT
+)
+AS 
+BEGIN 
+    BEGIN TRANSACTION
+
+    BEGIN TRY
+        UPDATE Usuario 
+        SET nombre = @nombre, 
+            apellido = @apellido, 
+            dni = @dni, 
+            domicilio = @domicilio, 
+            telefono = @telefono, 
+            genero = @genero 
+        WHERE id = @id;
+
+        UPDATE Cuenta 
+        SET email = @email, 
+            password_ = @password_, 
+            id_rol = @id_rol 
+        WHERE id = (SELECT cuenta_id FROM Usuario WHERE id = @id);
+    
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRANSACTION
+        RAISERROR('Error al actualizar el perfil', 16,1);
+    END CATCH
+END

@@ -163,5 +163,33 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
         }
+
+        public void UpdatePerfil(Usuario usuario)
+        {
+            try
+            {
+                accesoADatos.AbrirConexion();
+                accesoADatos.setearProcedimiento("SP_UpdatePerfil");
+                accesoADatos.setearParametro("@id", usuario.Id);
+                accesoADatos.setearParametro("@nombre", usuario.Nombre);
+                accesoADatos.setearParametro("@apellido", usuario.Apellido);
+                accesoADatos.setearParametro("@dni", usuario.DNI);
+                accesoADatos.setearParametro("@domicilio", usuario.Domicilio);
+                accesoADatos.setearParametro("@telefono", usuario.Telefono);
+                accesoADatos.setearParametro("@genero", usuario.Genero);
+                accesoADatos.setearParametro("@email", usuario.CuentaId.Email);
+                accesoADatos.setearParametro("@password_", usuario.CuentaId.Password);
+                accesoADatos.setearParametro("@id_rol", usuario.CuentaId.Rol.Id);
+                accesoADatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
     }
 }

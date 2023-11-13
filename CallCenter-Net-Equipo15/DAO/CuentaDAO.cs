@@ -16,7 +16,7 @@ namespace DAO
             {
                 Usuario usuario = new Usuario();
 
-                string consulta = "SELECT U.nombre, U.apellido, U.domicilio, U.telefono, C.email, C.password_, C.id_rol, R.nombre as nombre_rol " +
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.domicilio, U.telefono, U.genero, C.id, C.email, C.password_, C.id_rol, R.nombre as nombre_rol " +
                                         "FROM Cuenta C " +
                                         "INNER JOIN Usuario U ON U.cuenta_id = C.id " +
                                         "INNER JOIN Rol R ON R.id = C.id_rol " +
@@ -29,10 +29,15 @@ namespace DAO
 
                 while (accesoADatos.Lector.Read())
                 {
+                    usuario.Id = (int)accesoADatos.Lector["id"];
                     usuario.Nombre = accesoADatos.Lector["nombre"].ToString();
                     usuario.Apellido = accesoADatos.Lector["apellido"].ToString();
+                    usuario.DNI = accesoADatos.Lector["dni"].ToString();
                     usuario.Domicilio = accesoADatos.Lector["domicilio"].ToString();
                     usuario.Telefono = accesoADatos.Lector["telefono"].ToString();
+                    string genero = accesoADatos.Lector["genero"].ToString();
+                    usuario.Genero = !string.IsNullOrEmpty(genero) ? genero[0] : '\0';
+                    cuenta.Id = (int)accesoADatos.Lector["id"];
                     cuenta.Rol.Id = (int)accesoADatos.Lector["id_rol"];
                     cuenta.Rol.Nombre = accesoADatos.Lector["nombre_rol"].ToString();
                 }
