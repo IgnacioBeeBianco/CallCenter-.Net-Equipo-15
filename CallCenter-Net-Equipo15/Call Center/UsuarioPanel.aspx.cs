@@ -19,6 +19,7 @@ namespace Call_Center
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Session["Usuario"] != null && Session["Cuenta"] != null)
             {
                 h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
@@ -62,6 +63,7 @@ namespace Call_Center
                     TxbPassword.Text = usuario.CuentaId.Password;
                     string genero = usuario.Genero.ToString();
                     GenderRadioButtons.SelectedValue = genero;
+                    txtRolActua.Text = txtRol.Text;
 
                     break;
 
@@ -83,6 +85,7 @@ namespace Call_Center
             usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
             usuario.CuentaId.Email = TxbEMail.Text;
             usuario.CuentaId.Password = TxbPassword.Text;
+            usuario.CuentaId.Rol.Nombre = txtRolActua.Text;
 
             usuarioDAO.Update(usuario);
             Session["Usuario"] = usuario;
