@@ -12,13 +12,31 @@ namespace Call_Center
     public partial class CrearIncidencia : System.Web.UI.Page
     {
         TipoIncidenciaDAO tipoIncidenciaDAO = new TipoIncidenciaDAO();
+        PrioridadDAO prioridadDAO = new PrioridadDAO();
+        EstadoDAO estadoDAO = new EstadoDAO();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<TipoIncidencia> tipoIncidencias = new List<TipoIncidencia>();
-            tipoIncidencias = tipoIncidenciaDAO.List();
-            foreach(var tipoIncidencia in tipoIncidencias)
+            if (!IsPostBack)
             {
-                ddlTipoIncidencia.Items.Add(tipoIncidencia.Nombre);
+                List<TipoIncidencia> tipoIncidencias = new List<TipoIncidencia>();
+                tipoIncidencias = tipoIncidenciaDAO.List();
+                
+                foreach(var tipoIncidencia in tipoIncidencias)
+                {
+                    ddlTipoIncidencia.Items.Add(tipoIncidencia.Nombre);
+                }
+
+                DropDownPrio.DataSource = prioridadDAO.List();
+                DropDownPrio.DataTextField = "Nombre";
+                DropDownPrio.DataValueField = "Id";
+                DropDownPrio.DataBind();
+
+                DropDownEstados.DataSource = estadoDAO.List();
+                DropDownEstados.DataTextField = "Nombre";
+                DropDownEstados.DataValueField= "Id";
+                DropDownEstados.DataBind();
+
             }
         }
     }

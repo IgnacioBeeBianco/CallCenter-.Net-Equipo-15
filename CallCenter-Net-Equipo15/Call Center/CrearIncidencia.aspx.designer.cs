@@ -15,6 +15,24 @@ namespace Call_Center
     {
 
         /// <summary>
+        /// Control DropDownEstados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownEstados;
+
+        /// <summary>
+        /// Control DropDownPrio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownPrio;
+
+        /// <summary>
         /// Control ddlTipoIncidencia.
         /// </summary>
         /// <remarks>

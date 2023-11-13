@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CuentaNegocio.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="IncidenciaNegocio.cs" />
     <Compile Include="PrioridadNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
