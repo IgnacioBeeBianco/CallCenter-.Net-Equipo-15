@@ -12,7 +12,10 @@ namespace Call_Center
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            
+            if (Session["Usuario"] != null && Session["Cuenta"] != null)
+            {
+                h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
+            }
         }
     }
 }
