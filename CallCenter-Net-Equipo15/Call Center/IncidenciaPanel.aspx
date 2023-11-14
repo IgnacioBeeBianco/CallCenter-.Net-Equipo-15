@@ -10,13 +10,20 @@
             border: 1px solid #ddd; /* Añade un borde para mayor claridad */
             text-align: center; /* Centra el contenido */
             padding: 15px; /* Añade un espacio interno para el contenido */
+            max-width: 25%;
+        }
+
+        .row {
+            display: flex; /* Usa un modelo de caja flexible para los elementos hijos */
+            flex-wrap: nowrap; /* Evita que las columnas se envuelvan a la siguiente línea */
+            overflow-x: auto; /* Permite desplazamiento horizontal si el contenido es demasiado ancho */
         }
     </style>
 
-    <div class="row justify-content-between" style="overflow-x: scroll">
+    <div class="row" style="overflow-x: scroll">
         <asp:Repeater ID="rptColumnas" runat="server" OnItemDataBound="rptColumnas_ItemDataBound">
             <ItemTemplate>
-                <div class="col-md-4 w-auto">
+                <div class="col-md-4 custom-column">
                     <p><%# Eval("nombre") %></p>
                     <asp:Repeater ID="rptIncidencias" runat="server">
                         <ItemTemplate>
