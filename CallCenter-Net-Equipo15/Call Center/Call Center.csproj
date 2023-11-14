@@ -78,7 +78,12 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
-    <None Include="Images\profile_3135768.png" />
+    <None Include="Images\default.png" />
+    <Content Include="Images\admin.png" />
+    <Content Include="Images\businessman.png" />
+    <Content Include="Images\client.png" />
+    <Content Include="Images\customer-service.png" />
+    <Content Include="Images\supervisor.png" />
     <Content Include="Login.aspx" />
     <Content Include="UsuarioPanel.aspx" />
     <Content Include="Web.config" />
@@ -233,6 +238,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

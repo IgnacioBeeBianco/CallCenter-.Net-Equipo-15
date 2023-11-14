@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col">
                                     <center>
-                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl="~/Images/profile_3135768.png" />
+                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
                                     </center>
                                 </div>
                             </div>

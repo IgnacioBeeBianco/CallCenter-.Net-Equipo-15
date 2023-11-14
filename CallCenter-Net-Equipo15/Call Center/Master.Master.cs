@@ -12,6 +12,10 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                setearImagenSegunRol();
+            }
             /*
             if (Session["Usuario"] == null)
             {
@@ -37,6 +41,42 @@ namespace Call_Center
             Session.Remove("Cuenta");
 
             Response.Redirect("~/Login.aspx");
+        }
+
+        public string setearImagenSegunRol()
+        {
+            return image1.ImageUrl = setearURLImagenSegunRol();
+        }
+
+        private string setearURLImagenSegunRol()
+        {
+            if (Session["Cuenta"] != null)
+            {
+                string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
+
+                switch (userRol)
+                {
+                    case "Administrador":
+                        return "~/Images/admin.png";
+
+                    case "Cliente":
+                        return "~/Images/businessman.png";
+
+                    case "Telefonista":
+                        return "~/Images/customer-service.png";
+
+                    case "Supervisor":
+                        return "~/Images/supervisor.png";
+
+                    default:
+                        return "~/Images/client.png";
+
+                }
+            }
+            else
+            {
+                return "~/Images/default.png";
+            }
         }
 
     }
