@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li class="nav-item" id="incidenciaDashboard" runat="server">
-                            <a class="text-white text-decoration-none" href="CrearIncidencia.aspx">
+                            <a class="text-white text-decoration-none" href="IncidenciaPanel.aspx">
                                 <i class="bi bi-plus-circle"></i>
                                 <span class="d-sm-none d-md-inline">Incidencias Panel</span>
                             </a>

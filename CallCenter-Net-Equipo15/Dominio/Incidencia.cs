@@ -8,6 +8,13 @@ namespace Dominio
 {
     public class Incidencia
     {
+        public Incidencia() {
+            Creador = new Usuario();
+            Asignado = new Usuario();
+            Estado = new Estado();
+            Prioridad = new Prioridad();
+            TipoIncidencia = new TipoIncidencia();
+        }
         public long Id { get; set; }
         public Usuario Creador { get; set; }
         public Usuario Asignado { get; set; }

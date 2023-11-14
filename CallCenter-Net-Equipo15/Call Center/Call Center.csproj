@@ -84,6 +84,7 @@
     <Content Include="Images\client.png" />
     <Content Include="Images\customer-service.png" />
     <Content Include="Images\supervisor.png" />
+    <Content Include="IncidenciaPanel.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="UsuarioPanel.aspx" />
     <Content Include="Web.config" />
@@ -175,6 +176,13 @@
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IncidenciaPanel.aspx.cs">
+      <DependentUpon>IncidenciaPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IncidenciaPanel.aspx.designer.cs">
+      <DependentUpon>IncidenciaPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
