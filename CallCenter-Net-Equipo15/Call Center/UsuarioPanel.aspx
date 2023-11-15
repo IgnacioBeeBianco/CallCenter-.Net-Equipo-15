@@ -6,13 +6,13 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-5">
-                    <div class="card">
+                <div class="col-md-12">
+                    <div class="card shadow-lg border-0">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col">
+                                <div class="col mb-3">
                                     <center>
-                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
+                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail border-0" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
                                     </center>
                                 </div>
                             </div>
@@ -31,13 +31,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nombre/s</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtNombre" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Apellido/s</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtApellido" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
@@ -45,13 +45,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Domicilio</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtDomicilio" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Telefono</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtTelefono" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
@@ -59,40 +59,45 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>DNI</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtDNI" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Genero</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtGenero" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Rol</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtRol" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
                                     <label>Mail</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtMail" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <label>Contraseña</label>
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" placeholder="" ReadOnly="True" type="password"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="form-group">
+                                    <div class="form-group mt-2 mb-3">
                                         <br />
                                         <center>
                                             <asp:Button class="btn btn-primary btn-block btn-lg" ID="btnActualizar" runat="server" Text="Actualizar perfil" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" />

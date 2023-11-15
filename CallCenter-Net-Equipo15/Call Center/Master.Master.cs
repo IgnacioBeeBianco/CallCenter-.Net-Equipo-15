@@ -16,7 +16,7 @@ namespace Call_Center
             {
                 setearImagenSegunRol();
             }
-            /*
+            
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
@@ -27,12 +27,14 @@ namespace Call_Center
             cuenta = (Cuenta)Session["Cuenta"];
 
             Username.Text = (usuario.Nombre + " " + usuario.Apellido);
+            //UserRol.Text = cuenta.Rol.Nombre;
 
-            if( cuenta.Rol.Nombre != "Administrador")
+
+            if ( cuenta.Rol.Nombre != "Administrador")
             {
                 adminDashboard.Style["display"] = "none";
             }
-            */
+            
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
@@ -79,5 +81,9 @@ namespace Call_Center
             }
         }
 
+        protected void ImageUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/UsuarioPanel.aspx");
+        }
     }
 }

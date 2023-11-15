@@ -16,8 +16,8 @@
 </head>
 <body>
     
-    <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center bg-light">
-        <div class="container d-flex shadow-lg mb-5 bg-white rounded p-5">
+    <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center bg-light bg-gradient">
+        <div class="container d-flex shadow-lg mb-5 bg-white rounded-4 p-5">
             <div class="form-container col-6 p-5">
                 <div class="header mb-5 text-center">
                     <h1 class="display-5">Inicia sesión</h1>
