@@ -75,6 +75,8 @@
     <Content Include="CrearCliente.aspx" />
     <Content Include="CrearIncidencia.aspx" />
     <Content Include="CrearUsuario.aspx" />
+    <Content Include="Css\Login.css" />
+    <Content Include="Css\Main.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />

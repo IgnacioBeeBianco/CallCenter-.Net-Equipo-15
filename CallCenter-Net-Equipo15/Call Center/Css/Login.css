@@ -1,0 +1,10 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.transition-effect {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
