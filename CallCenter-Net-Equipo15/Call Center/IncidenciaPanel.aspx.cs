@@ -40,5 +40,63 @@ namespace Call_Center
                 rptIncidencias.DataBind();
             }
         }
+
+        protected void optionsTicket(object sender, EventArgs e)
+        {
+            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+            Button btn = sender as Button;
+            modal.Style["display"] = "block";
+            moverAOpts.Style["display"] = "none";
+            int id = int.Parse(((Button)sender).CommandArgument);
+            Incidencia incidencia = incidenciaDAO.getIncidencia(id);
+
+            lblId.Text = incidencia.Id.ToString();
+            lblProblematica.Text = incidencia.problematica;
+            lblEstado.Text = incidencia.Estado.Nombre.ToString();
+
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            rptMoverA.DataSource = incidenciaNegocio.TraerEstadosMenos(incidencia.Estado.Nombre);
+            rptMoverA.DataBind();
+        }
+
+        protected void cancelarModal(object sender, EventArgs e)
+        {
+            //Limpiamos el modal
+            modal.Style["display"] = "none";
+            alert.Style["display"] = "none";
+            moverAOpts.Style["display"] = "none";
+        }
+
+        protected void btnMoverA_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            int id = int.Parse(lblId.Text);
+            moverAOpts.Style["display"] = "flex";
+
+
+        }
+
+        protected void cerrarMoverA(object sender, EventArgs e)
+        {
+            moverAOpts.Style["display"] = "none";
+        }
+
+        protected void btnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                Button btn = sender as Button;
+                int id = int.Parse(((Button)sender).CommandArgument);
+                int idEstado = int.Parse(btn.Attributes["idEstado"]);
+                incidenciaNegocio.UpdateEstado(idEstado, id);
+                Response.Redirect("IncidenciaPanel.aspx");
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
