@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col">
                                     <center>
-                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl="~/Images/profile_3135768.png" />
+                                        <asp:Image ID="image1" runat="server" Width="200" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
                                     </center>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <div class="col">
                                     <label>Contraseña</label>
                                     <div class="form-group">
-                                        <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" placeholder="" ReadOnly="True"></asp:TextBox>
+                                        <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" placeholder="" ReadOnly="True" type="password"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,10 @@
                                 <asp:TextBox ID="TxbEMail" runat="server" placeholder="Email:" CssClass="form-control" TextMode="Email"></asp:TextBox>
                             </div>
                             <div class="input-group mb-3">
-                                <asp:TextBox ID="TxbPassword" runat="server" placeholder="Contraseña:" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                                <asp:TextBox ID="TxbPassword" runat="server" placeholder="Contraseña:" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="input-group mb-3">
+                                <asp:TextBox CssClass="form-control" ID="txtRolActua" runat="server" placeholder="" ReadOnly="true"></asp:TextBox>
                             </div>
                             <div class="alert alert-danger" id="alertPrio" runat="server" style="display: none;">
                                 <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>

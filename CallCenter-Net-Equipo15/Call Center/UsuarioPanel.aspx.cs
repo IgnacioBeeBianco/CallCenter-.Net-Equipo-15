@@ -19,6 +19,10 @@ namespace Call_Center
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                setearImagenSegunRol();
+            }
             if (Session["Usuario"] != null && Session["Cuenta"] != null)
             {
                 h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
@@ -31,6 +35,7 @@ namespace Call_Center
                 txtRol.Text = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
                 txtMail.Text = (Session["Cuenta"] as Dominio.Cuenta).Email;
                 txtPassword.Text = (Session["Cuenta"] as Dominio.Cuenta).Password;
+
             }
             else
             {
@@ -62,6 +67,7 @@ namespace Call_Center
                     TxbPassword.Text = usuario.CuentaId.Password;
                     string genero = usuario.Genero.ToString();
                     GenderRadioButtons.SelectedValue = genero;
+                    txtRolActua.Text = txtRol.Text;
 
                     break;
 
@@ -83,6 +89,7 @@ namespace Call_Center
             usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
             usuario.CuentaId.Email = TxbEMail.Text;
             usuario.CuentaId.Password = TxbPassword.Text;
+            usuario.CuentaId.Rol.Nombre = txtRolActua.Text;
 
             usuarioDAO.Update(usuario);
             Session["Usuario"] = usuario;
@@ -95,6 +102,43 @@ namespace Call_Center
             modalUsuarios.Style["display"] = "none";
             txbUsuarioNombre.Text = "";
             alertPrio.Style["display"] = "none";
+        }
+
+        public string setearImagenSegunRol()
+        {
+            return image1.ImageUrl = setearURLImagenSegunRol();
+        }
+
+        private string setearURLImagenSegunRol()
+        {
+            if (Session["Cuenta"] != null)
+            {
+                string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
+
+                switch (userRol)
+                {
+                    case "Administrador":
+                        return "~/Images/admin.png";
+
+                    case "Cliente":
+                        return "~/Images/businessman.png";
+
+                    case "Telefonista":
+                        return "~/Images/customer-service.png";
+
+                    case "Supervisor":
+                        return "~/Images/supervisor.png";
+
+                    default:
+                        return "~/Images/client.png";
+
+                }
+            }
+            else
+            {
+                return "~/Images/default.png";
+            }
+                
         }
     }
 }

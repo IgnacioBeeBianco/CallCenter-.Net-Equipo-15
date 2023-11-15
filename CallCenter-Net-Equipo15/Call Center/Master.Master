@@ -37,7 +37,7 @@
                             </a>
                         </li>
                         <li class="nav-item" id="incidenciaDashboard" runat="server">
-                            <a class="text-white text-decoration-none" href="CrearIncidencia.aspx">
+                            <a class="text-white text-decoration-none" href="IncidenciaPanel.aspx">
                                 <i class="bi bi-plus-circle"></i>
                                 <span class="d-sm-none d-md-inline">Incidencias Panel</span>
                             </a>
@@ -46,7 +46,7 @@
                     <hr />
                     <div class="user-info">
                         <a href="UsuarioPanel.aspx" class="text-decoration-none">
-                            <img src="Images/profile_3135768.png" class="img-fluid w-25" />
+                            <asp:Image ID="image1" runat="server" Width="50" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
                             <span class="d-sm-none d-md-inline ms-2">
                                 <asp:Label runat="server" ID="Username" CssClass="d-sm-none d-md-inline text-white"></asp:Label>
                             </span>
