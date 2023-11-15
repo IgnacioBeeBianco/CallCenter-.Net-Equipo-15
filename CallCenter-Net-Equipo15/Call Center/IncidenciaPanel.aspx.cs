@@ -40,5 +40,37 @@ namespace Call_Center
                 rptIncidencias.DataBind();
             }
         }
+
+        protected void optionsTicket(object sender, EventArgs e)
+        {
+            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+            Button btn = sender as Button;
+            modal.Style["display"] = "block";
+            int id = int.Parse(((Button)sender).CommandArgument);
+            Incidencia incidencia = incidenciaDAO.getIncidencia(id);
+
+            lblId.Text = incidencia.Id.ToString();
+            lblProblematica.Text = incidencia.problematica;
+        }
+
+        protected void cancelarModal(object sender, EventArgs e)
+        {
+            //Limpiamos el modal
+            modal.Style["display"] = "none";
+            alert.Style["display"] = "none";
+            moverAOpts.Style["display"] = "none";
+        }
+
+        protected void btnMoverA_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            int id = int.Parse(lblId.Text);
+            moverAOpts.Style["display"] = "block";
+        }
+
+        protected void cerrarMoverA(object sender, EventArgs e)
+        {
+            moverAOpts.Style["display"] = "none";
+        }
     }
 }
