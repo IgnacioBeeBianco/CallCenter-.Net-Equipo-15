@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html  data-bs-theme="dark">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Call Center</title>
@@ -19,29 +19,29 @@
     <form id="form1" runat="server" class="vh-100">
         <div class="row" style="--bs-gutter-x: none">
             <div class="col-2">
-                <div class="d-flex flex-column flex-shrink-0 bg-light border-end border-secondary-subtle vh-100 navbar align-items-start">
+                <div class="d-flex flex-column flex-shrink-0 border-end border-secondary-subtle vh-100 navbar navbar-dark align-items-start custom-nav">
                     <div class="p-5">
                         <div class="w-100 navbar-brand">
-                            <a class="text-start align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-dark" href="Home.aspx">
+                            <a class="text-start align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="Home.aspx">
                                 <p class="fw-bold">Tu callcenter</p>
                             </a>
                         </div>
                         <div class="mb-auto">
                             <ul class="navbar-nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" href="/Home.aspx"><i class="bi bi-house me-2"></i>
+                                    <a class="nav-link" href="/Home.aspx"><i class="bi bi-house me-2"></i>
                                         <span class="d-sm-none d-md-inline">Dashboard</span>
                                     </a>
                                 </li>
                                 <li class="nav-item" id="adminDashboard" runat="server">
-                                    <a class="nav-link text-dark" href="AdminPanel.aspx">
+                                    <a class="nav-link" href="AdminPanel.aspx">
                                         <i class="bi bi-gear me-2"></i>
                                         <span class="d-sm-none d-md-inline">Admin Panel</span>
                                     </a>
                                 </li>
                                 
                                 <li class="nav-item" id="incidenciaDashboard" runat="server">
-                                    <a class="nav-link text-dark" href="IncidenciaPanel.aspx">
+                                    <a class="nav-link" href="IncidenciaPanel.aspx">
                                         <i class="bi bi-plus-circle me-2"></i>
                                         <span class="d-sm-none d-md-inline">Incidencias</span>
                                     </a>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="col-10">
-                <div class="p-3 bg-white h-100">
+                <div class="p-3 h-100">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>

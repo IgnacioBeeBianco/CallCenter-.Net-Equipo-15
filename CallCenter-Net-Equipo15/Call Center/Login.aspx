@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" data-bs-theme="dark">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Call Center</title>
@@ -16,8 +16,8 @@
 </head>
 <body>
     
-    <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center bg-light bg-gradient">
-        <div class="container d-flex shadow-lg mb-5 bg-white rounded-4 p-5">
+    <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="container d-flex shadow mb-5 rounded-4 p-5 bg-dark">
             <div class="form-container col-6 p-5">
                 <div class="header mb-5 text-center">
                     <h1 class="display-5">Inicia sesión</h1>
