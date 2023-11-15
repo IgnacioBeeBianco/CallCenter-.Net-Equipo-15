@@ -51,12 +51,12 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Button LoginButton;
 
         /// <summary>
-        /// Control RegistrarseButton.
+        /// Control RegisterButton.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button RegistrarseButton;
+        protected global::System.Web.UI.WebControls.Button RegisterButton;
     }
 }

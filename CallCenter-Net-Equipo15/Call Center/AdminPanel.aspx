@@ -132,22 +132,6 @@
             </div>
         </div>
 
-        <!--TODO: Definir si el alta de cuenta sera desde Usuario !-->
-        <!--<div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title">Cuenta</h5>
-                    <a href="Admin/Cuenta.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Todas las cuentas existentes en la DB</p>
-                </div>
-            </div>
-        </div>!-->
-
-        
         <div class="col-md-3">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center rol">
@@ -164,4 +148,15 @@
 
 
     </div>
+
+    <main>
+        <section>
+            <h1>Gestioná la app</h1>
+        </section>
+        <section>
+            <div class="container">
+                <h1>Usuarios</h1>
+            </div>
+        </section>
+    </main>
 </asp:Content>

@@ -8,57 +8,61 @@
     <title>Call Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/Main.css"/>
+    <link rel="stylesheet" href="Css/Login.css"/>
 </head>
 <body>
-    <style>
-        .transition-effect {
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-    </style>
-    <form id="form1" runat="server" class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-primary-subtle">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-6 text-center">
-                    <div class="form-container shadow-lg mb-5 bg-white rounded p-5">
-                        <div class="header mb-5">
-                            <h3 class="display-5">Bienvenido!</h3>
-                        </div>
-                        <div class="input-group mb-4">
-                            <input runat="server" id="EmailInput" type="email" class="form-control rounded" placeholder="Dirección de email" aria-label="Username" aria-describedby="basic-addon1" />
-                        </div>
-
-                        <div class="input-group mb-4">
-                            <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
-                        </div>
-
-                        <div class="forgot-text text-end">
-                            <a class="btn">
-                                <p>Olvidó su contraseña?</p>
-                            </a>
-                        </div>
-
-                        <div class="button-container d-grid gap-2">
-                            <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary" OnClick="LoginButton_Click" />
-                            <asp:Button ID="RegistrarseButton" runat="server" Text="Registrarse" CssClass="btn btn-success" OnClick="RegistrarseButton_Click" />
-                        </div>
-                       
-      
-
-                    </div>
-
-
-                    <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"])
-                        { %>
-                    <div class="alert alert-danger transition-effect" role="alert">
-                        Oops...
-                        <br />
-                        Parece que hay algo inválido en tus datos
-                    </div>
-                    <% } %>
+    
+    <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center bg-light">
+        <div class="container d-flex shadow-lg mb-5 bg-white rounded p-5">
+            <div class="form-container col-6 p-5">
+                <div class="header mb-5 text-center">
+                    <h1 class="display-5">Inicia sesión</h1>
                 </div>
+                <div class="input-group mb-4">
+                    <input runat="server" id="EmailInput" type="email" class="form-control rounded" placeholder="Dirección de email" aria-label="Username" aria-describedby="basic-addon1" />
+                </div>
+
+                <div class="input-group mb-4">
+                    <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
+                </div>
+
+                <div class="forgot-text text-center">
+                    <a class="btn">
+                        <p>Olvidó su contraseña?</p>
+                    </a>
+                </div>
+
+                <div class="button-container text-center">
+                    <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary w-50" OnClick="LoginButton_Click" />
+                </div>
+               
+             </div>
+            <div class="col-6 text-center d-flex flex-column justify-content-center align-items-center">
+                <h1>Bienvenido!</h1>
+                <p>Si no tenés una cuenta, registrate para usar nuestra app</p>
+                 <asp:Button ID="RegisterButton" runat="server" Text="Registrarse" CssClass="btn btn-outline-primary" OnClick="LoginButton_Click" />
             </div>
         </div>
+        
+
+        
+
+                    
+
+
+        <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"])
+            { %>
+        <div class="alert alert-danger transition-effect" role="alert">
+            Oops...
+            <br />
+            Parece que hay algo inválido en tus datos
+        </div>
+        <% } %>
+                
     </form>
 
 
