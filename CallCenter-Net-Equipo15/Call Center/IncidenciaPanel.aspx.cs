@@ -54,8 +54,8 @@ namespace Call_Center
             lblProblematica.Text = incidencia.problematica;
             lblEstado.Text = incidencia.Estado.Nombre.ToString();
 
-            EstadoDAO estadoDAO = new EstadoDAO();
-            rptMoverA.DataSource = estadoDAO.List();
+            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+            rptMoverA.DataSource = incidenciaNegocio.TraerEstadosMenos(incidencia.Estado.Nombre);
             rptMoverA.DataBind();
         }
 
@@ -79,6 +79,24 @@ namespace Call_Center
         protected void cerrarMoverA(object sender, EventArgs e)
         {
             moverAOpts.Style["display"] = "none";
+        }
+
+        protected void btnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                Button btn = sender as Button;
+                int id = int.Parse(((Button)sender).CommandArgument);
+                int idEstado = int.Parse(btn.Attributes["idEstado"]);
+                incidenciaNegocio.UpdateEstado(idEstado, id);
+                Response.Redirect("IncidenciaPanel.aspx");
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -52,12 +52,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 30%;
+            width: 32%;
             height: 40%;
             background-color: white;
             border: 1px solid black;
         }
-
     </style>
 
     <asp:ScriptManager ID="SMModal" runat="server" />
@@ -70,13 +69,14 @@
                             <asp:Label ID="lblId" runat="server" Text="" CssClass=""></asp:Label>
                             <asp:Label ID="lblProblematica" runat="server" Text=""></asp:Label>
                             <asp:Label ID="lblEstado" runat="server" Text=""></asp:Label>
-                            <asp:Button ID="btnMoverA" runat="server" Text="Button" CssClass="btn btn-secondary" OnClick="btnMoverA_Click" />
-                            <div id="moverAOpts" runat="server" style="display: none; position: absolute; right: 8%; top: 0px; border: 1px solid black; display:flex; flex-direction:column">
+                            <asp:Button ID="btnMoverA" runat="server" Text="Mover A" CssClass="btn btn-secondary" OnClick="btnMoverA_Click" />
+                            <div id="moverAOpts" runat="server" style="display: none; position: absolute; right: -15%; top: 0px; border: 1px solid black; display: flex; flex-direction: column">
                                 <asp:Repeater ID="rptMoverA" runat="server">
                                     <ItemTemplate>
-                                        <asp:Button ID="btnCambiarEstado" runat="server" Text="Test" CssClass="btn btn-secondary" />
+                                        <asp:Button ID="btnCambiarEstado" runat="server" Text='<%# Eval("Nombre") %>' CssClass="btn btn-secondary"  CommandArgument='<%# lblId.Text %>' CommandName="id" OnClick="btnCambiarEstado_Click" idEstado='<%# Eval("Id") %>' />
                                     </ItemTemplate>
                                 </asp:Repeater>
+
                                 <asp:Button ID="btnCerrarMoverA" runat="server" Text="Cancelar" OnClick="cerrarMoverA" CssClass="btn btn-secondary" />
                             </div>
                         </div>
