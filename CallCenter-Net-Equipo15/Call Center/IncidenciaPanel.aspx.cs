@@ -46,11 +46,17 @@ namespace Call_Center
             IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
             Button btn = sender as Button;
             modal.Style["display"] = "block";
+            moverAOpts.Style["display"] = "none";
             int id = int.Parse(((Button)sender).CommandArgument);
             Incidencia incidencia = incidenciaDAO.getIncidencia(id);
 
             lblId.Text = incidencia.Id.ToString();
             lblProblematica.Text = incidencia.problematica;
+            lblEstado.Text = incidencia.Estado.Nombre.ToString();
+
+            EstadoDAO estadoDAO = new EstadoDAO();
+            rptMoverA.DataSource = estadoDAO.List();
+            rptMoverA.DataBind();
         }
 
         protected void cancelarModal(object sender, EventArgs e)
@@ -65,7 +71,9 @@ namespace Call_Center
         {
             Button btn = sender as Button;
             int id = int.Parse(lblId.Text);
-            moverAOpts.Style["display"] = "block";
+            moverAOpts.Style["display"] = "flex";
+
+
         }
 
         protected void cerrarMoverA(object sender, EventArgs e)
