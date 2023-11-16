@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,8 +45,8 @@ namespace DAO
             {
                 string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
                     "FROM Incidencia as I " +
-                    "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
-                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
+                    "INNER JOIN Usuario as U on I.creador_id = U.id " +
+                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.id " +
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
@@ -81,8 +82,8 @@ namespace DAO
             {
                 string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
                     "FROM Incidencia as I " +
-                    "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
-                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
+                    "INNER JOIN Usuario as U on I.creador_id = U.id " +
+                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.id " +
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
@@ -116,14 +117,10 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
-                    "FROM Incidencia as I " +
-                    "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
-                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
-                    "INNER JOIN Estado as E on I.estado_id = E.id " +
-                    "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
-                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
-                    "WHERE I.Id = @Id";
+                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre, "+
+                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
+                                    "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
+                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.oid";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -242,6 +239,40 @@ namespace DAO
                 accesoADatos.setearParametro("@id", id);
                 accesoADatos.consultar(consultar);
                 accesoADatos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public List<Incidencia> ListByUsuarioId(int id)
+        {
+            accesoADatos = new AccesoADatos();
+            List<Incidencia> incidencias = new List<Incidencia>();
+
+            try
+            {
+                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre, " +
+                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
+                                    "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
+                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.oid " +
+                                    "WHERE U.id LIKE @id OR U2.id LIKE @id";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    incidencias.Add(LoadIncidencia(ref accesoADatos));
+                }
+
+                return incidencias;
             }
             catch (Exception ex)
             {

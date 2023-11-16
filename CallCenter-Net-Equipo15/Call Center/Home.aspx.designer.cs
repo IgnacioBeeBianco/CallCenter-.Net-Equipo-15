@@ -24,13 +24,22 @@ namespace Call_Center
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1NomApe;
 
         /// <summary>
-        /// Control inciReali.
+        /// Control inciTotales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label inciReali;
+        protected global::System.Web.UI.WebControls.Label inciTotales;
+
+        /// <summary>
+        /// Control inciUrg.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label inciUrg;
 
         /// <summary>
         /// Control inciPen.
@@ -42,13 +51,13 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Label inciPen;
 
         /// <summary>
-        /// Control inciUrg.
+        /// Control inciFin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label inciUrg;
+        protected global::System.Web.UI.WebControls.Label inciFin;
 
         /// <summary>
         /// Control rptIncidencias.

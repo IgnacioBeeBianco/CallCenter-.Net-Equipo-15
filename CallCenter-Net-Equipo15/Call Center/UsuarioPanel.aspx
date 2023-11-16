@@ -124,14 +124,14 @@
         }
     </style>
 
-    <asp:ScriptManager ID="SMModal" runat="server" />
+    <asp:ScriptManager ID="SMModal" runat="server"/>
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>
             <div id="modalUsuarios" runat="server" style="display: none;">
                 <div class="custom-modal card">
                     <div class="card-header">
                         <div class="card-Title">
-                            <asp:Label ID="lblTitle" runat="server" Text="" CssClass=""></asp:Label>
+                            <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label>
                             <asp:Label ID="lblNombre" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
