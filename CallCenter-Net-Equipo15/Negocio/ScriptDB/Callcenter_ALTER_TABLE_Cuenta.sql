@@ -1,4 +1,0 @@
-ALTER TABLE Cuenta 
-ADD Estado BIT DEFAULT 1
-
-UPDATE Cuenta SET Estado = 1

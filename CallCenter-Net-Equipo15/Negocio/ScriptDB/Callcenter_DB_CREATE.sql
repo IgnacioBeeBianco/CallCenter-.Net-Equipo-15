@@ -36,6 +36,7 @@ BEGIN
         email VARCHAR(300) NOT NULL,
         password_ VARCHAR(300) NOT NULL,
         id_rol INT NOT NULL,
+        estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id),
         FOREIGN KEY (id_rol) REFERENCES Rol(id),
         UNIQUE(email)
@@ -62,6 +63,7 @@ BEGIN
     CREATE TABLE Prioridad (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(150) NOT NULL UNIQUE,
+        nivelPrioridad SMALLINT NOT NULL,
         estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
@@ -80,7 +82,7 @@ BEGIN
         telefono VARCHAR(10) NOT NULL,
         genero CHAR NOT NULL CHECK (genero = 'M' or genero = 'F' or genero = 'X'),
         cuenta_id INT NOT NULL,
-        Estado BIT DEFAULT 1,
+        estado BIT DEFAULT 1,
         PRIMARY KEY (id),
         FOREIGN KEY (cuenta_id) REFERENCES Cuenta(id),
         UNIQUE(dni)
@@ -94,6 +96,7 @@ BEGIN
     CREATE TABLE Estado (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(100) NOT NULL,
+        nivelEstado SMALLINT NOT NULL,
         estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
@@ -123,46 +126,3 @@ BEGIN
         FOREIGN KEY(tipo_incidencia_id) REFERENCES TipoIncidencia(id)
     )
 END
-
-
-INSERT INTO Incidencia (creador_id, asignado_id, fecha_creacion, fecha_cierre, estado_id, prioridad_id, tipo_incidencia_id, comentario_cierra, problematica)
-VALUES
-    (1, 1, '2023-11-13 08:00:00', '2023-11-14 10:30:00', 1, 2, 2, 'Comentario de cierre', 'Descripción del problema');
-
- SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica
- FROM Incidencia as I
- INNER JOIN Usuario as U on I.creador_id = U.cuenta_id
- INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id
- INNER JOIN Estado as E on I.estado_id = E.id
- INNER JOIN Prioridad as P on I.prioridad_id = P.id
- INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid
- WHERE E.nombre LIKE 'Abierto'
-                    
-SELECT *
-FROM Estado
-WHERE nombre <> 'Abierto';
-
-INSERT INTO Incidencia (
-    creador_id,
-    asignado_id,
-    fecha_creacion,
-    fecha_cierre,
-    estado_id,
-    prioridad_id,
-    tipo_incidencia_id,
-    comentario_cierra,
-    problematica
-)
-VALUES (
-    1, -- ID del creador (reemplaza con el valor correcto)
-    1, -- ID del asignado (reemplaza con el valor correcto)
-    GETDATE(), -- Fecha de creación (puedes usar la función adecuada para obtener la fecha actual)
-    GETDATE(),
-    null, -- Fecha de cierre (puedes usar la función adecuada para obtener la fecha actual)
-    3, -- ID del estado (reemplaza con el valor correcto)
-    1, -- ID de la prioridad (reemplaza con el valor correcto)
-    2, -- ID del tipo de incidencia (reemplaza con el valor correcto)
-    'Comentario de cierre aquí', -- Comentario de cierre (reemplaza con el valor correcto)
-    'Descripción del problema aquí' -- Descripción del problema (reemplaza con el valor correcto)
-);
-
