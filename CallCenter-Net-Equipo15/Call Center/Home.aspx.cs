@@ -13,9 +13,10 @@ namespace Call_Center
         protected void Page_Load(object sender, EventArgs e)
         {
             IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+            int id=0;
             if (!IsPostBack)
             {
-                int id = getIDsesion();
+                id = getIDsesion();
                 rptIncidencias.DataSource = incidenciaDAO.ListByUsuarioId(id);
                 rptIncidencias.DataBind();
             }
@@ -24,6 +25,7 @@ namespace Call_Center
 
                 h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
             }
+            inciTotales.Text= incidenciaDAO.incidenciasTotales(id).ToString();
         }
         protected int getIDsesion()
         {

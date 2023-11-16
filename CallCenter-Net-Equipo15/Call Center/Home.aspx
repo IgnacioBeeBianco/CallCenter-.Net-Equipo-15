@@ -30,19 +30,23 @@
         <div class="info-container">
             <div>
                 <h4>Incidencias totales</h4>
-                <asp:Label Text="0" runat="server" ID="inciTotales" />
+                <asp:Label Text="" runat="server" ID="inciTotales" />
             </div>
             <div>
                 <h4>Incidencias urgentes</h4>
-                <asp:Label Text="0" runat="server" ID="inciUrg" />
+                <asp:Label Text="" runat="server" ID="inciUrg" />
             </div>
             <div>
                 <h4>Incidencias pendientes</h4>
-                <asp:Label Text="0" runat="server" ID="inciPen" />
+                <asp:Label Text="" runat="server" ID="inciPen" />
             </div>
             <div>
                 <h4>Incidencias finalizadas</h4>
-                <asp:Label Text="0" runat="server" ID="inciFin" />
+                <asp:Label Text="" runat="server" ID="inciFin" />
+            </div>
+            <div>
+                <h4>Incidencias cerradas</h4>
+                <asp:Label Text="" runat="server" ID="inciClose" />
             </div>
         </div>
     </section>
