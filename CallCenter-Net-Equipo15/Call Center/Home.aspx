@@ -29,8 +29,12 @@
         <p>Cantidad de incidencias por Telefonista</p>
         <div class="info-container">
             <div>
-                <h4>Incidencias realizadas</h4>
-                <asp:Label Text="0" runat="server" ID="inciReali" />
+                <h4>Incidencias totales</h4>
+                <asp:Label Text="0" runat="server" ID="inciTotales" />
+            </div>
+            <div>
+                <h4>Incidencias urgentes</h4>
+                <asp:Label Text="0" runat="server" ID="inciUrg" />
             </div>
             <div>
                 <h4>Incidencias pendientes</h4>
@@ -39,10 +43,6 @@
             <div>
                 <h4>Incidencias finalizadas</h4>
                 <asp:Label Text="0" runat="server" ID="inciFin" />
-            </div>
-            <div>
-                <h4>Incidencias urgentes</h4>
-                <asp:Label Text="0" runat="server" ID="inciUrg" />
             </div>
         </div>
     </section>
