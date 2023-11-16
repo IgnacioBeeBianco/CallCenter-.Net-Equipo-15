@@ -42,6 +42,15 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Label inciPen;
 
         /// <summary>
+        /// Control inciFin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label inciFin;
+
+        /// <summary>
         /// Control inciUrg.
         /// </summary>
         /// <remarks>

@@ -44,7 +44,7 @@
             <div class="col-6 text-center d-flex flex-column justify-content-center align-items-center">
                 <h1>Bienvenido!</h1>
                 <p>Si no tenés una cuenta, registrate para usar nuestra app</p>
-                 <asp:Button ID="RegisterButton" runat="server" Text="Registrarse" CssClass="btn btn-outline-primary" OnClick="LoginButton_Click" />
+                 <asp:Button ID="RegisterButton" runat="server" Text="Registrarse" CssClass="btn btn-outline-primary" OnClick="RegistrarseButton_Click" />
             </div>
         </div>
         
