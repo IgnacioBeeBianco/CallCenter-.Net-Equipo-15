@@ -9,7 +9,7 @@ BEGIN
 
     BEGIN TRY
         UPDATE Usuario SET estado = 0 WHERE id = (SELECT id FROM deleted)
-        UPDATE Cuenta SET Estado = 0 WHERE id = (SELECT cuenta_id from deleted)
+        UPDATE Cuenta SET estado = 0 WHERE id = (SELECT cuenta_id from deleted)
         COMMIT TRANSACTION
     END TRY
 
