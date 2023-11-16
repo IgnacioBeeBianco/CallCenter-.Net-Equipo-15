@@ -17,6 +17,9 @@
 <body>
     
     <form id="form1" runat="server" class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="row">
+
+        </div>
         <div class="container d-flex shadow mb-5 rounded-4 p-5 bg-dark">
             <div class="form-container col-6 p-5">
                 <div class="header mb-5 text-center">
@@ -39,6 +42,15 @@
                 <div class="button-container text-center">
                     <asp:Button ID="LoginButton" runat="server" Text="Iniciar sesión" CssClass="btn btn-primary w-50" OnClick="LoginButton_Click" />
                 </div>
+
+                 <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"])
+                     { %>
+                         <div class="alert alert-danger transition-effect mt-3" role="alert">
+                             Oops...
+                             <br />
+                             Email o contraseña incorrectos
+                         </div>
+                 <% } %>
                
              </div>
             <div class="col-6 text-center d-flex flex-column justify-content-center align-items-center">
@@ -54,14 +66,7 @@
                     
 
 
-        <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"])
-            { %>
-        <div class="alert alert-danger transition-effect" role="alert">
-            Oops...
-            <br />
-            Parece que hay algo inválido en tus datos
-        </div>
-        <% } %>
+       
                 
     </form>
 

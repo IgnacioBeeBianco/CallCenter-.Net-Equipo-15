@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.master.cs" Inherits="Call_Center.Master" %>
+﻿﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.master.cs" Inherits="Call_Center.Master" %>
 
 <!DOCTYPE html>
 
@@ -17,72 +17,73 @@
 </head>
 <body>
     <form id="form1" runat="server" class="vh-100">
-        <div class="row" style="--bs-gutter-x: none">
-            <div class="col-2">
-                <div class="d-flex flex-column flex-shrink-0 border-end border-secondary-subtle vh-100 navbar navbar-dark align-items-start custom-nav">
-                    <div class="p-5">
-                        <div class="w-100 navbar-brand">
-                            <a class="text-start align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="Home.aspx">
-                                <p class="fw-bold">Tu callcenter</p>
-                            </a>
-                        </div>
-                        <div class="mb-auto">
-                            <ul class="navbar-nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Home.aspx"><i class="bi bi-house me-2"></i>
-                                        <span class="d-sm-none d-md-inline">Dashboard</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item" id="adminDashboard" runat="server">
-                                    <a class="nav-link" href="AdminPanel.aspx">
-                                        <i class="bi bi-gear me-2"></i>
-                                        <span class="d-sm-none d-md-inline">Admin Panel</span>
-                                    </a>
-                                </li>
+        <header class="navbar navbar-dark sticky-top bg-dark flex-shrink-0 p-3">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="Home.aspx">TU CALLCENTER</a>
+        </header>       
+        
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Navegación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body p-5">
+            <div class="mb-auto">
+                <ul class="navbar-nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
+                    <li class="nav-item" id="dashboard">
+                        <a class="nav-link" href="/Home.aspx"><i class="bi bi-house me-2"></i>
+                            <span class="d-sm-none d-md-inline">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="adminDashboard" runat="server">
+                        <a class="nav-link" href="AdminPanel.aspx">
+                            <i class="bi bi-gear me-2"></i>
+                            <span class="d-sm-none d-md-inline">Admin Panel</span>
+                        </a>
+                    </li>
                                 
-                                <li class="nav-item" id="incidenciaDashboard" runat="server">
-                                    <a class="nav-link" href="IncidenciaPanel.aspx">
-                                        <i class="bi bi-plus-circle me-2"></i>
-                                        <span class="d-sm-none d-md-inline">Incidencias</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="user-info border-top border-secondary-subtle p-4 w-100 d-flex">
-                        <asp:LinkButton ID="ImageUser" runat="server" CssClass="rounded-circle" OnClick="ImageUser_Click"  type="button">
-                            <asp:Image ID="image1" runat="server" Width="50" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
-
-                        </asp:LinkButton>
-
-                        <div class="btn-group dropup">
-                            <button type="button" class="btn">
-                                <asp:Label runat="server" ID="Username" CssClass="dropdown-item"></asp:Label>
-                            </button>
-                            <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="UsuarioPanel.aspx">Perfil</a></li>
-                                <li>                                
-                                    <asp:LinkButton ID="LogoutButton" runat="server" Text="Cerrar sesion" CssClass="dropdown-item" OnClick="LogoutButton_Click"></asp:LinkButton>
-
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
+                    <li class="nav-item" id="incidenciaDashboard" runat="server">
+                        <a class="nav-link" href="IncidenciaPanel.aspx">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            <span class="d-sm-none d-md-inline">Incidencias</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="col-10">
-                <div class="p-3 h-100">
-                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                    </asp:ContentPlaceHolder>
+          </div>
+            <div class="user-info mt-auto border-top p-4 w-100">
+                <div class="container-fluid d-flex align-items-center justify-content-between">
+                    <asp:LinkButton ID="ImageUser" runat="server" CssClass="rounded-circle" OnClick="ImageUser_Click"  type="button">
+                        <asp:Image ID="image1" runat="server" Width="50" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
+                    </asp:LinkButton>
+
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn">
+                            <asp:Label runat="server" ID="Username" CssClass="dropdown-item"></asp:Label>
+                        </button>
+                        <button type="button" class="btn dropdown-toggle dropdown-toggle-split float-end" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="UsuarioPanel.aspx">Perfil</a></li>
+                            <li>                                
+                                <asp:LinkButton ID="LogoutButton" runat="server" Text="Cerrar sesion" CssClass="dropdown-item" OnClick="LogoutButton_Click"></asp:LinkButton>
+
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <main class="main-content m-4">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+        </main>
 
     </form>
 

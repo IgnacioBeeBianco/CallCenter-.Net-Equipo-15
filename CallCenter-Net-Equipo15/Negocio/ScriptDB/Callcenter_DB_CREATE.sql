@@ -1,6 +1,11 @@
-USE Master
+USE Master;
+ALTER DATABASE Callcenter SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
-
+USE master;
+DROP DATABASE Callcenter
+GO
+USE master;
+GO
 -- Verificar si la base de datos "Callcenter" existe, y si no, crearla
 IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Callcenter')
 BEGIN
@@ -17,6 +22,7 @@ BEGIN
     CREATE TABLE Rol (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(100) NOT NULL,
+        estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
 END
@@ -41,10 +47,11 @@ GO
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'TipoIncidencia')
 BEGIN
     CREATE TABLE TipoIncidencia (
-        oid BIGINT IDENTITY(1,1),
+        id INT IDENTITY(1,1),
         nombre NVARCHAR(150) NOT NULL,
         descripcion NVARCHAR(300),
-        PRIMARY KEY (oid)
+        estado BIT NOT NULL DEFAULT 1
+        PRIMARY KEY (id)
     )
 END
 GO
@@ -53,8 +60,9 @@ GO
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Prioridad')
 BEGIN
     CREATE TABLE Prioridad (
-        id BIGINT IDENTITY(1,1),
+        id INT IDENTITY(1,1),
         nombre NVARCHAR(150) NOT NULL UNIQUE,
+        estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
 END
@@ -86,6 +94,7 @@ BEGIN
     CREATE TABLE Estado (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(100) NOT NULL,
+        estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
 END
@@ -98,18 +107,19 @@ BEGIN
         creador_id INT NOT NULL,
         asignado_id INT NOT NULL,
         fecha_creacion DATETIME NOT NULL,
-        fecha_cierre DATETIME NOT NULL,
+        fecha_ultimo_cambio DATETIME,
         estado_id INT NOT NULL,
-        prioridad_id BIGINT NOT NULL,
-        tipo_incidencia_id BIGINT NOT NULL,
+        prioridad_id INT NOT NULL,
+        tipo_incidencia_id INT NOT NULL,
         comentario_cierra NVARCHAR(300),
-        problematica NVARCHAR(500)
+        problematica NVARCHAR(500),
+        estado BIT NOT NULL DEFAULT 1
 
         PRIMARY KEY(id),
         FOREIGN KEY(creador_id) REFERENCES Usuario(id),
         FOREIGN KEY(asignado_id) REFERENCES Usuario(id),
         FOREIGN KEY(estado_id) REFERENCES Estado(id),
         FOREIGN KEY(prioridad_id) REFERENCES Prioridad(id),
-        FOREIGN KEY(tipo_incidencia_id) REFERENCES TipoIncidencia(oid)
+        FOREIGN KEY(tipo_incidencia_id) REFERENCES TipoIncidencia(id)
     )
 END
