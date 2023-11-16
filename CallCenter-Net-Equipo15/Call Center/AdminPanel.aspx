@@ -73,6 +73,13 @@
         }
 
     </style>
+    <main>
+        <section>
+            <h1>Admin Panel</h1>
+        </section>
+        <section>
+            
+        </section>
 
     <div class="row">
         <div class="col-md-3">
@@ -148,15 +155,8 @@
 
 
     </div>
+   </main>
 
-    <main>
-        <section>
-            <h1>Gestioná la app</h1>
-        </section>
-        <section>
-            <div class="container">
-                <h1>Usuarios</h1>
-            </div>
-        </section>
-    </main>
+
+    
 </asp:Content>

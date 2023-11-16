@@ -51,6 +51,15 @@ namespace Call_Center
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl incidenciaDashboard;
 
         /// <summary>
+        /// Control ImageUser.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ImageUser;
+
+        /// <summary>
         /// Control image1.
         /// </summary>
         /// <remarks>
@@ -67,15 +76,6 @@ namespace Call_Center
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Username;
-
-        /// <summary>
-        /// Control PageNameLabel.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageNameLabel;
 
         /// <summary>
         /// Control LogoutButton.

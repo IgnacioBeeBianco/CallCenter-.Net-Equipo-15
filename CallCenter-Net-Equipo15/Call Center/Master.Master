@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html  data-bs-theme="dark">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Call Center</title>
@@ -19,56 +19,65 @@
     <form id="form1" runat="server" class="vh-100">
         <div class="row" style="--bs-gutter-x: none">
             <div class="col-2">
-                <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100">
-                    <a class="d-flex justify-content-center text-center align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="Home.aspx">
-                        <span>Tu callcenter</span>
-                    </a>
-                    <hr />
-                    <ul class="nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
-                        <li class="nav-item">
-                            <a class="text-white text-decoration-none" href="/Home.aspx"><i class="bi bi-house me-2"></i>
-                                <span class="d-sm-none d-md-inline">Dashboard</span>
+                <div class="d-flex flex-column flex-shrink-0 border-end border-secondary-subtle vh-100 navbar navbar-dark align-items-start custom-nav">
+                    <div class="p-5">
+                        <div class="w-100 navbar-brand">
+                            <a class="text-start align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="Home.aspx">
+                                <p class="fw-bold">Tu callcenter</p>
                             </a>
-                        </li>
-                        <li class="nav-item" id="adminDashboard" runat="server">
-                            <a class="text-white text-decoration-none" href="AdminPanel.aspx">
-                                <i class="bi bi-gear me-2"></i>
-                                <span class="d-sm-none d-md-inline">Admin Panel</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" id="incidenciaDashboard" runat="server">
-                            <a class="text-white text-decoration-none" href="IncidenciaPanel.aspx">
-                                <i class="bi bi-plus-circle"></i>
-                                <span class="d-sm-none d-md-inline">Incidencias Panel</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr />
-                    <div class="user-info">
-                        <a href="UsuarioPanel.aspx" class="text-decoration-none">
-                            <asp:Image ID="image1" runat="server" Width="50" CssClass="img-thumbnail" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
-                            <span class="d-sm-none d-md-inline ms-2">
-                                <asp:Label runat="server" ID="Username" CssClass="d-sm-none d-md-inline text-white"></asp:Label>
-                            </span>
-                        </a>
+                        </div>
+                        <div class="mb-auto">
+                            <ul class="navbar-nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Home.aspx"><i class="bi bi-house me-2"></i>
+                                        <span class="d-sm-none d-md-inline">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="adminDashboard" runat="server">
+                                    <a class="nav-link" href="AdminPanel.aspx">
+                                        <i class="bi bi-gear me-2"></i>
+                                        <span class="d-sm-none d-md-inline">Admin Panel</span>
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item" id="incidenciaDashboard" runat="server">
+                                    <a class="nav-link" href="IncidenciaPanel.aspx">
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                        <span class="d-sm-none d-md-inline">Incidencias</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="user-info border-top border-secondary-subtle p-4 w-100 d-flex">
+                        <asp:LinkButton ID="ImageUser" runat="server" CssClass="rounded-circle" OnClick="ImageUser_Click"  type="button">
+                            <asp:Image ID="image1" runat="server" Width="50" AlternateText="icon-picture" ImageUrl='<%# setearImagenSegunRol() %>' />
 
+                        </asp:LinkButton>
+
+                        <div class="btn-group dropup">
+                            <button type="button" class="btn">
+                                <asp:Label runat="server" ID="Username" CssClass="dropdown-item"></asp:Label>
+                            </button>
+                            <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="UsuarioPanel.aspx">Perfil</a></li>
+                                <li>                                
+                                    <asp:LinkButton ID="LogoutButton" runat="server" Text="Cerrar sesion" CssClass="dropdown-item" OnClick="LogoutButton_Click"></asp:LinkButton>
+
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
             <div class="col-10">
-                <div class="row d-flex align-items-center p-2 justify-content-between bg-dark text-white">
-                    <div class="col-3">
-                        <span runat="server" id="PageNameLabel"></span>
-                    </div>
-                    <div class="logout-button w-auto">
-                        <asp:LinkButton ID="LogoutButton" runat="server" CssClass="btn btn-outline-danger" OnClick="LogoutButton_Click">
-                            <i class="bi bi-door-open-fill me-2"></i>
-                            Cerrar sesión
-                        </asp:LinkButton>
-
-                    </div>
-                </div>
-                <div class="p-3 bg-light">
+                <div class="p-3 h-100">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
