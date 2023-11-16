@@ -26,7 +26,7 @@ namespace Call_Center.ABML
         protected void btnQuitar(object sender, EventArgs e)
         {
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
-            long id = long.Parse(((Button)sender).CommandArgument);
+            int id = int.Parse(((Button)sender).CommandArgument);
             prioridadDAO.Delete(id);
             Response.Redirect("Prioridad.aspx");
         }
@@ -44,7 +44,7 @@ namespace Call_Center.ABML
                     break;
 
                 case "modify":
-                    long id = long.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((Button)sender).CommandArgument);
                     txbPrioNombre.Text = prioridadDAO.getPrioridad(id).Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbPrioNombre.Text;
@@ -80,7 +80,7 @@ namespace Call_Center.ABML
             }
             else
             {
-                long id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
+                int id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
                 string newValue = txbPrioNombre.Text;
                 //Validamos antes de efectuar ningun cambio
                 if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)

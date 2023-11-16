@@ -63,7 +63,7 @@ BEGIN
     CREATE TABLE Prioridad (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(150) NOT NULL UNIQUE,
-        nivelPrioridad SMALLINT NOT NULL,
+        nivelPrioridad INT NOT NULL,
         estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )
@@ -96,7 +96,7 @@ BEGIN
     CREATE TABLE Estado (
         id INT IDENTITY(1,1),
         nombre NVARCHAR(100) NOT NULL,
-        nivelEstado SMALLINT NOT NULL,
+        nivelEstado INT NOT NULL,
         estado BIT NOT NULL DEFAULT 1
         PRIMARY KEY (id)
     )

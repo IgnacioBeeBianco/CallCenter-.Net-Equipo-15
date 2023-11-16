@@ -16,21 +16,21 @@ namespace DAO
         private TipoIncidencia LoadTipoIncidencia(ref AccesoADatos accesoADatos)
         {
             TipoIncidencia tipoIncidencia = new TipoIncidencia();
-            tipoIncidencia.Oid = (long)accesoADatos.Lector["oid"];
+            tipoIncidencia.id = (int)accesoADatos.Lector["id"];
             tipoIncidencia.Nombre = accesoADatos.Lector["nombre"].ToString();
             tipoIncidencia.Descripcion = accesoADatos.Lector["descripcion"].ToString();
 
             return tipoIncidencia;
         }
 
-        public TipoIncidencia getTipoIncidencia(long Id)
+        public TipoIncidencia getTipoIncidencia(int Id)
         {
             accesoADatos = new AccesoADatos();
             TipoIncidencia tipoIncidencia = new TipoIncidencia();
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE oId = @Id";
+                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia WHERE idd = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -60,7 +60,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -90,7 +90,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT oid, nombre, descripcion FROM TipoIncidencia";
+                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -136,13 +136,13 @@ namespace DAO
             }
         }
 
-        public void Update(TipoIncidencia newValue, long id)
+        public void Update(TipoIncidencia newValue, int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE TipoIncidencia SET nombre = @Nombre, descripcion = @Descripcion WHERE oid = @Id";
+                string consulta = "UPDATE TipoIncidencia SET nombre = @Nombre, descripcion = @Descripcion WHERE id = @Id";
 
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@Nombre", newValue.Nombre);
@@ -162,16 +162,16 @@ namespace DAO
             }
         }
 
-        public void Delete(long oid)
+        public void Delete(int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consultar = "DELETE FROM TipoIncidencia WHERE oid = @Oid";
+                string consultar = "DELETE FROM TipoIncidencia WHERE id = @id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Oid", oid);
+                accesoADatos.setearParametro("@id", id);
                 accesoADatos.consultar(consultar);
                 accesoADatos.ejecutarAccion();
             }

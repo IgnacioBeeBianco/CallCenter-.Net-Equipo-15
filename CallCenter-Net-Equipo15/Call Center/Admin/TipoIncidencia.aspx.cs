@@ -25,7 +25,7 @@ namespace Call_Center.ABML
         protected void btnQuitar(object sender, EventArgs e)
         {
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
-            long id = long.Parse(((Button)sender).CommandArgument);
+            int id = int.Parse(((Button)sender).CommandArgument);
             tipoIncidenciaDAO.Delete(id);
             Response.Redirect("TipoIncidencia.aspx");
         }
@@ -43,7 +43,7 @@ namespace Call_Center.ABML
                     break;
 
                 case "modify":
-                    long id = long.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((Button)sender).CommandArgument);
                     Dominio.TipoIncidencia tipoIncidencia = tipoIncidenciaDAO.getTipoIncidencia(id);
                     txbPrioNombre.Text = tipoIncidencia.Nombre;
                     txbPrioDesc.Text = tipoIncidencia.Descripcion;
@@ -87,7 +87,7 @@ namespace Call_Center.ABML
             }
             else
             {
-                long id = tipoIncidenciaDAO.getTipoIncidencia(lblNombre.Text).Oid;
+                int id = tipoIncidenciaDAO.getTipoIncidencia(lblNombre.Text).id;
                 Dominio.TipoIncidencia newValue = new Dominio.TipoIncidencia();
                 newValue.Nombre = txbPrioNombre.Text;
                 newValue.Descripcion = txbPrioDesc.Text;
@@ -98,7 +98,7 @@ namespace Call_Center.ABML
                     lblPrioErrores.Text = "No hay una prioridad buscada";
                     return;
                 }
-                if (tipoIncidenciaDAO.getTipoIncidencia(txbPrioNombre.Text).Nombre != null && tipoIncidenciaDAO.getTipoIncidencia(lblNombre.Text).Oid != tipoIncidenciaDAO.getTipoIncidencia(txbPrioNombre.Text).Oid)
+                if (tipoIncidenciaDAO.getTipoIncidencia(txbPrioNombre.Text).Nombre != null && tipoIncidenciaDAO.getTipoIncidencia(lblNombre.Text).id != tipoIncidenciaDAO.getTipoIncidencia(txbPrioNombre.Text).id)
                 {
                     alertPrio.Style["display"] = "block";
                     lblPrioErrores.Text = "TipoIncidencia ya creada...";

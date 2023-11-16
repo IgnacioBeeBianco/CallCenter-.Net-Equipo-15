@@ -18,6 +18,7 @@ namespace DAO
             Estado estado = new Estado();
             estado.Id = (int)accesoADatos.Lector["id"];
             estado.Nombre = accesoADatos.Lector["nombre"].ToString();
+            estado.nivelEstado = (int)accesoADatos.Lector["nivelEstado"];
 
             return estado;
         }
@@ -29,7 +30,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Estado WHERE Id = @Id";
+                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -59,7 +60,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Estado WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -89,7 +90,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Estado";
+                string consulta = "SELECT id, nombre, nivelEstado FROM Estado";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -118,7 +119,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Estado WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", "%" + Nombre + "%");
@@ -147,10 +148,11 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Estado VALUES (@Nombre)";
+                string consulta = "INSERT INTO Estado VALUES (@Nombre, @nivelEstado)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", estado.Nombre);
+                accesoADatos.setearParametro("@nivelEstado", estado.nivelEstado);
                 accesoADatos.ejecutarAccion();
 
             }
@@ -164,16 +166,17 @@ namespace DAO
             }
         }
 
-        public void Update(string nombre, int id)
+        public void Update(string nombre, int nivelEstado, int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE Estado SET nombre = @Nombre WHERE Id = @Id";
+                string consulta = "UPDATE Estado SET nombre = @Nombre, nivelEstado=@nivelEstado WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@Nombre", nombre);
+                accesoADatos.setearParametro("@nivelEstado", nivelEstado);
                 accesoADatos.setearParametro("@Id", id);
                 accesoADatos.consultar(consulta);
 

@@ -24,10 +24,10 @@ namespace DAO
             incidencia.Estado.Id = (int)accesoADatos.Lector["idEstado"];
             incidencia.Estado.Nombre = accesoADatos.Lector["Estado"].ToString();
             incidencia.FechaCreacion = (DateTime)accesoADatos.Lector["fecha_creacion"];
-            incidencia.FechaCierre = (DateTime)accesoADatos.Lector["fecha_cierre"];
-            incidencia.Prioridad.Id = (long)accesoADatos.Lector["idPrioridad"];
+            incidencia.FechaCierre = (DateTime)accesoADatos.Lector["fecha_ultimo_cambio"];
+            incidencia.Prioridad.Id = (int)accesoADatos.Lector["idPrioridad"];
             incidencia.Prioridad.Nombre = accesoADatos.Lector["Prioridad"].ToString() ;
-            incidencia.TipoIncidencia.Oid = (long)accesoADatos.Lector["idTipoIncidencia"];
+            incidencia.TipoIncidencia.id = (int)accesoADatos.Lector["idTipoIncidencia"];
             incidencia.TipoIncidencia.Nombre = accesoADatos.Lector["TipoIncidencia"].ToString();
             incidencia.ComentarioCierre = accesoADatos.Lector["comentario_cierra"].ToString();
             incidencia.problematica = accesoADatos.Lector["problematica"].ToString();
@@ -36,20 +36,20 @@ namespace DAO
             return incidencia;
         }
 
-        public Incidencia getIncidencia(long Id)
+        public Incidencia getIncidencia(int Id)
         {
             accesoADatos = new AccesoADatos();
             Incidencia incidencia = new Incidencia();
 
             try
             {
-                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
+                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
                     "FROM Incidencia as I " +
                     "INNER JOIN Usuario as U on I.creador_id = U.id " +
                     "INNER JOIN Usuario as U2 on I.asignado_id = U2.id " +
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
-                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
+                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
                     "WHERE I.Id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
@@ -80,13 +80,13 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
+                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
                     "FROM Incidencia as I " +
                     "INNER JOIN Usuario as U on I.creador_id = U.id " +
                     "INNER JOIN Usuario as U2 on I.asignado_id = U2.id " +
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
-                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
+                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
                     "WHERE I.Nombre = @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
@@ -117,10 +117,10 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre, "+
-                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
+                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio, "+
+                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
                                     "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
-                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.oid";
+                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -149,13 +149,13 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad,TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
+                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
                     "FROM Incidencia as I " +
                     "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
                     "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
-                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.oid " +
+                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
                     "WHERE E.Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
@@ -257,10 +257,10 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_cierre, " +
-                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.oid as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
+                string consulta = "SELECT I.id, U.id as idCreador, U.nombre as creador, U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio, " +
+                                    "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
                                     "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
-                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.oid " +
+                                    "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.id " +
                                     "WHERE U.id LIKE @id OR U2.id LIKE @id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);

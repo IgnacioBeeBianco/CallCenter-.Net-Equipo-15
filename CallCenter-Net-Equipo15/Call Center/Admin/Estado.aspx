@@ -9,6 +9,7 @@
             <tr>
                 <th class="d-none">Id</th>
                 <th>Nombre</th>
+                <th>Nivel de Estado</th>
                 <th style="width: 10%" class="text-center">Modificar</th>
                 <th style="width: 10%" class="text-center">Eliminar</th>
             </tr>
@@ -19,6 +20,7 @@
                     <tr>
                         <td class="d-none" name="id"><%# Eval("id") %></td>
                         <td><%# Eval("nombre") %></td>
+                        <td><%# Eval("nivelEstado") %></td>
                         <td style="width: 6%; text-align: center;">
 
                             <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="⛏️" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" />
@@ -56,6 +58,7 @@
                         <div class="card-Title">
                             <asp:Label ID="lblTitle" runat="server" Text="" CssClass=""></asp:Label>
                             <asp:Label ID="lblNombre" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblNivelEstado" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                     <div class="card-body">
@@ -63,6 +66,7 @@
 
                             <asp:TextBox ID="txbId" runat="server" Text="" Style="display: none;"></asp:TextBox>
                             <asp:TextBox ID="txbEstadoNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txbNivelEstado" runat="server" placeholder="Nivel de Estado:" CssClass="form-control"></asp:TextBox>
                             <div class="alert alert-danger" id="alertEstado" runat="server" style="display: none;">
                                 <asp:Label ID="lblEstadoErrores" runat="server" Text=""></asp:Label>
                             </div>

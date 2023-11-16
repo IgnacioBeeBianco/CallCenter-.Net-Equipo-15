@@ -69,6 +69,15 @@ namespace Call_Center.ABML
         protected global::System.Web.UI.WebControls.Label lblNombre;
 
         /// <summary>
+        /// Control lblNivelEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNivelEstado;
+
+        /// <summary>
         /// Control txbId.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace Call_Center.ABML
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txbEstadoNombre;
+
+        /// <summary>
+        /// Control txbNivelEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txbNivelEstado;
 
         /// <summary>
         /// Control alertEstado.

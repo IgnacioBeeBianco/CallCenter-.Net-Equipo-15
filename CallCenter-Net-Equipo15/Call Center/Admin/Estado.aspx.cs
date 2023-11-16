@@ -47,6 +47,7 @@ namespace Call_Center.ABML
                     txbEstadoNombre.Text = estadoDAO.getEstado(id).Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbEstadoNombre.Text;
+                    lblNivelEstado.Text= txbEstadoNombre.Text;
                     break;
 
                 default:
@@ -81,6 +82,7 @@ namespace Call_Center.ABML
             {
                 int id = estadoDAO.getEstado(lblNombre.Text).Id;
                 string nombre = txbEstadoNombre.Text;
+                int nivelEstado = int.Parse(txbNivelEstado.Text);
                 //Validamos antes de efectuar ningun cambio
                 if (txbEstadoNombre.Text == "" || txbEstadoNombre.Text == null)
                 {
@@ -94,7 +96,7 @@ namespace Call_Center.ABML
                     lblEstadoErrores.Text = "Estado ya creado...";
                     return;
                 }
-                estadoDAO.Update(nombre, id);
+                estadoDAO.Update(nombre, nivelEstado, id);
             }
 
             Response.Redirect("Estado.aspx");

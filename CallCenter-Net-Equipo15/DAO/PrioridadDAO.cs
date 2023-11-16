@@ -16,13 +16,13 @@ namespace DAO
         private Prioridad LoadTipoIncidencia(ref AccesoADatos accesoADatos)
         {
             Prioridad prioridad = new Prioridad();
-            prioridad.Id = (long)accesoADatos.Lector["id"];
+            prioridad.Id = (int)accesoADatos.Lector["id"];
             prioridad.Nombre = accesoADatos.Lector["nombre"].ToString();
 
             return prioridad;
         }
 
-        public Prioridad getPrioridad(long Id)
+        public Prioridad getPrioridad(int Id)
         {
             accesoADatos = new AccesoADatos();
             Prioridad prioridad = new Prioridad();
@@ -164,7 +164,7 @@ namespace DAO
             }
         }
 
-        public void Update(string newValue, long id)
+        public void Update(string newValue, int id)
         {
             accesoADatos = new AccesoADatos();
 
@@ -189,7 +189,7 @@ namespace DAO
             }
         }
 
-        public void Delete(long Id)
+        public void Delete(int Id)
         {
             accesoADatos = new AccesoADatos();
 
