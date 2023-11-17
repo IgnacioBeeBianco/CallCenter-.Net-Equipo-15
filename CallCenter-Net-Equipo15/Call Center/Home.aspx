@@ -36,11 +36,13 @@
                 }
             }
         }
+                
         window.onload = function () {
             mostrarOcultarSegunRol();
+
         };
     </script>
-    <section class="hero-section vh-30 d-flex bg-primary-subtle">
+    <section>
         <div class="row">
             <div class="col-12">
                 <h4>Bienvenido <span id="h1NomApe" runat="server"></span></h4>
@@ -76,8 +78,8 @@
         <div class="row">
             <div class="col-6">
                 <div class="mb-3">
-                    <asp:Label Text="Filtrar por ID usuario" runat="server" />
-                    <asp:TextBox runat="server" ID="filtro" CssClass="" AutoPostBack="true" OnTextChanged="filtro_TextChanged" />
+                    <asp:Label Text="Filtrar por ID usuario" runat="server" ID="filtroIDusu" Visible="false" />
+                    <asp:TextBox runat="server" ID="filtro" CssClass="" AutoPostBack="true" OnTextChanged="filtro_TextChanged" Visible="false" />
                 </div>
             </div>
         </div>
@@ -118,9 +120,16 @@
             </tbody>
         </table>
     </section>
-    <section>
+    <section id="usuDatos" visible="false" runat="server">
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <asp:Label Text="Filtrar por DNI" runat="server" ID="lblFiltro" Visible="false" />
+                    <asp:TextBox runat="server" ID="txbFiltraDNI" CssClass="" AutoPostBack="true" OnTextChanged="txbFiltraDNI_TextChanged" Visible="false" />
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered">
-            <p>Usuarios = Clientes con un filtro para buscar por DNI</p>
             <thead>
                 <tr>
                     <th>Id</th>

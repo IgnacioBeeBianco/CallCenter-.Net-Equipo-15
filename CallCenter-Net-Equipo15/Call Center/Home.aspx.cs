@@ -15,17 +15,19 @@ namespace Call_Center
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
         Usuario usuario = new Usuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            int id=0;
+            
+            int id = 0;
             if (!IsPostBack)
             {
                 id = getIDsesion();
                 Session.Add("listaIncidencias", incidenciaDAO.ListByUsuarioId(id));
+                Session.Add("listaUsuario", usuarioDAO.GetUsuariosClientes());
                 rptIncidencias.DataSource = Session["listaIncidencias"];
                 rptIncidencias.DataBind();
-                rptUsuarios.DataSource = usuarioDAO.GetUsuariosClientes();
+                rptUsuarios.DataSource = Session["listaUsuario"];
                 rptUsuarios.DataBind();
             }
 
@@ -33,6 +35,11 @@ namespace Call_Center
             {
                 CargarIncidencias(id);
                 cantInci.Visible = true;
+                filtroIDusu.Visible = true;
+                filtro.Visible = true;
+                usuDatos.Visible = true;
+                txbFiltraDNI.Visible = true;
+                lblFiltro.Visible = true;
             }
 
             if (Session["Usuario"] != null && Session["Cuenta"] != null)
@@ -67,12 +74,12 @@ namespace Call_Center
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-
+            int id=getIDsesion();
             if (string.IsNullOrWhiteSpace(filtro.Text))
             {
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
-                CargarIncidencias(getIDsesion());
+                CargarIncidencias(id);
                 return;
             }
 
@@ -82,14 +89,48 @@ namespace Call_Center
 
                 rptIncidencias.DataSource = listaFiltrada;
                 rptIncidencias.DataBind();
-                CargarIncidencias(getIDsesion());
+                CargarIncidencias(id);
             }
             else
             {
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
-                CargarIncidencias(getIDsesion());
+                CargarIncidencias(id);
             }
+        }
+
+        protected void txbFiltraDNI_TextChanged(object sender, EventArgs e)
+        {
+            List<Usuario> listaUsu = (List<Usuario>)Session["listaUsuario"];
+            int id = getIDsesion();
+            string DNIFiltrado = txbFiltraDNI.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(DNIFiltrado))
+            {
+                rptUsuarios.DataSource = listaUsu;
+                rptUsuarios.DataBind();
+                CargarIncidencias(id);
+                return;
+            }
+            else
+            {
+                List<Usuario> listaFiltrada = listaUsu.Where(x => x.DNI == DNIFiltrado).ToList();
+
+                rptUsuarios.DataSource = listaFiltrada;
+                rptUsuarios.DataBind();
+                CargarIncidencias(id);
+            }
+        }
+
+        
+
+        private int ObtenerRecuentoPorEstado(string estado)
+        {
+            // Lógica para obtener el recuento de incidencias por estado.
+            // Puedes usar tu lógica y acceder a la base de datos aquí.
+            // Por ahora, vamos a devolver un valor aleatorio.
+            Random random = new Random();
+            return random.Next(1, 20);
         }
 
     }
