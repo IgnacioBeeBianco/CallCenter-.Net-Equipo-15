@@ -24,6 +24,15 @@ namespace Call_Center
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1NomApe;
 
         /// <summary>
+        /// Control cantInci.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cantInci;
+
+        /// <summary>
         /// Control inciTotales.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace Call_Center
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label inciClose;
+
+        /// <summary>
+        /// Control filtro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filtro;
 
         /// <summary>
         /// Control rptIncidencias.

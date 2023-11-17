@@ -164,23 +164,32 @@ namespace DAO
             }
         }
 
-        public void UpdatePerfil(Usuario usuario)
+        public List<Usuario> GetUsuariosClientes()
         {
             try
             {
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre = 'Cliente'";
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearProcedimiento("SP_UpdatePerfil");
-                accesoADatos.setearParametro("@id", usuario.Id);
-                accesoADatos.setearParametro("@nombre", usuario.Nombre);
-                accesoADatos.setearParametro("@apellido", usuario.Apellido);
-                accesoADatos.setearParametro("@dni", usuario.DNI);
-                accesoADatos.setearParametro("@domicilio", usuario.Domicilio);
-                accesoADatos.setearParametro("@telefono", usuario.Telefono);
-                accesoADatos.setearParametro("@genero", usuario.Genero);
-                accesoADatos.setearParametro("@email", usuario.CuentaId.Email);
-                accesoADatos.setearParametro("@password_", usuario.CuentaId.Password);
-                accesoADatos.setearParametro("@id_rol", usuario.CuentaId.Rol.Id);
-                accesoADatos.ejecutarAccion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoADatos.Lector["id"];
+                    usuario.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    usuario.Apellido = accesoADatos.Lector["apellido"].ToString();
+                    usuario.DNI = accesoADatos.Lector["dni"].ToString();
+                    usuario.Telefono = accesoADatos.Lector["telefono"].ToString();
+
+                    usuario.CuentaId = new Cuenta();
+                    usuario.CuentaId.Rol = new Rol();
+                    usuario.CuentaId.Rol.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    //usuario.Estado = (bool)accesoADatos.Lector["estado"];
+
+                    usuarios.Add(usuario);
+                }
+                return usuarios;
             }
             catch (Exception ex)
             {
@@ -190,6 +199,7 @@ namespace DAO
             {
                 accesoADatos.cerrarConexion();
             }
+
         }
     }
 }

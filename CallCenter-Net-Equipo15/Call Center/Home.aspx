@@ -17,7 +17,29 @@
                 padding: 10px;
                 box-sizing: border-box;
             }
+
+        .oculto {
+            display: none;
+        }
     </style>
+    <script>
+        function mostrarOcultarSegunRol() {
+            var elementosMostrarOcultar = document.querySelectorAll('.elementoMostrarOcultar');
+
+            for (var i = 0; i < elementosMostrarOcultar.length; i++) {
+                var elemento = elementosMostrarOcultar[i];
+                if (rolUsuario === 'Cliente') {
+                    elemento.classList.add('oculto');
+                }
+                else {
+                    elemento.classList.remove('oculto');
+                }
+            }
+        }
+        window.onload = function () {
+            mostrarOcultarSegunRol();
+        };
+    </script>
     <section class="hero-section vh-30 d-flex bg-primary-subtle">
         <div class="row">
             <div class="col-12">
@@ -25,8 +47,7 @@
             </div>
         </div>
     </section>
-    <section>
-        <p>Cantidad de incidencias por Telefonista</p>
+    <section id="cantInci" visible="false" runat="server">
         <div class="info-container">
             <div>
                 <h4>Incidencias totales</h4>
@@ -52,18 +73,27 @@
     </section>
     <section>
         <p>Registro de Incidencias</p>
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <asp:Label Text="Filtrar por ID usuario" runat="server" />
+                    <asp:TextBox runat="server" ID="filtro" CssClass="" AutoPostBack="true" OnTextChanged="filtro_TextChanged" />
+                </div>
+            </div>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Solicitado por</th>
+                    <th>Id incidencia</th>
+                    <th class="d-none">Id usuario</th>
+                    <th class="oculto elementoMostrarOcultar">Solicitado por</th>
                     <th>Tipo de incidencia</th>
                     <th>Problematica</th>
-                    <th>Asignado a</th>
-                    <th>Prioridad</th>
+                    <th class="oculto elementoMostrarOcultar">Asignado</th>
+                    <th class="oculto elementoMostrarOcultar">Prioridad</th>
                     <th>Estado</th>
                     <th>Fecha de creacion</th>
-                    <th>Fecha de cierre</th>
+                    <th>Fecha ultimo cambio</th>
                     <th>Comentario de cierre</th>
                 </tr>
             </thead>
@@ -72,11 +102,12 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Eval("Id") %></td>
-                            <td><%# Eval("Creador.nombre") %></td>
+                            <td class="d-none"><%# Eval("Creador.id") %></td>
+                            <td class="oculto elementoMostrarOcultar"><%# Eval("Creador.nombre") %></td>
                             <td><%# Eval("TipoIncidencia.nombre") %></td>
                             <td><%# Eval("problematica") %></td>
-                            <td><%# Eval("Asignado.nombre") %></td>
-                            <td><%# Eval("Prioridad.nombre") %></td>
+                            <td class="oculto elementoMostrarOcultar"><%# Eval("Asignado.nombre") %></td>
+                            <td class="oculto elementoMostrarOcultar"><%# Eval("Prioridad.nombre") %></td>
                             <td><%# Eval("Estado.nombre") %></td>
                             <td><%# Eval("FechaCreacion") %></td>
                             <td><%# Eval("FechaCierre") %></td>
@@ -92,24 +123,22 @@
             <p>Usuarios = Clientes con un filtro para buscar por DNI</p>
             <thead>
                 <tr>
-                    <th class="d-none">Id</th>
+                    <th>Id</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>DNI</th>
                     <th>Teléfono</th>
-                    <th>Domicilio</th>
                 </tr>
             </thead>
             <tbody>
                 <asp:Repeater ID="rptUsuarios" runat="server">
                     <ItemTemplate>
                         <tr>
-                            <td class="d-none" name="id" <%# Eval("id") %>></td>
+                            <td><%# Eval("id") %></td>
                             <td><%# Eval("Nombre") %></td>
                             <td><%# Eval("Apellido") %></td>
                             <td><%# Eval("DNI") %></td>
                             <td><%# Eval("Telefono") %></td>
-                            <td><%# Eval("Domicilio") %></td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
