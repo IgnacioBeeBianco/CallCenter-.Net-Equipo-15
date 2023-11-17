@@ -19,13 +19,14 @@ namespace Call_Center
                 id = getIDsesion();
                 rptIncidencias.DataSource = incidenciaDAO.ListByUsuarioId(id);
                 rptIncidencias.DataBind();
+                CargarIncidencias(id);
             }
             if (Session["Usuario"] != null && Session["Cuenta"] != null)
             {
 
                 h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
             }
-            inciTotales.Text= incidenciaDAO.incidenciasTotales(id).ToString();
+            
         }
         protected int getIDsesion()
         {
@@ -38,6 +39,17 @@ namespace Call_Center
             {
                 return 0;
             }
+        }
+
+        protected void CargarIncidencias(int id)
+        {
+            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+
+            inciTotales.Text = incidenciaDAO.incidenciasTotales(id).ToString();
+            inciPen.Text = incidenciaDAO.incidenciasPendiente(id).ToString();
+            inciUrg.Text = incidenciaDAO.incidenciasUrgente(id).ToString();
+            inciFin.Text = incidenciaDAO.incidenciasResuelto(id).ToString();
+            inciClose.Text = incidenciaDAO.incidenciasCerrada(id).ToString();
         }
     }
 }
