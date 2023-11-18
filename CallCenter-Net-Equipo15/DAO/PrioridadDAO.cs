@@ -147,7 +147,7 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Prioridad VALUES (@Nombre)";
+                string consulta = "INSERT INTO Prioridad VALUES (@Nombre, 1)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", prioridad.Nombre);

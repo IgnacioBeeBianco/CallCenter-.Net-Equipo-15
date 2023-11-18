@@ -1,0 +1,9 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="AdminMaster.master.cs" Inherits="Call_Center.NestedMasterPage1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+        <section>
+            <h1>Gestor de entidades</h1>
+        </section>
+        
+</asp:Content>

@@ -4,158 +4,30 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <style>
-        .ver-mas {
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        body {
-            background-color: #f4f4f4;
-        }
-
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-header {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .card-title {
-            font-size: 18px;
-            color: #333333;
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .ver-mas {
-            color: #555555;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .ver-mas:hover {
-            color: #007bff;
-        }
-
-        .prioridad {
-            background-color: #F9EBEA;
-        }
-
-        .estado {
-            background-color: #D5F5E3;
-        }
-
-        .tipo-incidencia {
-            background-color: #FCF3CF;
-        }
-
-        .usuario {
-            background-color: #D6EAF8;
-        }
-
-        .rol {
-            background-color: #E8DAEF;
-        }
-
-    </style>
-    <main>
-        <section>
-            <h1>Admin Panel</h1>
-        </section>
-        <section>
-            
-        </section>
-
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center prioridad">
-                    <h5 class="card-title">Prioridad</h5>
-                    <a href="Admin/Prioridad.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Mide el grado de importancia de un ticket</p>
-                </div>
-            </div>
+    <section class="mb-3">
+        <h1>Gestor de entidades</h1>
+    </section>
+    <section>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-priorities-tab" data-bs-toggle="tab" data-bs-target="#nav-priorities" type="button" role="tab" aria-controls="nav-priorities" aria-selected="true">Prioridades</button>
+            <button class="nav-link" id="nav-states-tab" data-bs-toggle="tab" data-bs-target="#nav-states" type="button" role="tab" aria-controls="nav-states" aria-selected="false">Estados</button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+            <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent" style="height: 60vh;">
+          <div class="tab-pane fade show active h-100" id="nav-priorities" role="tabpanel" aria-labelledby="nav-priorities-tab" tabindex="0">
+              <iframe src="~/Admin/PrioridadesCRUD.aspx" runat="server" width="100" style="width: 100%; height: 100%"></iframe>
+          </div>
+          <div class="tab-pane fade" id="nav-states" role="tabpanel" aria-labelledby="nav-states-tab" tabindex="0">
+              <iframe runat="server" style="width: 100%; height: 100%" src="~/Admin/EstadosCRUD.aspx" ></iframe>
+          </div>
+          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+          <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
         </div>
+    </section>
 
-        <div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center estado">
-                    <h5 class="card-title">Estado</h5>
-                    <a href="Admin/Estado.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Se encarga de brindar el estado actual de cualquier incidencia</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center tipo-incidencia">
-                    <h5 class="card-title">Tipo Incidencia</h5>
-                    <a href="Admin/TipoIncidencia.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Administra los diferentes tipos de incidencia que pueden haber</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center usuario">
-                    <i class="bi bi-people"></i>
-                    <h5 class="card-title">Usuario</h5>
-                    <a href="Admin/Usuario.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Todos los usuarios exitentes en la DB</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center rol">
-                    <h5 class="card-title">Rol</h5>
-                    <a href="Admin/Rol.aspx" class="ver-mas">
-                        <i class="bi bi-gear me-2"></i>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <p>Todas las cuentas existentes en la DB</p>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-   </main>
 
 
     
