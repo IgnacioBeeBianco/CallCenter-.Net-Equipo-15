@@ -261,7 +261,7 @@ namespace DAO
                                     "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
                                     "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
                                     "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.id " +
-                                    "WHERE U.id LIKE @id OR U2.id LIKE @id";
+                                    "WHERE U.id = @id OR U2.id = @id ORDER BY I.fecha_ultimo_cambio DESC";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@id", id);
@@ -271,6 +271,136 @@ namespace DAO
                 {
                     incidencias.Add(LoadIncidencia(ref accesoADatos));
                 }
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public int incidenciasTotales(int id)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(*) FROM Incidencia WHERE asignado_id = @id";
+
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+
+                int incidencias = Convert.ToInt32(accesoADatos.ejecutarAccionScalar());
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public int incidenciasUrgente(int id)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(*) FROM Incidencia WHERE asignado_id = @id AND prioridad_id = (SELECT id FROM Prioridad WHERE nombre = 'Urgente')";
+
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+
+                int incidencias = Convert.ToInt32(accesoADatos.ejecutarAccionScalar());
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public int incidenciasPendiente(int id)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(*) FROM Incidencia  WHERE asignado_id = @id AND estado_id NOT IN (SELECT id FROM Estado WHERE nombre IN ('Cerrado', 'Resuelto'))";
+
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+
+                int incidencias = Convert.ToInt32(accesoADatos.ejecutarAccionScalar());
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public int incidenciasResuelto(int id)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(*) FROM Incidencia  WHERE asignado_id = @id AND estado_id = (SELECT id FROM Estado WHERE nombre = 'Resuelto')";
+
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+
+                int incidencias = Convert.ToInt32(accesoADatos.ejecutarAccionScalar());
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public int incidenciasCerrada(int id)
+        {
+            AccesoADatos accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT COUNT(*) FROM Incidencia  WHERE asignado_id = @id AND estado_id = (SELECT id FROM Estado WHERE nombre = 'Cerrado')";
+
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@id", id);
+
+                int incidencias = Convert.ToInt32(accesoADatos.ejecutarAccionScalar());
 
                 return incidencias;
             }
