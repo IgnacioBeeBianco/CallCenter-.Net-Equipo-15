@@ -31,7 +31,7 @@ namespace Call_Center
                 rptUsuarios.DataBind();
             }
 
-            if ((Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre != "Cliente")
+            if (Session["Usuario"] != null && Session["Cuenta"] != null && (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre != "Cliente")
             {
                 CargarIncidencias(id);
                 cantInci.Visible = true;
