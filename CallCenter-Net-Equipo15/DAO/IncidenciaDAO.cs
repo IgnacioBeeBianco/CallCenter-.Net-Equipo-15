@@ -142,7 +142,7 @@ namespace DAO
             }
         }
 
-        public List<Incidencia> ListByEstado(string Nombre)
+        public List<Incidencia> ListByEstado(string Nombre, int idUsuario)
         {
             accesoADatos = new AccesoADatos();
             List<Incidencia> incidencias = new List<Incidencia>();
@@ -156,11 +156,12 @@ namespace DAO
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
-                    "WHERE E.Nombre LIKE @Nombre " + 
+                    "WHERE E.Nombre LIKE @Nombre AND U2.id = @idAsignado AND I.estado = 1 " + 
                     "ORDER BY P.nivelPrioridad desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.setearParametro("@idAsignado", idUsuario);
                 accesoADatos.ejecutarLectura();
 
                 while (accesoADatos.Lector.Read())
@@ -180,7 +181,7 @@ namespace DAO
             }
         }
 
-        public List<Incidencia> ListByEstadoxCliente(string Nombre, int idCuenta)
+        public List<Incidencia> ListByEstadoxCliente(string Nombre, int idCuenta, int idUsuario)
         {
             accesoADatos = new AccesoADatos();
             List<Incidencia> incidencias = new List<Incidencia>();
@@ -194,12 +195,13 @@ namespace DAO
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
-                    "WHERE E.Nombre LIKE @Nombre AND U.id = @idCuenta " +
+                    "WHERE E.Nombre LIKE @Nombre AND U.id = @idCuenta AND U2.id = @idAsignado AND I.estado = 1 " +
                     "ORDER BY P.nivelPrioridad desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
                 accesoADatos.setearParametro("@idCuenta", idCuenta);
+                accesoADatos.setearParametro("@idAsignado", idUsuario);
                 accesoADatos.ejecutarLectura();
 
                 while (accesoADatos.Lector.Read())

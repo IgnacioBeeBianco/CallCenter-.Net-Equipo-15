@@ -52,7 +52,7 @@
                     <p><%# Eval("nombre") %></p>
                     <asp:Repeater ID="rptIncidencias" runat="server">
                         <ItemTemplate>
-                            <div class="card">
+                            <div class="card mb-2">
                                 <div class="card-header">
                                     <h5 class="card-title">ID: <%# Eval("id") %></h5>
                                     <asp:Button ID="btnMasOpciones" runat="server" Text="Más..." CssClass="btn btn-secondary" OnClick="optionsTicket" CommandArgument='<%#Eval("id") %>' CommandName="id" />

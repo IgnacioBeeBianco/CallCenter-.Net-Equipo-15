@@ -41,7 +41,11 @@ namespace Call_Center
                 string nombre = DataBinder.Eval(e.Item.DataItem, "nombre").ToString();
                 int idCreador = Request.QueryString["requested"]!= null ? int.Parse(Request.QueryString["requested"]) : -1;
                 IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-                List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador);
+                Usuario usuario = new Usuario();
+                usuario = (Usuario)Session["Usuario"];
+                Cuenta cuenta = new Cuenta();
+                cuenta = (Cuenta)Session["Cuenta"];
+                List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre, usuario.Id) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador, usuario.Id);
                 Repeater rptIncidencias = (Repeater)e.Item.FindControl("rptIncidencias");
                 rptIncidencias.DataSource = incidencias;
                 rptIncidencias.DataBind();
