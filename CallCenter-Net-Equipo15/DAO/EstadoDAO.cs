@@ -31,7 +31,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Id = @Id";
+                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado WHERE Id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -61,7 +61,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -120,7 +120,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, nivelEstado FROM Estado WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", "%" + Nombre + "%");

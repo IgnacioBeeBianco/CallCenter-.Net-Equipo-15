@@ -45,9 +45,10 @@ namespace Call_Center.Admin
                 case "modify":
                     int id = int.Parse(((LinkButton)sender).CommandArgument);
                     txbEstadoNombre.Text = estadoDAO.getEstado(id).Nombre;
+                    txbNivelEstado.Text = estadoDAO.getEstado(id).nivelEstado.ToString();
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbEstadoNombre.Text;
-                    lblNivelEstado.Text = txbEstadoNombre.Text;
+                    lblNivelEstado.Text = txbNivelEstado.Text;
                     break;
 
                 default:
@@ -63,6 +64,7 @@ namespace Call_Center.Admin
             {
                 Dominio.Estado estado = new Dominio.Estado();
                 estado.Nombre = txbEstadoNombre.Text;
+                estado.nivelEstado = int.Parse(txbNivelEstado.Text);
                 //Validaciones
                 if (txbEstadoNombre.Text == "" || txbEstadoNombre.Text == null)
                 {
@@ -90,11 +92,14 @@ namespace Call_Center.Admin
                     lblEstadoErrores.Text = "No hay un estado buscado";
                     return;
                 }
-                if (estadoDAO.getEstado(txbEstadoNombre.Text).Nombre != null)
+                if (!nombre.Equals(lblNombre.Text, StringComparison.OrdinalIgnoreCase))
                 {
-                    alertEstado.Style["display"] = "block";
-                    lblEstadoErrores.Text = "Estado ya creado...";
-                    return;
+                    if (estadoDAO.getEstado(txbEstadoNombre.Text).Nombre != null)
+                    {
+                        alertEstado.Style["display"] = "block";
+                        lblEstadoErrores.Text = "Estado ya creado...";
+                        return;
+                    }
                 }
                 estadoDAO.Update(nombre, nivelEstado, id);
             }
@@ -108,10 +113,6 @@ namespace Call_Center.Admin
             modalEstado.Style["display"] = "none";
             txbEstadoNombre.Text = "";
             alertEstado.Style["display"] = "none";
-
-
         }
-
-   
     }
 }

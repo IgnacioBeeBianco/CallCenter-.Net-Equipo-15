@@ -15,40 +15,80 @@ namespace Call_Center
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
         Usuario usuario = new Usuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            int id = 0;
-            if (!IsPostBack)
+            try
             {
-                id = getIDsesion();
-                Session.Add("listaIncidencias", incidenciaDAO.ListByUsuarioId(id));
-                Session.Add("listaUsuario", usuarioDAO.GetUsuariosClientes());
-                rptIncidencias.DataSource = Session["listaIncidencias"];
-                rptIncidencias.DataBind();
-                rptUsuarios.DataSource = Session["listaUsuario"];
-                rptUsuarios.DataBind();
-            }
+                if (!IsPostBack)
+                {
+                    int id = getIDsesion();
 
-            if (Session["Usuario"] != null && Session["Cuenta"] != null && (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre != "Cliente")
-            {
-                CargarIncidencias(id);
-                cantInci.Visible = true;
-                filtroIDusu.Visible = true;
-                filtro.Visible = true;
-                usuDatos.Visible = true;
-                txbFiltraDNI.Visible = true;
-                lblFiltro.Visible = true;
-            }
+                    if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                    {
+                        Dominio.Cuenta cuenta = Session["Cuenta"] as Dominio.Cuenta;
+                        string rolUsuario = cuenta.Rol.Nombre;
 
-            if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                        h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
+                        ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
+
+                        if (rolUsuario == "Cliente")
+                        {
+                            Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
+                            rptIncidencias.DataSource = Session["listaIncidencias"];
+                            rptIncidencias.DataBind();
+                        }
+                        else if (rolUsuario == "Telefonista")
+                        {
+                            Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
+                            rptIncidencias.DataSource = Session["listaIncidencias"];
+                            rptIncidencias.DataBind();
+
+                            Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
+                            rptUsuarios.DataSource = Session["listaUsuario"];
+                            rptUsuarios.DataBind();
+
+                            CargarIncidencias(id);
+                            cantInci.Visible = true;
+                            filtroIDusu.Visible = true;
+                            filtro.Visible = true;
+                            usuDatos.Visible = true;
+                            txbFiltraDNI.Visible = true;
+                            lblFiltro.Visible = true;
+                        }
+                        else if (rolUsuario == "Supervisor" || rolUsuario == "Administrador")
+                        {
+                            Session["listaIncidencias"] = incidenciaDAO.List();
+                            rptIncidencias.DataSource = Session["listaIncidencias"];
+                            rptIncidencias.DataBind();
+
+                            Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
+                            rptUsuarios.DataSource = Session["listaUsuario"];
+                            rptUsuarios.DataBind();
+
+                            CargarIncidencias(id);
+                            cantInci.Visible = true;
+                            filtroIDusu.Visible = true;
+                            filtro.Visible = true;
+                            usuDatos.Visible = true;
+                            txbFiltraDNI.Visible = true;
+                            lblFiltro.Visible = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
             {
-                h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
-                string rolUsuario = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
-                ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
+                MostrarMensajeError("Se ha producido un error. Por favor, inténtalo de nuevo más tarde.");
             }
         }
+
+        private void MostrarMensajeError(string mensaje)
+        {
+            lblMensajeError.Text = mensaje;
+            lblMensajeError.Visible = true;
+        }
+
         protected int getIDsesion()
         {
             if (Session["Usuario"] != null)
@@ -74,7 +114,7 @@ namespace Call_Center
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id=getIDsesion();
+            int id = getIDsesion();
             if (string.IsNullOrWhiteSpace(filtro.Text))
             {
                 rptIncidencias.DataSource = listaInci;
@@ -121,17 +161,5 @@ namespace Call_Center
                 CargarIncidencias(id);
             }
         }
-
-        
-
-        private int ObtenerRecuentoPorEstado(string estado)
-        {
-            // Lógica para obtener el recuento de incidencias por estado.
-            // Puedes usar tu lógica y acceder a la base de datos aquí.
-            // Por ahora, vamos a devolver un valor aleatorio.
-            Random random = new Random();
-            return random.Next(1, 20);
-        }
-
     }
 }
