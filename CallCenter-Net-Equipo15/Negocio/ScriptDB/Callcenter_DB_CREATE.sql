@@ -64,7 +64,8 @@ BEGIN
         id INT IDENTITY(1,1),
         nombre NVARCHAR(150) NOT NULL UNIQUE,
         nivelPrioridad INT NOT NULL,
-        estado BIT NOT NULL DEFAULT 1
+        estado BIT NOT NULL DEFAULT 1,
+        CHECK (nivelPrioridad BETWEEN 1 AND 10),
         PRIMARY KEY (id)
     )
 END
@@ -97,7 +98,8 @@ BEGIN
         id INT IDENTITY(1,1),
         nombre NVARCHAR(100) NOT NULL,
         nivelEstado INT NOT NULL,
-        estado BIT NOT NULL DEFAULT 1
+        estado BIT NOT NULL DEFAULT 1,
+        CHECK (nivelEstado BETWEEN 1 AND 10),
         PRIMARY KEY (id)
     )
 END
