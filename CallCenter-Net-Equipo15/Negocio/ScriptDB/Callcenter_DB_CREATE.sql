@@ -2,6 +2,7 @@ USE Master;
 ALTER DATABASE Callcenter SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
 GO
 USE master;
+SELECT * FROM sys.dm_exec_sessions WHERE database_id = DB_ID('Callcenter');
 DROP DATABASE Callcenter
 GO
 USE master;

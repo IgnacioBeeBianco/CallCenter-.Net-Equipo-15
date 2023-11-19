@@ -10,12 +10,14 @@ INSERT INTO TipoIncidencia (nombre, descripcion) VALUES
     ('Software', 'Problemas relacionados con software'),
     ('Red', 'Problemas de conectividad de red');
 
+
 -- Agregar datos a la tabla Prioridad
 INSERT INTO Prioridad (nombre, nivelPrioridad, estado) VALUES 
     ('Urgente', 10, 1),
     ('Alta', 8, 1),
     ('Media', 6, 1),
     ('Baja', 4, 1);
+
 
 -- Agrega nuevos registros a la tabla Estado
 INSERT INTO Estado (nombre, nivelEstado, estado) VALUES 
@@ -24,7 +26,8 @@ INSERT INTO Estado (nombre, nivelEstado, estado) VALUES
     ('Asignado', 6, 1),
     ('Resuelto', 4, 1),
     ('Reabierto', 2, 1),
-    ('Cerrado', 0, 1);
+    ('Cerrado', 1, 1);
+
 
 -- Agrega nuevos registros a la tabla Rol
 INSERT INTO Rol (nombre, estado) VALUES 
@@ -46,6 +49,7 @@ INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_
     ('Telefonista', 'Ejemplo', '87654321', 'Calle 456', '9876543210', 'F', 2),
     ('Supervisor', 'Ejemplo', '11223344', 'Calle 789', '1112233445', 'M', 3),
     ('Cliente', 'Ejemplo', '44332211', 'Calle XYZ', '5556667777', 'F', 4);
+
 
 -- Agrega nuevos registros a la tabla Incidencia
 INSERT INTO Incidencia (creador_id, asignado_id, fecha_creacion, fecha_ultimo_cambio, estado_id, prioridad_id, tipo_incidencia_id, comentario_cierra, problematica)
