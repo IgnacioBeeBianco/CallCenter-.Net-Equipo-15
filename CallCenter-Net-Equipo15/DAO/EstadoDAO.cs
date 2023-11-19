@@ -19,6 +19,7 @@ namespace DAO
             estado.Id = (int)accesoADatos.Lector["id"];
             estado.Nombre = accesoADatos.Lector["nombre"].ToString();
             estado.nivelEstado = (int)accesoADatos.Lector["nivelEstado"];
+            estado.estado = (bool)accesoADatos.Lector["estado"];
 
             return estado;
         }
@@ -90,7 +91,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, nivelEstado FROM Estado";
+                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -148,7 +149,7 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Estado VALUES (@Nombre, @nivelEstado)";
+                string consulta = "INSERT INTO Estado VALUES (@Nombre, @nivelEstado, 1)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", estado.Nombre);
@@ -198,7 +199,7 @@ namespace DAO
 
             try
             {
-                string consultar = "DELETE FROM Estado WHERE Id = @Id";
+                string consultar = "UPDATE Estado SET estado = 0 WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@Id", Id);

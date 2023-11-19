@@ -17,7 +17,7 @@ namespace Call_Center.Admin
 
 
             //Aca cargamos el repeater
-            rptEstado.DataSource = estadoDAO.List();
+            rptEstado.DataSource = estadoDAO.List().Where(entity => entity.estado);
             rptEstado.DataBind();
 
         }
@@ -27,13 +27,13 @@ namespace Call_Center.Admin
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             int id = int.Parse(((Button)sender).CommandArgument);
             estadoDAO.Delete(id);
-            Response.Redirect("Estado.aspx");
+            Response.Redirect("EstadosCRUD.aspx");
         }
 
         protected void abrirModal(object sender, EventArgs e)
         {
             //Logica que abre el modal y le carga datos segun si es crear o modificar"
-            Button btn = sender as Button;
+            LinkButton btn = sender as LinkButton;
             modalEstado.Style["display"] = "block";
 
             switch (btn.Attributes["action"])
@@ -43,7 +43,7 @@ namespace Call_Center.Admin
                     break;
 
                 case "modify":
-                    int id = int.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((LinkButton)sender).CommandArgument);
                     txbEstadoNombre.Text = estadoDAO.getEstado(id).Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbEstadoNombre.Text;
@@ -99,7 +99,7 @@ namespace Call_Center.Admin
                 estadoDAO.Update(nombre, nivelEstado, id);
             }
 
-            Response.Redirect("Estado.aspx");
+            Response.Redirect("EstadosCRUD.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)

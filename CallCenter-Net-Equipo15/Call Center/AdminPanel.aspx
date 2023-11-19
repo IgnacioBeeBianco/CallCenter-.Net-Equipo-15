@@ -20,7 +20,7 @@
           <div class="tab-pane fade show active h-100" id="nav-priorities" role="tabpanel" aria-labelledby="nav-priorities-tab" tabindex="0">
               <iframe src="~/Admin/PrioridadesCRUD.aspx" runat="server" width="100" style="width: 100%; height: 100%"></iframe>
           </div>
-          <div class="tab-pane fade" id="nav-states" role="tabpanel" aria-labelledby="nav-states-tab" tabindex="0">
+          <div class="tab-pane fade h-100" id="nav-states" role="tabpanel" aria-labelledby="nav-states-tab" tabindex="0">
               <iframe runat="server" style="width: 100%; height: 100%" src="~/Admin/EstadosCRUD.aspx" ></iframe>
           </div>
           <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
