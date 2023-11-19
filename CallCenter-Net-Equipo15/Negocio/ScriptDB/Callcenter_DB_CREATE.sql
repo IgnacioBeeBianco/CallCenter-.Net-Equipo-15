@@ -129,3 +129,11 @@ BEGIN
         FOREIGN KEY(tipo_incidencia_id) REFERENCES TipoIncidencia(id)
     )
 END
+
+SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre 
+FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id 
+INNER JOIN Rol R ON R.id = C.id_rol 
+WHERE R.nombre = 'Cliente' AND (
+    SELECT Count(*) FROM Incidencia as I
+    WHERE I.creador_id = U.cuenta_id AND I.asignado_id = @idAsignado
+    ) > 0

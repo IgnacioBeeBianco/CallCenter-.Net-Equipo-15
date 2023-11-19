@@ -201,5 +201,49 @@ namespace DAO
             }
 
         }
+
+        public List<Usuario> GetUsuariosClientesConIncidencias(int idAsignado)
+        {
+            try
+            {
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre " +
+                    "FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id " +
+                    "INNER JOIN Rol R ON R.id = C.id_rol " +
+                    "WHERE R.nombre = 'Cliente' AND (" +
+                    "SELECT Count(*) FROM Incidencia as I " +
+                    "WHERE I.creador_id = U.cuenta_id AND I.asignado_id = @idAsignado) > 0";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@idAsignado", idAsignado);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoADatos.Lector["id"];
+                    usuario.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    usuario.Apellido = accesoADatos.Lector["apellido"].ToString();
+                    usuario.DNI = accesoADatos.Lector["dni"].ToString();
+                    usuario.Telefono = accesoADatos.Lector["telefono"].ToString();
+
+                    usuario.CuentaId = new Cuenta();
+                    usuario.CuentaId.Rol = new Rol();
+                    usuario.CuentaId.Rol.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    //usuario.Estado = (bool)accesoADatos.Lector["estado"];
+
+                    usuarios.Add(usuario);
+                }
+                return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+
+        }
     }
 }

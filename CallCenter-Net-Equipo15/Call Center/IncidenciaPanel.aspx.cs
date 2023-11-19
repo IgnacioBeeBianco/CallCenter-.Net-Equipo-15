@@ -12,8 +12,17 @@ namespace Call_Center
 {
     public partial class IncidenciaPanel : System.Web.UI.Page
     {
+
+        Usuario usuario = new Usuario();
+        Cuenta cuenta = new Cuenta();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
+            }
+            usuario = (Usuario) Session["Usuario"];
+            cuenta = (Cuenta) Session["Cuenta"];
             if (!IsPostBack)
             {
                 BindData();
@@ -29,7 +38,7 @@ namespace Call_Center
 
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> Usuarios = usuarioDAO.GetUsuariosClientes();
+            List<Usuario> Usuarios = usuarioDAO.GetUsuariosClientesConIncidencias(cuenta.Id);
             rptAsignados.DataSource = Usuarios;
             rptAsignados.DataBind();
         }
@@ -38,17 +47,20 @@ namespace Call_Center
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                string nombre = DataBinder.Eval(e.Item.DataItem, "nombre").ToString();
-                int idCreador = Request.QueryString["requested"]!= null ? int.Parse(Request.QueryString["requested"]) : -1;
-                IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-                Usuario usuario = new Usuario();
-                usuario = (Usuario)Session["Usuario"];
-                Cuenta cuenta = new Cuenta();
-                cuenta = (Cuenta)Session["Cuenta"];
-                List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre, usuario.Id) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador, usuario.Id);
-                Repeater rptIncidencias = (Repeater)e.Item.FindControl("rptIncidencias");
-                rptIncidencias.DataSource = incidencias;
-                rptIncidencias.DataBind();
+                try
+                {
+                    string nombre = DataBinder.Eval(e.Item.DataItem, "nombre").ToString();
+                    int idCreador = Request.QueryString["requested"]!= null ? int.Parse(Request.QueryString["requested"]) : -1;
+                    IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+                    List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre, usuario.Id) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador, usuario.Id);
+                    Repeater rptIncidencias = (Repeater)e.Item.FindControl("rptIncidencias");
+                    rptIncidencias.DataSource = incidencias;
+                    rptIncidencias.DataBind();
+
+                }catch(Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
