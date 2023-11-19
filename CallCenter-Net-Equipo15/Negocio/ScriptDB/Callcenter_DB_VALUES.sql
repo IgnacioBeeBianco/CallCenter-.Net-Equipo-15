@@ -58,3 +58,6 @@ VALUES
     (4, 2, '2023-11-16 12:30:00', '2023-11-17 14:45:00', 2, 2, 2, 'Cerrado por falta de información', 'Problema con la impresora en el departamento de recursos humanos'),
     (4, 3, '2023-11-17 09:15:00', '2023-11-18 11:00:00', 3, 3, 3, 'Cerrado con solución temporal', 'Problema con el servidor de correo'),
     (4, 1, '2023-11-18 14:45:00', '2023-11-19 16:30:00', 1, 1, 1, 'Cerrado sin resolver', 'Problema de conexión a internet en la sala de conferencias');
+
+
+

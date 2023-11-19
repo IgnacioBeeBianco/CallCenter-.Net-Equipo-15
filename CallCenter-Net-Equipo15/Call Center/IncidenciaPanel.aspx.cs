@@ -26,6 +26,12 @@ namespace Call_Center
             List<Estado> Estados = estadoDAO.List();
             rptColumnas.DataSource = Estados;
             rptColumnas.DataBind();
+
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            List<Usuario> Usuarios = usuarioDAO.GetUsuariosClientes();
+            rptAsignados.DataSource = Usuarios;
+            rptAsignados.DataBind();
         }
 
         protected void rptColumnas_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -33,8 +39,9 @@ namespace Call_Center
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 string nombre = DataBinder.Eval(e.Item.DataItem, "nombre").ToString();
+                int idCreador = Request.QueryString["requested"]!= null ? int.Parse(Request.QueryString["requested"]) : -1;
                 IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-                List<Incidencia> incidencias = incidenciaDAO.ListByEstado(nombre);
+                List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador);
                 Repeater rptIncidencias = (Repeater)e.Item.FindControl("rptIncidencias");
                 rptIncidencias.DataSource = incidencias;
                 rptIncidencias.DataBind();

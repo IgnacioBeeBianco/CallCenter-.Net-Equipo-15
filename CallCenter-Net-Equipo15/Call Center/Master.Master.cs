@@ -12,7 +12,7 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+           /* if (!IsPostBack)
             {
                 setearImagenSegunRol();
             }
@@ -33,7 +33,7 @@ namespace Call_Center
             if ( cuenta.Rol.Nombre != "Administrador")
             {
                 adminDashboard.Style["display"] = "none";
-            }
+            }*/
             
         }
 

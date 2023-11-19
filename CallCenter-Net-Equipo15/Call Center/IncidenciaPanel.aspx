@@ -5,6 +5,31 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <style>
+        .header-container {
+            display: flex;
+            justify-content: space-between; /* Distribuye los botones uniformemente a lo ancho */
+            margin-bottom: 2%;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="header-container">
+                <h4>Creado por:</h4>
+                <asp:Repeater ID="rptAsignados" runat="server">
+                    <ItemTemplate>
+                        <a href='<%# Request.QueryString["requested"] == Eval("id").ToString() ? "IncidenciaPanel.aspx" : "?requested=" + Eval("id") %>'
+                            class='<%# Request.QueryString["requested"] == Eval("id").ToString() ? "btn btn-primary" : "btn btn-secondary" %>'>
+                            <%# Eval("nombre") %>
+                        </a>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
         .custom-column {
             height: 80vh; /* Establece la altura al 80% de la altura visible del dispositivo */
             border: 1px solid #ddd; /* Añade un borde para mayor claridad */
@@ -30,7 +55,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">ID: <%# Eval("id") %></h5>
-                                    <asp:Button ID="btnMasOpciones" runat="server" Text="Button" CssClass="btn btn-secondary" OnClick="optionsTicket" CommandArgument='<%#Eval("id") %>' CommandName="id" />
+                                    <asp:Button ID="btnMasOpciones" runat="server" Text="Más..." CssClass="btn btn-secondary" OnClick="optionsTicket" CommandArgument='<%#Eval("id") %>' CommandName="id" />
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text"><%# Eval("problematica") %></p>
@@ -73,7 +98,7 @@
                             <div id="moverAOpts" runat="server" style="display: none; position: absolute; right: -15%; top: 0px; border: 1px solid black; display: flex; flex-direction: column">
                                 <asp:Repeater ID="rptMoverA" runat="server">
                                     <ItemTemplate>
-                                        <asp:Button ID="btnCambiarEstado" runat="server" Text='<%# Eval("Nombre") %>' CssClass="btn btn-secondary"  CommandArgument='<%# lblId.Text %>' CommandName="id" OnClick="btnCambiarEstado_Click" idEstado='<%# Eval("Id") %>' />
+                                        <asp:Button ID="btnCambiarEstado" runat="server" Text='<%# Eval("Nombre") %>' CssClass="btn btn-secondary" CommandArgument='<%# lblId.Text %>' CommandName="id" OnClick="btnCambiarEstado_Click" idEstado='<%# Eval("Id") %>' />
                                     </ItemTemplate>
                                 </asp:Repeater>
 

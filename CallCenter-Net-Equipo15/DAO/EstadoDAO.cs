@@ -91,7 +91,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado";
+                string consulta = "SELECT id, nombre, nivelEstado, estado FROM Estado ORDER BY nivelEstado desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
