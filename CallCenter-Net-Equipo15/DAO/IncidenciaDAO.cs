@@ -156,7 +156,8 @@ namespace DAO
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
-                    "WHERE E.Nombre LIKE @Nombre";
+                    "WHERE E.Nombre LIKE @Nombre " + 
+                    "ORDER BY P.nivelPrioridad desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -193,7 +194,8 @@ namespace DAO
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
-                    "WHERE E.Nombre LIKE @Nombre AND U.id = @idCuenta";
+                    "WHERE E.Nombre LIKE @Nombre AND U.id = @idCuenta " +
+                    "ORDER BY P.nivelPrioridad desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);

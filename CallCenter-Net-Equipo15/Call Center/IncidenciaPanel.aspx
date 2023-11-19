@@ -61,6 +61,7 @@
                                     <p class="card-text"><%# Eval("problematica") %></p>
                                 </div>
                                 <div class="card-footer">
+                                    <p class="card-text"><%# Eval("prioridad.nombre") %></p>
                                     Creador: <%# Eval("creador.nombre") %>
                                 </div>
                             </div>
