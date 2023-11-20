@@ -4,21 +4,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
-    function validarFecha(fecha) {
-        var regexFecha = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/ ;
+        function validarFecha(fecha) {
+            var regexFecha = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/;
 
-        if (!regexFecha.test(fecha)) {
-            alert('Formato de fecha y hora inválido. Utiliza el formato DD/MM/YYYY HH:mm:ss');
-            document.getElementById('<%= txtbFechaCreacion.ClientID %>').value = '';
+            if (!regexFecha.test(fecha)) {
+                alert('Formato de fecha y hora inválido. Utiliza el formato DD/MM/YYYY HH:mm:ss');
+                document.getElementById('<%= txtbFechaCreacion.ClientID %>').value = '';
             document.getElementById('<%= txtbFechaCambio.ClientID %>').value = '';
+            }
         }
-    }
     </script>
-    
+
     <div class="container mt-4">
         <h2>Crear incidencia</h2>
         <div class="mb-3">
-            <label for="creador" class="form-label">Creador:</label>
+            <label for="creador" class="form-label">Solicitado por:</label>
             <asp:DropDownList ID="DropDownCreador" runat="server" CssClass="form-select"></asp:DropDownList>
         </div>
         <div class="mb-3">
@@ -27,11 +27,11 @@
         </div>
         <div class="mb-3">
             <label for="fechaCreacion" class="form-label">Fecha creacion:</label>
-            <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)"/>
+            <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)" />
         </div>
         <div class="mb-3">
             <label for="fechaUltimoCambio" class="form-label">Fecha ultimo cambio:</label>
-            <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)"/>
+            <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)" />
         </div>
         <div class="mb-3">
             <label for="estado" class="form-label">Estado:</label>
@@ -47,13 +47,10 @@
         </div>
         <div class="mb-3">
             <label for="problematica" class="form-label">Problemática:</label>
-            <textarea class="form-control" id="problematica" rows="3"></textarea>
+            <textarea class="form-control" id="problematica" rows="3" runat="server"></textarea>
         </div>
         <div class="mb-3">
-            <label for="estado" class="form-label">Comentario cierre:</label>
-            <textarea class="form-control" id="comentarioCierre" rows="2"></textarea>
+        <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
         </div>
-
-        <button type="submit" class="btn btn-primary">Crear</button>
     </div>
 </asp:Content>
