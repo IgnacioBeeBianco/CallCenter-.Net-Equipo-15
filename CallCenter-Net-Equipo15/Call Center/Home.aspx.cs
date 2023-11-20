@@ -13,7 +13,6 @@ namespace Call_Center
     public partial class Home : System.Web.UI.Page
     {
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-        Usuario usuario = new Usuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -106,11 +105,16 @@ namespace Call_Center
 
         protected void CargarIncidencias(int id)
         {
-            inciTotales.Text = incidenciaDAO.incidenciasTotales(id).ToString();
-            inciPen.Text = incidenciaDAO.incidenciasPendiente(id).ToString();
-            inciUrg.Text = incidenciaDAO.incidenciasUrgente(id).ToString();
-            inciFin.Text = incidenciaDAO.incidenciasResuelto(id).ToString();
-            inciClose.Text = incidenciaDAO.incidenciasCerrada(id).ToString();
+            List<Incidencia> listaIncidencias = Session["listaIncidencias"] as List<Incidencia>;
+
+            if (listaIncidencias != null)
+            {
+                inciTotales.Text = listaIncidencias.Count.ToString();
+                inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente").ToString();
+                inciPen.Text = listaIncidencias.Count(x => x.Estado.Nombre != "Cerrado" && x.Estado.Nombre != "Resuelto").ToString();
+                inciFin.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Resuelto").ToString();
+                inciClose.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Cerrado").ToString();
+            }
         }
 
         protected void filtro_TextChanged(object sender, EventArgs e)

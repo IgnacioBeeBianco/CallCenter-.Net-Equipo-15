@@ -36,7 +36,7 @@
                 }
             }
         }
-
+        
         window.onload = function () {
             mostrarOcultarSegunRol();
         };
@@ -63,7 +63,7 @@
                 <asp:Label Text="" runat="server" ID="inciPen" />
             </div>
             <div>
-                <h4>Incidencias finalizadas</h4>
+                <h4>Incidencias resueltas</h4>
                 <asp:Label Text="" runat="server" ID="inciFin" />
             </div>
             <div>
