@@ -35,20 +35,20 @@
                 <ul class="navbar-nav d-flex justify-content-around flex-column mb-auto text-decoration-none gap-3 mt-3">
                     <li class="nav-item" id="dashboard">
                         <a class="nav-link" href="/Home.aspx"><i class="bi bi-house me-2"></i>
-                            <span class="d-sm-none d-md-inline">Dashboard</span>
+                            <span class="d-sm-none d-md-inline">Home</span>
                         </a>
                     </li>
                     <li class="nav-item" id="adminDashboard" runat="server">
                        <a class="nav-link" href="AdminPanel.aspx">
                             <i class="bi bi-gear me-2"></i>
-                            <span class="d-sm-none d-md-inline">Admin Panel</span>
+                            <span class="d-sm-none d-md-inline">Entidades</span>
                         </a>
                     </li>
                                 
                     <li class="nav-item" id="incidenciaDashboard" runat="server">
                         <a class="nav-link" href="IncidenciaPanel.aspx">
                             <i class="bi bi-plus-circle me-2"></i>
-                            <span class="d-sm-none d-md-inline">Incidencias</span>
+                            <span class="d-sm-none d-md-inline">Dashboard</span>
                         </a>
                     </li>
                 </ul>
