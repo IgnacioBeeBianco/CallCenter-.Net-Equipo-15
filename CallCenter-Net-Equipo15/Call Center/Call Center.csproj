@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\CRUD.js" />
-    <Content Include="Admin\Cuenta.aspx" />
     <Content Include="Admin\Estado.aspx" />
     <Content Include="Admin\Prioridad.aspx" />
     <Content Include="Admin\Rol.aspx" />
@@ -95,13 +94,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Cuenta.aspx.cs">
-      <DependentUpon>Cuenta.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Cuenta.aspx.designer.cs">
-      <DependentUpon>Cuenta.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Estado.aspx.cs">
       <DependentUpon>Estado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

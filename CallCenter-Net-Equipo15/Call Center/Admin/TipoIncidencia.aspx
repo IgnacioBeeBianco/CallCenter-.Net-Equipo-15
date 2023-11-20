@@ -56,13 +56,25 @@
                         <div class="form-group">
 
                             <asp:TextBox ID="txbId" runat="server" Text="" Style="display: none;"></asp:TextBox>
-                            <asp:TextBox ID="txbPrioNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
-                            <asp:TextBox ID="txbPrioDesc" runat="server" placeholder="Descripcion:" CssClass="form-control"></asp:TextBox>
+                            <div class="input-group mb-3">
+                                <asp:TextBox ID="txbPrioNombre" runat="server" placeholder="Nombre:" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="input-group">
+                                <asp:TextBox ID="txbPrioDesc" runat="server" placeholder="Descripcion:" CssClass="form-control"></asp:TextBox>
+                            </div>
                             <div class="alert alert-danger" id="alertPrio" runat="server" style="display: none;">
                                 <asp:Label ID="lblPrioErrores" runat="server" Text=""></asp:Label>
                             </div>
                         </div>
                     </div>
+
+                     <%if (hasError)
+                         { %>
+                             <div class="alert alert-danger m-3 transition-effect" id="Div1" runat="server">
+                                 <asp:Label ID="LblUserFormError" runat="server" Text="Hubo un error al persistir la entidad"></asp:Label>
+                             </div>
+
+                        <% } %>
                     <div class="card-footer">
                         <asp:TextBox ID="txbAction" runat="server" Text="" Style="display: none;"></asp:TextBox>
                         <asp:Button ID="btnPrioSub" runat="server" Text="Confirmar" OnClick="submitModal" CssClass="btn btn-primary" />

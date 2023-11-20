@@ -92,7 +92,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Prioridad";
+                string consulta = "SELECT id, nombre, estado FROM Prioridad";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();

@@ -31,7 +31,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia WHERE idd = @Id";
+                string consulta = "SELECT id, nombre, descripcion, estado FROM TipoIncidencia WHERE id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -61,7 +61,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, descripcion, estado FROM TipoIncidencia WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -91,7 +91,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, descripcion FROM TipoIncidencia";
+                string consulta = "SELECT id, nombre, descripcion, estado FROM TipoIncidencia";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -119,7 +119,7 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO TipoIncidencia VALUES (@Nombre, @Descripcion)";
+                string consulta = "INSERT INTO TipoIncidencia VALUES (@Nombre, @Descripcion, 1)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@Nombre", tipoIncidencia.Nombre);
                 accesoADatos.setearParametro("@Descripcion", tipoIncidencia.Descripcion);
