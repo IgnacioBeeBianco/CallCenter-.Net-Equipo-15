@@ -1,39 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="Estado.aspx.cs" Inherits="Call_Center.ABML.Estado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/CRUD.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="Estado.aspx.cs" Inherits="Call_Center.ABML.Estado" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h3>Estado</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th class="d-none">Id</th>
-                <th>Nombre</th>
-                <th>Nivel de Estado</th>
-                <th style="width: 10%" class="text-center">Modificar</th>
-                <th style="width: 10%" class="text-center">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <asp:Repeater ID="rptEstado" runat="server">
-                <ItemTemplate>
-                    <tr>
-                        <td class="d-none" name="id"><%# Eval("id") %></td>
-                        <td><%# Eval("nombre") %></td>
-                        <td><%# Eval("nivelEstado") %></td>
-                        <td style="width: 6%; text-align: center;">
-
-                            <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="⛏️" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" />
-                        </td>
-                        <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id" />
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-        </tbody>
-    </table>
-
     <style>
         .custom-modal {
             position: absolute;
@@ -42,12 +11,47 @@
             transform: translate(-50%, -50%);
             width: 60%;
             height: 80%;
-            background-color: white;
-            border: 1px solid black;
         }
     </style>
-
-
+    <div class="buttons d-flex justify-content-end align-items-center mb-3">
+        <asp:LinkButton ID="btnCrear" runat="server" OnClick="abrirModal" CssClass="btn btn-primary" action="create">
+            Crear
+        </asp:LinkButton>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="d-none">Id</th>
+                    <th>Nombre</th>
+                    <th>Nivel de Estado</th>
+                    <th>Estado</th>
+                    <th style="width: 10%" class="text-center">Modificar</th>
+                    <th style="width: 10%" class="text-center">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <asp:Repeater ID="rptEstado" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                            <td class="d-none" name="id"><%# Eval("id") %></td>
+                            <td><%# Eval("nombre") %></td>
+                            <td><%# Eval("nivelEstado") %></td>
+                            <td><%# Eval("estado") %></td>
+                            <td style="width: 6%; text-align: center;">
+                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </asp:LinkButton>
+                            </td>
+                            <td style="width: 6%; text-align: center;">
+                                <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id" />
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>
+    </div>
 
     <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
@@ -82,7 +86,4 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
-    <asp:Button ID="Button1" runat="server" Text="Crear" OnClick="abrirModal" CssClass="btn btn-primary" action="create" />
-    <asp:Button ID="Volver" runat="server" Text="Volver" OnClick="Volver_Click" CssClass="btn btn-primary" action="volver" />
 </asp:Content>

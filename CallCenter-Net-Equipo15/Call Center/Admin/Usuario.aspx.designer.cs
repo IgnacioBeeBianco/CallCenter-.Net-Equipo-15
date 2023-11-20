@@ -15,6 +15,15 @@ namespace Call_Center.ABML
     {
 
         /// <summary>
+        /// Control btnCrear.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCrear;
+
+        /// <summary>
         /// Control rptUsuarios.
         /// </summary>
         /// <remarks>
@@ -168,13 +177,13 @@ namespace Call_Center.ABML
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertPrio;
 
         /// <summary>
-        /// Control lblPrioErrores.
+        /// Control lblRolErrores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrioErrores;
+        protected global::System.Web.UI.WebControls.Label lblRolErrores;
 
         /// <summary>
         /// Control txbAction.
@@ -202,23 +211,5 @@ namespace Call_Center.ABML
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPrioCancelar;
-
-        /// <summary>
-        /// Control Button1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
-
-        /// <summary>
-        /// Control Volver.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Volver;
     }
 }

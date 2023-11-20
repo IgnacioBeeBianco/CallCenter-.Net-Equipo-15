@@ -1,12 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="TipoIncidencia.aspx.cs" Inherits="Call_Center.ABML.TipoIncidencia" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/CRUD.Master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="TipoIncidencia.aspx.cs" Inherits="Call_Center.ABML.TipoIncidencia" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="buttons d-flex justify-content-end align-items-center mb-3">
+        <asp:LinkButton ID="btnCrear" runat="server" OnClick="abrirModal" CssClass="btn btn-primary" action="create">
+            Crear
+        </asp:LinkButton>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <!-- ACA PONER TODOS LOS MIEMBROS DEL OBJETO QUE SE TENGA -->
                 <th class="d-none">Id</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
@@ -18,15 +22,16 @@
             <asp:Repeater ID="rptPrioridades" runat="server">
                 <ItemTemplate>
                     <tr>
-                        <td class="d-none" name="id"><%# Eval("oid") %></td>
+                        <td class="d-none" name="id"><%# Eval("id") %></td>
                         <td><%# Eval("nombre") %></td>
                         <td><%# Eval("descripcion") %></td>
                         <td style="width: 6%; text-align: center;">
-
-                            <asp:Button ID="btnModificar" CssClass="btn btn-warning" runat="server" Text="⛏️" OnClick="abrirModal" CommandArgument='<%#Eval("oid") %>' CommandName="id" action="modify" />
+                            <asp:LinkButton ID="btnModificar" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
+                                <i class="bi bi-pencil-fill"></i>
+                            </asp:LinkButton>
                         </td>
                         <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("oid") %>' CommandName="id" />
+                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -81,8 +86,5 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
-    <asp:Button ID="Button1" runat="server" Text="Crear" OnClick="abrirModal" CssClass="btn btn-primary" action="create" />
-    <asp:Button ID="Volver" runat="server" Text="Volver" Onclick="Volver_Click" CssClass="btn btn-primary" action="volver" />
 
 </asp:Content>

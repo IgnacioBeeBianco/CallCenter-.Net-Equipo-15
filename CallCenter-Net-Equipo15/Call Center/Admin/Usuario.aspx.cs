@@ -12,7 +12,6 @@ namespace Call_Center.ABML
     {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         RolDAO rolDAO = new RolDAO();
-        
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack) {
@@ -34,7 +33,7 @@ namespace Call_Center.ABML
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
+            LinkButton btn = sender as LinkButton;
             modalUsuarios.Style["display"] = "block";
 
             switch (btn.Attributes["action"])
@@ -44,7 +43,7 @@ namespace Call_Center.ABML
                     break;
 
                 case "modify":
-                    int id = int.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((LinkButton)sender).CommandArgument);
                  
                     Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
                     Session.Add("ModificandoUsuario", usuario);
@@ -117,9 +116,5 @@ namespace Call_Center.ABML
 
         }
 
-        protected void Volver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/AdminPanel.aspx");
-        }
     }
 }

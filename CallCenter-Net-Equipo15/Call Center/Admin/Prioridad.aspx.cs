@@ -26,7 +26,7 @@ namespace Call_Center.ABML
         protected void btnQuitar(object sender, EventArgs e)
         {
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
-            int id = int.Parse(((Button)sender).CommandArgument);
+            int id = int.Parse(((LinkButton)sender).CommandArgument);
             prioridadDAO.Delete(id);
             Response.Redirect("Prioridad.aspx");
         }
@@ -34,7 +34,7 @@ namespace Call_Center.ABML
         protected void abrirModal(object sender, EventArgs e)
         {
             //Logica que abre el modal y le carga datos segun si es crear o modificar"
-            Button btn = sender as Button;
+            LinkButton btn = sender as LinkButton;
             modalPrioridad.Style["display"] = "block";
 
             switch (btn.Attributes["action"])
@@ -44,7 +44,7 @@ namespace Call_Center.ABML
                     break;
 
                 case "modify":
-                    int id = int.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((LinkButton)sender).CommandArgument);
                     txbPrioNombre.Text = prioridadDAO.getPrioridad(id).Nombre;
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbPrioNombre.Text;
@@ -109,11 +109,6 @@ namespace Call_Center.ABML
             alertPrio.Style["display"] = "none";
 
 
-        }
-
-        protected void Volver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/AdminPanel.aspx");
         }
     }
 }

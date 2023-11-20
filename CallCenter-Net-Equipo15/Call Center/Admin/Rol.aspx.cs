@@ -17,7 +17,7 @@ namespace Call_Center.ABML
 
 
             //Aca cargamos el repeater
-            rptRol.DataSource = rolDAO.List();
+            rptRol.DataSource = rolDAO.List().Where(rol => rol.Estado);
             rptRol.DataBind();
 
         }
@@ -27,13 +27,13 @@ namespace Call_Center.ABML
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             int id = int.Parse(((Button)sender).CommandArgument);
             rolDAO.Delete(id);
-            Response.Redirect("Rol.aspx");
+            Response.Redirect("RolesCRUD.aspx");
         }
 
         protected void abrirModal(object sender, EventArgs e)
         {
             //Logica que abre el modal y le carga datos segun si es crear o modificar"
-            Button btn = sender as Button;
+            LinkButton btn = sender as LinkButton;
             modalRol.Style["display"] = "block";
 
             switch (btn.Attributes["action"])
@@ -43,7 +43,7 @@ namespace Call_Center.ABML
                     break;
 
                 case "modify":
-                    int id = int.Parse(((Button)sender).CommandArgument);
+                    int id = int.Parse(((LinkButton)sender).CommandArgument);
                     Dominio.Rol rol = rolDAO.getRol(id);
                     Session.Add("RolModificado", rol);
                     txbRolNombre.Text = rol.Nombre;
@@ -99,7 +99,7 @@ namespace Call_Center.ABML
                 rolDAO.Update(nombre, rol.Id);
             }
 
-            Response.Redirect("Rol.aspx");
+            Response.Redirect("RolesCRUD.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)
@@ -108,11 +108,6 @@ namespace Call_Center.ABML
             modalRol.Style["display"] = "none";
             txbRolNombre.Text = "";
             alertRol.Style["display"] = "none";
-        }
-
-        protected void Volver_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/AdminPanel.aspx");
         }
     }
 }

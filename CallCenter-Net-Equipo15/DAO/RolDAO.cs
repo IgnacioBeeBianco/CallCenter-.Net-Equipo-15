@@ -18,6 +18,7 @@ namespace DAO
             Rol rol = new Rol();
             rol.Id = (int)accesoADatos.Lector["id"];
             rol.Nombre = accesoADatos.Lector["nombre"].ToString();
+            rol.Estado = bool.Parse(accesoADatos.Lector["estado"].ToString());
 
             return rol;
         }
@@ -89,7 +90,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Rol";
+                string consulta = "SELECT id, nombre, estado FROM Rol";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
