@@ -118,6 +118,7 @@
                 </asp:Repeater>
             </tbody>
         </table>
+        <asp:Button Text="Crear incidencia" runat="server" ID="crearIncidencia" OnClick="crearIncidencia_Click"/>
     </section>
     <section id="usuDatos" visible="false" runat="server">
         <div class="row">

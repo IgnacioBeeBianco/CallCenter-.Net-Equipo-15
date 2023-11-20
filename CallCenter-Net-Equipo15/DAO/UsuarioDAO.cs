@@ -245,5 +245,43 @@ namespace DAO
             }
 
         }
+
+        public List<Usuario> GetUsuariosDistintosClientes()
+        {
+            try
+            {
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, U.estado, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre != 'Cliente'";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoADatos.Lector["id"];
+                    usuario.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    usuario.Apellido = accesoADatos.Lector["apellido"].ToString();
+                    usuario.DNI = accesoADatos.Lector["dni"].ToString();
+                    usuario.Telefono = accesoADatos.Lector["telefono"].ToString();
+                    usuario.Estado = (bool)accesoADatos.Lector["estado"];
+
+                    usuario.CuentaId = new Cuenta();
+                    usuario.CuentaId.Rol = new Rol();
+                    usuario.CuentaId.Rol.Nombre = accesoADatos.Lector["nombre"].ToString();
+
+                    usuarios.Add(usuario);
+                }
+                return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+
+        }
     }
 }

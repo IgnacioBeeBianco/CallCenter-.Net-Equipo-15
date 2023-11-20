@@ -32,7 +32,6 @@ namespace DAO
             incidencia.ComentarioCierre = accesoADatos.Lector["comentario_cierra"].ToString();
             incidencia.problematica = accesoADatos.Lector["problematica"].ToString();
 
-
             return incidencia;
         }
 

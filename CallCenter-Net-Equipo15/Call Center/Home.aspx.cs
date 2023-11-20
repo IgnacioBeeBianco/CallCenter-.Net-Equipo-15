@@ -167,5 +167,10 @@ namespace Call_Center
                 CargarIncidencias(id);
             }
         }
+
+        protected void crearIncidencia_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CrearIncidencia.aspx");
+        }
     }
 }
