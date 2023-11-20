@@ -20,18 +20,20 @@ namespace Call_Center
         {
             try
             {
-                if (!IsPostBack)
+                
+                int id = getIDsesion();
+
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
                 {
-                    int id = getIDsesion();
+                    Dominio.Cuenta cuenta = Session["Cuenta"] as Dominio.Cuenta;
+                    string rolUsuario = cuenta.Rol.Nombre;
 
-                    if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                    h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
+
+                    ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
+
+                    if (!IsPostBack)
                     {
-                        Dominio.Cuenta cuenta = Session["Cuenta"] as Dominio.Cuenta;
-                        string rolUsuario = cuenta.Rol.Nombre;
-
-                        h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
-                        ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
-
                         if (rolUsuario == "Cliente")
                         {
                             Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
