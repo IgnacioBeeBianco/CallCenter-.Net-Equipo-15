@@ -65,6 +65,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\CRUD.js" />
     <Content Include="Admin\Cuenta.aspx" />
     <Content Include="Admin\Estado.aspx" />
     <Content Include="Admin\Prioridad.aspx" />

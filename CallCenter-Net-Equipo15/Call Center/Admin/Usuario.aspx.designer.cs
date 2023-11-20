@@ -177,13 +177,13 @@ namespace Call_Center.ABML
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alertPrio;
 
         /// <summary>
-        /// Control lblRolErrores.
+        /// Control LblUserFormError.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRolErrores;
+        protected global::System.Web.UI.WebControls.Label LblUserFormError;
 
         /// <summary>
         /// Control txbAction.

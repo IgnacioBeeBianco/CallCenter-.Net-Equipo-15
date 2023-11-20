@@ -12,6 +12,7 @@ namespace Call_Center.ABML
     {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         RolDAO rolDAO = new RolDAO();
+        protected bool hasError = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack) {
@@ -26,9 +27,15 @@ namespace Call_Center.ABML
 
         protected void btnQuitar(object sender, EventArgs e)
         {
-            int id = int.Parse(((Button)sender).CommandArgument);
-            usuarioDAO.Delete(id);
-            Response.Redirect("Usuario.aspx");
+            try
+            {
+                int id = int.Parse(((Button)sender).CommandArgument);
+                usuarioDAO.Delete(id);
+                Response.Redirect("Usuario.aspx");
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected void abrirModal(object sender, EventArgs e)
@@ -68,42 +75,49 @@ namespace Call_Center.ABML
 
         protected void submitModal(object sender, EventArgs e)
         {
-            if (lblTitle.Text == "Crear")
+            try
             {
-                Dominio.Usuario usuario = new Dominio.Usuario();
-                Dominio.Cuenta cuenta = new Dominio.Cuenta();
+                if (lblTitle.Text == "Crear")
+                {
+                    Dominio.Usuario usuario = new Dominio.Usuario();
+                    Dominio.Cuenta cuenta = new Dominio.Cuenta();
                 
-                cuenta.Email = TxbEMail.Text;
-                cuenta.Password = TxbPassword.Text;
-                cuenta.Rol = new Dominio.Rol();
-                cuenta.Rol.Id = int.Parse(RoleDropdown.SelectedValue);
-                usuario.Nombre = txbUsuarioNombre.Text;
-                usuario.Apellido = TxbUsuarioApellido.Text;
-                usuario.Domicilio = TxbUsuarioDomicilio.Text;
-                usuario.Telefono = TxbUsuarioTelefono.Text;
-                usuario.DNI = TxbUsuarioDNI.Text;
-                usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+                    cuenta.Email = TxbEMail.Text;
+                    cuenta.Password = TxbPassword.Text;
+                    cuenta.Rol = new Dominio.Rol();
+                    cuenta.Rol.Id = int.Parse(RoleDropdown.SelectedValue);
+                    usuario.Nombre = txbUsuarioNombre.Text;
+                    usuario.Apellido = TxbUsuarioApellido.Text;
+                    usuario.Domicilio = TxbUsuarioDomicilio.Text;
+                    usuario.Telefono = TxbUsuarioTelefono.Text;
+                    usuario.DNI = TxbUsuarioDNI.Text;
+                    usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
 
-                usuarioDAO.Create(cuenta, usuario);
+                    usuarioDAO.Create(cuenta, usuario);
 
-            }
-            else
+                }
+                else
+                {
+                    Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
+
+                    usuario.Nombre = txbUsuarioNombre.Text;
+                    usuario.Apellido = TxbUsuarioApellido.Text;
+                    usuario.Domicilio = TxbUsuarioDomicilio.Text;
+                    usuario.Telefono = TxbUsuarioTelefono.Text;
+                    usuario.DNI = TxbUsuarioDNI.Text;
+                    usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+                    usuario.CuentaId.Email = TxbEMail.Text;
+                    usuario.CuentaId.Password = TxbPassword.Text;
+
+                    usuarioDAO.Update(usuario);
+                }
+
+                Response.Redirect("Usuario.aspx");
+
+            }catch (Exception)
             {
-                Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
-
-                usuario.Nombre = txbUsuarioNombre.Text;
-                usuario.Apellido = TxbUsuarioApellido.Text;
-                usuario.Domicilio = TxbUsuarioDomicilio.Text;
-                usuario.Telefono = TxbUsuarioTelefono.Text;
-                usuario.DNI = TxbUsuarioDNI.Text;
-                usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
-                usuario.CuentaId.Email = TxbEMail.Text;
-                usuario.CuentaId.Password = TxbPassword.Text;
-
-                usuarioDAO.Update(usuario);
+                hasError = true;
             }
-
-            Response.Redirect("Usuario.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)

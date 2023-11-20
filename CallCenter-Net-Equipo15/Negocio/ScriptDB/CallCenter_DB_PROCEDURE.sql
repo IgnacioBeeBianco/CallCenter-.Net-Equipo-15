@@ -17,14 +17,14 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION
 
-        INSERT INTO Cuenta (email, password_, id_rol)
-        SELECT @email, @password_, (SELECT id FROM Rol WHERE nombre = 'Cliente')
+        INSERT INTO Cuenta (email, password_, id_rol, estado)
+        SELECT @email, @password_, (SELECT id FROM Rol WHERE nombre = 'Cliente'), 1
 
         DECLARE @cuenta_id INT
         SET @cuenta_id = SCOPE_IDENTITY()
 
-        INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id)
-        VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id)
+        INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id, estado)
+        VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id, 1)
 
         COMMIT TRANSACTION
     END TRY
@@ -51,13 +51,13 @@ BEGIN
     BEGIN TRANSACTION
 
     BEGIN TRY
-        INSERT INTO Cuenta (email, password_, id_rol) VALUES(@email, @password_, @id_rol)
+        INSERT INTO Cuenta (email, password_, id_rol, estado) VALUES(@email, @password_, @id_rol, 1)
 
         DECLARE @cuenta_id INT
         SET @cuenta_id = SCOPE_IDENTITY()
 
-        INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id)
-        VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id)
+        INSERT INTO Usuario (nombre, apellido, dni, domicilio, telefono, genero, cuenta_id, estado)
+        VALUES (@nombre, @apellido, @dni, @domicilio, @telefono, @genero, @cuenta_id, 1)
 
         COMMIT TRANSACTION
     END TRY

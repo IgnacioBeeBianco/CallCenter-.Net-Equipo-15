@@ -22,5 +22,7 @@
             </asp:ContentPlaceHolder>
         </div>
     </form>
+
+    <script src="CRUD.js"></script>
 </body>
 </html>
