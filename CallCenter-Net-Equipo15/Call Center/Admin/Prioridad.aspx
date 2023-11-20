@@ -29,7 +29,9 @@
                             </asp:LinkButton>
                         </td>
                         <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id"/>
+                            <asp:LinkButton ID="LinkButton2" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                <i class="bi bi-trash3-fill"></i>
+                            </asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>

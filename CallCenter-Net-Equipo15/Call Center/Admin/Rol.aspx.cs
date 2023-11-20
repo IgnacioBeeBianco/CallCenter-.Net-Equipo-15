@@ -25,7 +25,7 @@ namespace Call_Center.ABML
         protected void btnQuitar(object sender, EventArgs e)
         {
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
-            int id = int.Parse(((Button)sender).CommandArgument);
+            int id = int.Parse(((LinkButton)sender).CommandArgument);
             rolDAO.Delete(id);
             Response.Redirect("Rol.aspx");
         }

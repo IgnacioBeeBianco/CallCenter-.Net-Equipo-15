@@ -31,7 +31,9 @@
                             </asp:LinkButton>
                         </td>
                         <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id" />
+                            <asp:LinkButton ID="LinkButton1" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                <i class="bi bi-trash3-fill"></i>
+                            </asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -39,21 +41,6 @@
         </tbody>
     </table>
 
-    <style>
-        .custom-modal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 80%;
-            background-color: white;
-            border: 1px solid black;
-        }
-    </style>
-
-
-    <!-- ACA PONER EL FORMULARIO ENTERO DE AGREGAR/MODIFICAR -->
     <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>

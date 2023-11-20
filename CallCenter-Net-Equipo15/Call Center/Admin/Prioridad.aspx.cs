@@ -18,7 +18,7 @@ namespace Call_Center.ABML
 
             
             //Aca cargamos el repeater
-            rptPrioridades.DataSource = prioridadDAO.List();
+            rptPrioridades.DataSource = prioridadDAO.List().Where(prio => prio.Estado);
             rptPrioridades.DataBind();
 
         }

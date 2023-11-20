@@ -19,6 +19,7 @@ namespace DAO
             tipoIncidencia.id = (int)accesoADatos.Lector["id"];
             tipoIncidencia.Nombre = accesoADatos.Lector["nombre"].ToString();
             tipoIncidencia.Descripcion = accesoADatos.Lector["descripcion"].ToString();
+            tipoIncidencia.Estado = bool.Parse(accesoADatos.Lector["estado"].ToString());
 
             return tipoIncidencia;
         }
@@ -168,7 +169,7 @@ namespace DAO
 
             try
             {
-                string consultar = "DELETE FROM TipoIncidencia WHERE id = @id";
+                string consultar = "UPDATE TipoIncidencia SET Estado = 0 WHERE id = @id";
 
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@id", id);

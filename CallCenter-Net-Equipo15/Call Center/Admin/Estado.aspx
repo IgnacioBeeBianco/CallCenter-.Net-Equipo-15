@@ -3,16 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
-        .custom-modal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 80%;
-        }
-    </style>
     <div class="buttons d-flex justify-content-end align-items-center mb-3">
         <asp:LinkButton ID="btnCrear" runat="server" OnClick="abrirModal" CssClass="btn btn-primary" action="create">
             Crear
@@ -44,7 +34,9 @@
                                 </asp:LinkButton>
                             </td>
                             <td style="width: 6%; text-align: center;">
-                                <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id" />
+                                <asp:LinkButton ID="btnQuitar" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </asp:LinkButton>                            
                             </td>
                         </tr>
                     </ItemTemplate>

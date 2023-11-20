@@ -15,9 +15,12 @@ namespace DAO
 
         private Prioridad LoadTipoIncidencia(ref AccesoADatos accesoADatos)
         {
-            Prioridad prioridad = new Prioridad();
-            prioridad.Id = (int)accesoADatos.Lector["id"];
-            prioridad.Nombre = accesoADatos.Lector["nombre"].ToString();
+            Prioridad prioridad = new Prioridad
+            {
+                Id = (int)accesoADatos.Lector["id"],
+                Nombre = accesoADatos.Lector["nombre"].ToString(),
+                Estado = bool.Parse(accesoADatos.Lector["estado"].ToString())
+            };
 
             return prioridad;
         }
