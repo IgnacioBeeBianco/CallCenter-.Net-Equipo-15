@@ -13,6 +13,7 @@ namespace Call_Center.ABML
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         RolDAO rolDAO = new RolDAO();
         protected bool hasError = false;
+        protected bool hasSuccess = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack) {
@@ -29,7 +30,7 @@ namespace Call_Center.ABML
         {
             try
             {
-                int id = int.Parse(((Button)sender).CommandArgument);
+                int id = int.Parse(((LinkButton)sender).CommandArgument);
                 usuarioDAO.Delete(id);
                 Response.Redirect("Usuario.aspx");
             }catch(Exception ex)
@@ -113,7 +114,8 @@ namespace Call_Center.ABML
                 }
 
                 Response.Redirect("Usuario.aspx");
-
+                hasSuccess = true;
+                Session["hasSuccess"] = hasSuccess;
             }catch (Exception)
             {
                 hasError = true;

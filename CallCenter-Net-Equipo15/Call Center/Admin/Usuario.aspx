@@ -10,6 +10,7 @@
 
     </style>
     <div class="buttons d-flex justify-content-end align-items-center mb-3">
+        
         <asp:LinkButton ID="btnCrear" runat="server" OnClick="abrirModal" CssClass="btn btn-primary" action="create">
             Crear
         </asp:LinkButton>
@@ -43,13 +44,18 @@
                             </asp:LinkButton>
                         </td>
                         <td style="width: 6%; text-align: center;">
-                            <asp:Button ID="btnQuitar" CssClass="btn btn-danger" runat="server" Text="🗑️" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id"/>
+                            <asp:LinkButton ID="btnQuitar" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                <i class="bi bi-trash3-fill"></i>
+                            </asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
         </tbody>
     </table>    
+
+    
+    
 
     <asp:ScriptManager ID="SMModal" runat="server" />
         <asp:UpdatePanel ID="upModal" runat="server">
