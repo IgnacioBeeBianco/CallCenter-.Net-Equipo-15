@@ -27,7 +27,7 @@ namespace Call_Center.ABML
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             int id = int.Parse(((Button)sender).CommandArgument);
             estadoDAO.Delete(id);
-            Response.Redirect("EstadosCRUD.aspx");
+            Response.Redirect("Estado.aspx");
         }
 
         protected void abrirModal(object sender, EventArgs e)
@@ -45,9 +45,10 @@ namespace Call_Center.ABML
                 case "modify":
                     int id = int.Parse(((LinkButton)sender).CommandArgument);
                     txbEstadoNombre.Text = estadoDAO.getEstado(id).Nombre;
+                    txbNivelEstado.Text = estadoDAO.getEstado(id).nivelEstado.ToString();
                     lblTitle.Text = "Modificar a ";
                     lblNombre.Text = txbEstadoNombre.Text;
-                    lblNivelEstado.Text = txbEstadoNombre.Text;
+                    lblNivelEstado.Text = txbNivelEstado.Text;
                     break;
 
                 default:
@@ -63,6 +64,7 @@ namespace Call_Center.ABML
             {
                 Dominio.Estado estado = new Dominio.Estado();
                 estado.Nombre = txbEstadoNombre.Text;
+                estado.nivelEstado = int.Parse(txbNivelEstado.Text);
                 //Validaciones
                 if (txbEstadoNombre.Text == "" || txbEstadoNombre.Text == null)
                 {
@@ -90,16 +92,18 @@ namespace Call_Center.ABML
                     lblEstadoErrores.Text = "No hay un estado buscado";
                     return;
                 }
-                if (estadoDAO.getEstado(txbEstadoNombre.Text).Nombre != null)
+                if (!nombre.Equals(lblNombre.Text, StringComparison.OrdinalIgnoreCase))
                 {
-                    alertEstado.Style["display"] = "block";
-                    lblEstadoErrores.Text = "Estado ya creado...";
-                    return;
+                    if (estadoDAO.getEstado(txbEstadoNombre.Text).Nombre != null)
+                    {
+                        alertEstado.Style["display"] = "block";
+                        lblEstadoErrores.Text = "Estado ya creado...";
+                        return;
+                    }
                 }
                 estadoDAO.Update(nombre, nivelEstado, id);
             }
-
-            Response.Redirect("EstadosCRUD.aspx");
+            Response.Redirect("Estado.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)

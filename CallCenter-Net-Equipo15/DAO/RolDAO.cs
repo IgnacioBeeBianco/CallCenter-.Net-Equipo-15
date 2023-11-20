@@ -30,7 +30,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Rol WHERE id = @Id";
+                string consulta = "SELECT id, nombre, estado FROM Rol WHERE id = @Id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -60,7 +60,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Rol WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, estado FROM Rol WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -119,7 +119,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Rol WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, estado FROM Rol WHERE Nombre LIKE @Nombre";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", "%" + Nombre + "%");
@@ -148,7 +148,7 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Rol VALUES (@Nombre)";
+                string consulta = "INSERT INTO Rol VALUES (@Nombre, 1)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", rol.Nombre);
@@ -196,7 +196,8 @@ namespace DAO
 
             try
             {
-                string consultar = "DELETE FROM Rol WHERE Id = @Id";
+                
+                string consultar = "UPDATE Rol SET estado = 0 WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@Id", Id);

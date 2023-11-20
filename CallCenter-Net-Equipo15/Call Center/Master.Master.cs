@@ -27,14 +27,16 @@ namespace Call_Center
             cuenta = (Cuenta)Session["Cuenta"];
 
             Username.Text = (usuario.Nombre + " " + usuario.Apellido);
-            //UserRol.Text = cuenta.Rol.Nombre;
-
 
             if ( cuenta.Rol.Nombre != "Administrador")
             {
                 adminDashboard.Style["display"] = "none";
             }
-            
+            if (cuenta.Rol.Nombre == "Cliente")
+            {
+                incidenciaDashboard.Style["display"] = "none";
+            }
+
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)

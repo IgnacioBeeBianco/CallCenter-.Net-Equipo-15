@@ -27,7 +27,7 @@ namespace Call_Center.ABML
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             int id = int.Parse(((Button)sender).CommandArgument);
             rolDAO.Delete(id);
-            Response.Redirect("RolesCRUD.aspx");
+            Response.Redirect("Rol.aspx");
         }
 
         protected void abrirModal(object sender, EventArgs e)
@@ -99,7 +99,7 @@ namespace Call_Center.ABML
                 rolDAO.Update(nombre, rol.Id);
             }
 
-            Response.Redirect("RolesCRUD.aspx");
+            Response.Redirect("Rol.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)
