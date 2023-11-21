@@ -22,5 +22,9 @@
     border: 1px solid black;
 }
 
-
-
+.validationError {
+    font-size: 13px;
+    display: none;
+    position: relative;
+    padding: 3px;
+}

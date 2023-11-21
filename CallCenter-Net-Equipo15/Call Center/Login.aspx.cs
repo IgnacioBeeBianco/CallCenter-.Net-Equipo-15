@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
 
 namespace Call_Center
 {
@@ -20,9 +20,9 @@ namespace Call_Center
         {
             Cuenta cuenta = new Cuenta();
             cuenta.Rol = new Rol();
-            cuenta.Email = EmailInput.Value; 
+            cuenta.Email = EmailInput.Value;
             cuenta.Password = PasswordInput.Value;
-            
+
 
             CuentaNegocio cuentaNegocio = new CuentaNegocio();
 
