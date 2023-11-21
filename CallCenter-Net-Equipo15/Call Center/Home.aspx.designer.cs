@@ -78,33 +78,6 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Label inciClose;
 
         /// <summary>
-        /// Control filtroIDusu.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label filtroIDusu;
-
-        /// <summary>
-        /// Control filtro.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox filtro;
-
-        /// <summary>
-        /// Control rptIncidencias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptIncidencias;
-
-        /// <summary>
         /// Control usuDatos.
         /// </summary>
         /// <remarks>
@@ -112,6 +85,15 @@ namespace Call_Center
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl usuDatos;
+
+        /// <summary>
+        /// Control rptUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptUsuarios;
 
         /// <summary>
         /// Control lblFiltro.
@@ -132,13 +114,31 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.TextBox txbFiltraDNI;
 
         /// <summary>
-        /// Control rptUsuarios.
+        /// Control rptIncidencias.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUsuarios;
+        protected global::System.Web.UI.WebControls.Repeater rptIncidencias;
+
+        /// <summary>
+        /// Control filtroIDusu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label filtroIDusu;
+
+        /// <summary>
+        /// Control filtro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filtro;
 
         /// <summary>
         /// Control lblMensajeError.

@@ -18,7 +18,7 @@
 </head>
 <body>
     <form id="form1" runat="server" class="vh-100">
-        <header class="navbar navbar-dark sticky-top bg-dark flex-shrink-0 p-3">
+        <header class="navbar navbar-dark sticky-top bg-dark flex-shrink-0 p-3 bg-dark-subtle rounded shadow">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <main class="main-content m-4">
+        <main class="main-content m-4 bg-body">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
 

@@ -36,6 +36,7 @@ namespace Call_Center
                         if (rolUsuario == "Cliente")
                         {
                             Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
+                            
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
                         }
@@ -62,6 +63,7 @@ namespace Call_Center
                             Session["listaIncidencias"] = incidenciaDAO.List();
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
+                            
 
                             Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
                             rptUsuarios.DataSource = Session["listaUsuario"];
