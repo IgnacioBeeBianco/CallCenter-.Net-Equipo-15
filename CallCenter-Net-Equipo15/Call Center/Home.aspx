@@ -30,8 +30,10 @@
     </script>
     <section>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 d-flex justify-content-between">
                 <h1 class="mb-3">Bienvenido <span class="fw-bold" id="h1NomApe" runat="server"></span>!</h1>
+                <asp:Button Text="Crear incidencia" runat="server" ID="crearIncidencia" OnClick="crearIncidencia_Click" Visible="false" CssClass="btn btn-primary btn-sm m-2"/>
+
             </div>
         </div>
     </section>
@@ -99,16 +101,20 @@
               <li class="nav-item" role="presentation">
                   <button class="nav-link" id="search-tickets-tab" data-bs-toggle="tab" data-bs-target="#search-tickets-tab-pane" type="button" role="tab" aria-controls="search-tickets-tab-pane" aria-selected="false">Busqueda</button>
               </li>
-          
+
             </ul>
+
+
 
         </div>
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade p-4" id="search-tickets-tab-pane" role="tabpanel" aria-labelledby="search-tickets-tab" tabindex="0">
-              <section id="usuDatos" visible="false" runat="server" class="p-3">
+              <section id="usuDatos" visible="false" runat="server" class="p-3 d-flex">
+                  <div class="d-flex flex-column col-10">
                     <h1 class="fw-bold">Tickets</h1>
                     <p>En esta sección verás todos los tickets</p>
+
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -133,7 +139,9 @@
                             </asp:Repeater>
                         </tbody>
                     </table>
-                    <aside class="col-2 filters rounded shadow">
+                  </div>
+                  <div class="col-2 p-3">
+                      <aside class="filters">
                         <h3>Filtros</h3>
         
                         <div class="row">
@@ -145,9 +153,11 @@
                             </div>
                         </div>
                     </aside>
+                  </div>  
+                    
             </section>
           </div>
-          <div class="tab-pane fade show active p-4" id="tickets-tab-pane" role="tabpanel" aria-labelledby="tickets-tab" tabindex="0">
+          <div class="tab-pane fade show active p-4 d-flex" id="tickets-tab-pane" role="tabpanel" aria-labelledby="tickets-tab" tabindex="0">
               <section class="col-10">
                 <h1 class="fw-bold">Tickets</h1>
                 <p>En esta sección verás todos los tickets</p>
@@ -189,7 +199,7 @@
                         </tbody>
                     </table>
                 </section> 
-                <aside class="col-2 filters rounded shadow m-2">
+                <aside class="col-2 filters m-2">
                     <h3>Filtros</h3>
                     <div class="row">
                         <div class="col-12">
@@ -201,7 +211,7 @@
                     </div>
                 </aside>
           </div>
-        </div>    
+        </div>
     </section>
     <section>
         <div class="row">

@@ -20,7 +20,7 @@
         <div class="row">
 
         </div>
-        <div class="container d-flex shadow mb-5 rounded-4 p-5 bg-dark">
+        <div class="container d-flex shadow mb-5 rounded-4 p-5 bg-dark-subtle">
             <div class="form-container col-6 p-5">
                 <div class="header mb-5 text-center">
                     <h1 class="display-5">Inicia sesión</h1>
