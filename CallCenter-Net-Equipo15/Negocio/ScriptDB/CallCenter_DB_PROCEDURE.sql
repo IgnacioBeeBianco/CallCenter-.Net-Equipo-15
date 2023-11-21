@@ -102,3 +102,43 @@ BEGIN
     END CATCH
 
 END 
+
+GO
+--DROP PROCEDURE SP_CrearIncidencia
+CREATE PROCEDURE SP_CrearIncidencia
+    @creador_id INT,
+    @asignado_id INT,
+    @fechaCreacion DATETIME,
+    @fechaCambio DATETIME,
+    @estado_id INT,
+    @prioridad_id INT,
+    @tipo_incidencia_id INT,
+    @comentario_cierra NVARCHAR(300),
+    @problematica NVARCHAR(500)
+AS
+BEGIN
+    BEGIN TRANSACTION
+
+    BEGIN TRY
+    INSERT INTO Incidencia (creador_id, asignado_id, fecha_creacion, fecha_ultimo_cambio, estado_id, prioridad_id, tipo_incidencia_id, comentario_cierra, problematica, estado)
+    VALUES
+    (
+        @creador_id,
+        @asignado_id,
+        @fechaCreacion,
+        @fechaCambio,
+        @estado_id,
+        @prioridad_id,
+        @tipo_incidencia_id,
+        @comentario_cierra,
+        @problematica,
+        1
+    )
+    COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRANSACTION
+        RAISERROR('Error al crear incidencia', 1,2)
+    END CATCH
+END

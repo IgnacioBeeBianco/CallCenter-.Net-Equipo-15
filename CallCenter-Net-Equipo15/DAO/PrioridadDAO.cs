@@ -214,5 +214,33 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
         }
+
+        public int getPrioridadId(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT id FROM Prioridad WHERE Nombre LIKE @Nombre";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.ejecutarLectura();
+
+                if (accesoADatos.Lector.Read())
+                {
+                    return Convert.ToInt32(accesoADatos.Lector["id"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+            return -1;
+        }
     }
 }
