@@ -5,11 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Call Center</title>
+    <title>Registrarse</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="Css/Main.css" />
 </head>
 <body>
+    <%/* 
     <style>
         .transition-effect {
             opacity: 0;
@@ -20,7 +22,7 @@
             display: none;
         }
     </style>
-
+        */%>
     <form id="form1" runat="server" class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-primary-subtle">
         <div class="container">
             <div class="row d-flex justify-content-center">

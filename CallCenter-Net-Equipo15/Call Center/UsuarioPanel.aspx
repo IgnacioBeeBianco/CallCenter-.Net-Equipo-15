@@ -111,20 +111,8 @@
             </div>
         </div>
     </section>
-    <style>
-        .custom-modal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 80%;
-            background-color: white;
-            border: 1px solid black;
-        }
-    </style>
-
-    <asp:ScriptManager ID="SMModal" runat="server"/>
+   
+    <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>
             <div id="modalUsuarios" runat="server" style="display: none;">
