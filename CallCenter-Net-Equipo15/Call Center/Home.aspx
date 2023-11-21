@@ -23,7 +23,7 @@
                 }
             }
         }
-        
+
         window.onload = function () {
             mostrarOcultarSegunRol();
         };

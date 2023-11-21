@@ -11,16 +11,12 @@ namespace Call_Center.ABML
     public partial class Usuario : System.Web.UI.Page
     {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        RolDAO rolDAO = new RolDAO();
         protected bool hasError = false;
         protected bool hasSuccess = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack) {
-                RoleDropdown.DataSource = rolDAO.List();
-                RoleDropdown.DataTextField = "Nombre";
-                RoleDropdown.DataValueField = "Id";
-                RoleDropdown.DataBind();
+
                 rptUsuarios.DataSource = usuarioDAO.GetUsuarios().Where(user => user.Estado);
                 rptUsuarios.DataBind();
             }
@@ -47,6 +43,11 @@ namespace Call_Center.ABML
             switch (btn.Attributes["action"])
             {
                 case "create":
+                    RolDAO rolDAO = new RolDAO();
+                    RoleDropdown.DataSource = rolDAO.List();
+                    RoleDropdown.DataTextField = "Nombre";
+                    RoleDropdown.DataValueField = "Id";
+                    RoleDropdown.DataBind();
                     lblTitle.Text = "Crear";
                     break;
 

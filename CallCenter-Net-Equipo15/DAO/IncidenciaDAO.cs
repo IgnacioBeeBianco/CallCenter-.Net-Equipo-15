@@ -32,7 +32,6 @@ namespace DAO
             incidencia.ComentarioCierre = accesoADatos.Lector["comentario_cierra"].ToString();
             incidencia.problematica = accesoADatos.Lector["problematica"].ToString();
 
-
             return incidencia;
         }
 
@@ -227,10 +226,18 @@ namespace DAO
 
             try
             {
-                string consulta = "";
                 accesoADatos.AbrirConexion();
+                accesoADatos.setearProcedimiento("SP_CrearIncidencia");
                 //setear todos los parametros
-                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@creador_id",incidencia.Creador.Id);
+                accesoADatos.setearParametro("@asignado_id",incidencia.Asignado.Id);
+                accesoADatos.setearParametro("@fechaCreacion",incidencia.FechaCreacion);
+                accesoADatos.setearParametro("@fechaCambio",incidencia.FechaCierre);
+                accesoADatos.setearParametro("@estado_id",incidencia.Estado.Id);
+                accesoADatos.setearParametro("@prioridad_id",incidencia.Prioridad.Id);
+                accesoADatos.setearParametro("@tipo_incidencia_id",incidencia.TipoIncidencia.id);
+                accesoADatos.setearParametro("@comentario_cierra ",incidencia.ComentarioCierre);
+                accesoADatos.setearParametro("@problematica",incidencia.problematica);
                 accesoADatos.ejecutarAccion();
 
             }

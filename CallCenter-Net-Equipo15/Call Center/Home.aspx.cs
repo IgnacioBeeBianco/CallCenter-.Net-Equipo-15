@@ -57,6 +57,7 @@ namespace Call_Center
                             usuDatos.Visible = true;
                             txbFiltraDNI.Visible = true;
                             lblFiltro.Visible = true;
+                            crearIncidencia.Visible = true;
                         }
                         else if (rolUsuario == "Supervisor" || rolUsuario == "Administrador")
                         {
@@ -76,6 +77,7 @@ namespace Call_Center
                             usuDatos.Visible = true;
                             txbFiltraDNI.Visible = true;
                             lblFiltro.Visible = true;
+                            crearIncidencia.Visible = true;
                         }
                     }
                 }
@@ -168,6 +170,11 @@ namespace Call_Center
                 rptUsuarios.DataBind();
                 CargarIncidencias(id);
             }
+        }
+
+        protected void crearIncidencia_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CrearIncidencia.aspx");
         }
     }
 }

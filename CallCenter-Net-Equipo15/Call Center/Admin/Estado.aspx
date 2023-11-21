@@ -15,7 +15,6 @@
                     <th class="d-none">Id</th>
                     <th>Nombre</th>
                     <th>Nivel de Estado</th>
-                    <th>Estado</th>
                     <th style="width: 10%" class="text-center">Modificar</th>
                     <th style="width: 10%" class="text-center">Eliminar</th>
                 </tr>
@@ -27,7 +26,6 @@
                             <td class="d-none" name="id"><%# Eval("id") %></td>
                             <td><%# Eval("nombre") %></td>
                             <td><%# Eval("nivelEstado") %></td>
-                            <td><%# Eval("estado") %></td>
                             <td style="width: 6%; text-align: center;">
                                 <asp:LinkButton ID="LinkButton1" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
                                     <i class="bi bi-pencil-fill"></i>

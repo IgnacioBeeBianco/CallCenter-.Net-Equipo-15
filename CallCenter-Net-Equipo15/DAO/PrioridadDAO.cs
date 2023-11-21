@@ -15,12 +15,11 @@ namespace DAO
 
         private Prioridad LoadTipoIncidencia(ref AccesoADatos accesoADatos)
         {
-            Prioridad prioridad = new Prioridad
-            {
-                Id = (int)accesoADatos.Lector["id"],
-                Nombre = accesoADatos.Lector["nombre"].ToString(),
-                Estado = bool.Parse(accesoADatos.Lector["estado"].ToString())
-            };
+            Prioridad prioridad = new Prioridad();
+            prioridad.Id = (int)accesoADatos.Lector["id"];
+            prioridad.Nombre = accesoADatos.Lector["nombre"].ToString();
+            prioridad.nivelPrioridad = (int)accesoADatos.Lector["nivelPrioridad"];
+            prioridad.Estado = bool.Parse(accesoADatos.Lector["estado"].ToString());
 
             return prioridad;
         }
@@ -32,7 +31,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Prioridad WHERE Id = @Id";
+                string consulta = "SELECT id, nombre, nivelPrioridad, estado FROM Prioridad WHERE Id = @Id and estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Id", Id);
@@ -62,7 +61,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Prioridad WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelPrioridad, estado FROM Prioridad WHERE Nombre LIKE @Nombre and estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -92,7 +91,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, estado FROM Prioridad";
+                string consulta = "SELECT id, nombre, nivelPrioridad, estado FROM Prioridad where estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -121,7 +120,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Prioridad WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, nivelPrioridad, estado FROM Prioridad WHERE Nombre LIKE @Nombre and estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", "%" + Nombre + "%");
@@ -150,10 +149,11 @@ namespace DAO
 
             try
             {
-                string consulta = "INSERT INTO Prioridad VALUES (@Nombre, 1)";
+                string consulta = "INSERT INTO Prioridad VALUES (@Nombre,@nivelPrioridad, 1)";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", prioridad.Nombre);
+                accesoADatos.setearParametro("@nivelPrioridad", prioridad.nivelPrioridad);
                 accesoADatos.ejecutarAccion();
 
             }
@@ -167,16 +167,17 @@ namespace DAO
             }
         }
 
-        public void Update(string newValue, int id)
+        public void Update(Prioridad prioridad, int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE Prioridad SET nombre = @Nombre WHERE Id = @Id";
+                string consulta = "UPDATE Prioridad SET nombre = @Nombre, nivelPrioridad = @nivelPrioridad WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Nombre",newValue);
+                accesoADatos.setearParametro("@Nombre",prioridad.Nombre);
+                accesoADatos.setearParametro("@nivelPrioridad", prioridad.nivelPrioridad);
                 accesoADatos.setearParametro("@Id", id);
                 accesoADatos.consultar(consulta);
 
@@ -213,6 +214,34 @@ namespace DAO
             {
                 accesoADatos.cerrarConexion();
             }
+        }
+
+        public int getPrioridadId(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT id FROM Prioridad WHERE Nombre LIKE @Nombre";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.ejecutarLectura();
+
+                if (accesoADatos.Lector.Read())
+                {
+                    return Convert.ToInt32(accesoADatos.Lector["id"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+            return -1;
         }
     }
 }

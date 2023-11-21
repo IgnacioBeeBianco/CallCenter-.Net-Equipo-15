@@ -14,6 +14,7 @@ namespace DAO
 
         public List<Usuario> GetUsuarios()
         {
+            List<Usuario> usuarios = new List<Usuario>();
             try
             {
                 string consulta = "SELECT id, nombre, apellido, dni, domicilio, telefono, estado FROM Usuario";
@@ -244,6 +245,72 @@ namespace DAO
                 accesoADatos.cerrarConexion();
             }
 
+        }
+
+        public List<Usuario> GetUsuariosDistintosClientes()
+        {
+            try
+            {
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, U.estado, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre != 'Cliente'";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)accesoADatos.Lector["id"];
+                    usuario.Nombre = accesoADatos.Lector["nombre"].ToString();
+                    usuario.Apellido = accesoADatos.Lector["apellido"].ToString();
+                    usuario.DNI = accesoADatos.Lector["dni"].ToString();
+                    usuario.Telefono = accesoADatos.Lector["telefono"].ToString();
+                    usuario.Estado = (bool)accesoADatos.Lector["estado"];
+
+                    usuario.CuentaId = new Cuenta();
+                    usuario.CuentaId.Rol = new Rol();
+                    usuario.CuentaId.Rol.Nombre = accesoADatos.Lector["nombre"].ToString();
+
+                    usuarios.Add(usuario);
+                }
+                return usuarios;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+
+        }
+
+        public int getUsuarioId(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+
+            try
+            {
+                string consulta = "SELECT id FROM Usuario WHERE Nombre LIKE @Nombre";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.ejecutarLectura();
+
+                if (accesoADatos.Lector.Read())
+                {
+                    return Convert.ToInt32(accesoADatos.Lector["id"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+            return -1;
         }
     }
 }
