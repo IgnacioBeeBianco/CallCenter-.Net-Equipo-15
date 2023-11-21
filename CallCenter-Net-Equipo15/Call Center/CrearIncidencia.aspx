@@ -10,7 +10,7 @@
             if (!regexFecha.test(fecha)) {
                 alert('Formato de fecha y hora inválido. Utiliza el formato DD/MM/YYYY HH:mm:ss');
                 document.getElementById('<%= txtbFechaCreacion.ClientID %>').value = '';
-            document.getElementById('<%= txtbFechaCambio.ClientID %>').value = '';
+                document.getElementById('<%= txtbFechaCambio.ClientID %>').value = '';
             }
         }
     </script>

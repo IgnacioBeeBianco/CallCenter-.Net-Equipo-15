@@ -51,13 +51,7 @@ namespace Call_Center
                             rptUsuarios.DataBind();
 
                             CargarIncidencias(id);
-                            cantInci.Visible = true;
-                            filtroIDusu.Visible = true;
-                            filtro.Visible = true;
-                            usuDatos.Visible = true;
-                            txbFiltraDNI.Visible = true;
-                            lblFiltro.Visible = true;
-                            crearIncidencia.Visible = true;
+                            mostrarObjetos();
                         }
                         else if (rolUsuario == "Supervisor" || rolUsuario == "Administrador")
                         {
@@ -71,13 +65,7 @@ namespace Call_Center
                             rptUsuarios.DataBind();
 
                             CargarIncidencias(id);
-                            cantInci.Visible = true;
-                            filtroIDusu.Visible = true;
-                            filtro.Visible = true;
-                            usuDatos.Visible = true;
-                            txbFiltraDNI.Visible = true;
-                            lblFiltro.Visible = true;
-                            crearIncidencia.Visible = true;
+                            mostrarObjetos();
                         }
                     }
                 }
@@ -121,6 +109,23 @@ namespace Call_Center
             }
         }
 
+        protected void mostrarObjetos()
+        {
+            cantInci.Visible = true;
+            filtroIDusu.Visible = true;
+            filtro.Visible = true;
+            usuDatos.Visible = true;
+            txbFiltraDNI.Visible = true;
+            lblFiltro.Visible = true;
+            crearIncidencia.Visible = true;
+            lblEstado.Visible = true;
+            filtroEstado.Visible = true;
+            lblPrioridad.Visible = true;
+            filtroPrioridad.Visible = true;
+            lblTipoInci.Visible = true;
+            filtroTipoInci.Visible = true;
+        }
+
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
@@ -152,29 +157,123 @@ namespace Call_Center
         protected void txbFiltraDNI_TextChanged(object sender, EventArgs e)
         {
             List<Usuario> listaUsu = (List<Usuario>)Session["listaUsuario"];
+            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
             int id = getIDsesion();
             string DNIFiltrado = txbFiltraDNI.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(DNIFiltrado))
             {
+                lblMensajeErrorDNI.Visible = false;
+
                 rptUsuarios.DataSource = listaUsu;
                 rptUsuarios.DataBind();
+
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+
                 CargarIncidencias(id);
                 return;
             }
             else
             {
+
                 List<Usuario> listaFiltrada = listaUsu.Where(x => x.DNI == DNIFiltrado).ToList();
 
-                rptUsuarios.DataSource = listaFiltrada;
-                rptUsuarios.DataBind();
-                CargarIncidencias(id);
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(DNIFiltrado))
+                {
+                    MostrarMensajeDebajoTextBox("No se encontraron usuarios con el DNI proporcionado.");
+                    return;
+                }
+                else
+                {
+                    int idUsuarioFiltrado = listaFiltrada.FirstOrDefault()?.Id ?? -1;
+
+                    List<Incidencia> listaIncidenciasFiltrada = listaInci.Where(x => x.Creador.Id == idUsuarioFiltrado).ToList();
+                    rptUsuarios.DataSource = listaFiltrada;
+                    rptUsuarios.DataBind();
+
+                    rptIncidencias.DataSource = listaIncidenciasFiltrada;
+                    rptIncidencias.DataBind();
+
+                    CargarIncidencias(id);
+
+                    lblMensajeErrorDNI.Visible = false;
+                } 
             }
         }
 
         protected void crearIncidencia_Click(object sender, EventArgs e)
         {
             Response.Redirect("CrearIncidencia.aspx");
+        }
+
+        protected void filtroEstado_TextChanged(object sender, EventArgs e)
+        {
+            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+            int id = getIDsesion();
+            if (string.IsNullOrWhiteSpace(filtroEstado.Text))
+            {
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+                return;
+            }
+            else
+            {
+                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Estado.Nombre == filtroEstado.Text).ToList();
+
+                rptIncidencias.DataSource = listaFiltrada;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+            }
+        }
+
+        protected void filtroPrioridad_TextChanged(object sender, EventArgs e)
+        {
+            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+            int id = getIDsesion();
+            if (string.IsNullOrWhiteSpace(filtroPrioridad.Text))
+            {
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+                return;
+            }
+            else
+            {
+                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Prioridad.Nombre == filtroPrioridad.Text).ToList();
+
+                rptIncidencias.DataSource = listaFiltrada;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+            }
+        }
+
+        protected void filtroTipoPrio_TextChanged(object sender, EventArgs e)
+        {
+            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+            int id = getIDsesion();
+            if (string.IsNullOrWhiteSpace(filtroTipoInci.Text))
+            {
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+                return;
+            }
+            else
+            {
+                List<Incidencia> listaFiltrada = listaInci.Where(x => x.TipoIncidencia.Nombre == filtroTipoInci.Text).ToList();
+
+                rptIncidencias.DataSource = listaFiltrada;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+            }
+        }
+
+        private void MostrarMensajeDebajoTextBox(string mensaje)
+        {
+            lblMensajeErrorDNI.Text = mensaje;
+            lblMensajeErrorDNI.Visible = true;
         }
     }
 }
