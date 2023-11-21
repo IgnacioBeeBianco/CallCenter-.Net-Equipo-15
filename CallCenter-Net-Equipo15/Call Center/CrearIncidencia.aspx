@@ -50,7 +50,8 @@
             <textarea class="form-control" id="problematica" rows="3" runat="server"></textarea>
         </div>
         <div class="mb-3">
-        <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
+            <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
+            <asp:Button Text="Volver" runat="server" ID="btnVolver" OnClick="btnVolver_Click" class="btn btn-primary"/>
         </div>
     </div>
 </asp:Content>

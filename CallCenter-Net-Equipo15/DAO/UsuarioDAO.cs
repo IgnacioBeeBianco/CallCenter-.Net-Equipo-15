@@ -14,6 +14,7 @@ namespace DAO
 
         public List<Usuario> GetUsuarios()
         {
+            List<Usuario> usuarios = new List<Usuario>();
             try
             {
                 string consulta = "SELECT id, nombre, apellido, dni, domicilio, telefono, estado FROM Usuario";

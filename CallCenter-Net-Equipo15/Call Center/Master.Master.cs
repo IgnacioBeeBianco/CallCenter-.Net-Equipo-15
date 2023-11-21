@@ -35,6 +35,7 @@ namespace Call_Center
             if (cuenta.Rol.Nombre == "Cliente")
             {
                 incidenciaDashboard.Style["display"] = "none";
+                incidenciaCrear.Style["display"] = "none";
             }
 
         }

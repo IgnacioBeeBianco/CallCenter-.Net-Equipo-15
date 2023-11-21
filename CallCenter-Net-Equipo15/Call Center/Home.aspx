@@ -4,6 +4,18 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2; /* Puedes ajustar el color de fondo según tus preferencias */
+            z-index: 2;
+        }
+
         .info-container {
             display: flex;
             justify-content: space-between;
@@ -36,7 +48,7 @@
                 }
             }
         }
-        
+
         window.onload = function () {
             mostrarOcultarSegunRol();
         };
@@ -82,43 +94,54 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Id incidencia</th>
-                    <th class="d-none">Id usuario</th>
-                    <th class="oculto elementoMostrarOcultar">Solicitado por</th>
-                    <th>Tipo de incidencia</th>
-                    <th>Problematica</th>
-                    <th class="oculto elementoMostrarOcultar">Asignado</th>
-                    <th class="oculto elementoMostrarOcultar">Prioridad</th>
-                    <th>Estado</th>
-                    <th>Fecha de creacion</th>
-                    <th>Fecha ultimo cambio</th>
-                    <th>Comentario de cierre</th>
-                </tr>
-            </thead>
-            <tbody>
-                <asp:Repeater ID="rptIncidencias" runat="server">
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("Id") %></td>
-                            <td class="d-none"><%# Eval("Creador.id") %></td>
-                            <td class="oculto elementoMostrarOcultar"><%# Eval("Creador.nombre") %></td>
-                            <td><%# Eval("TipoIncidencia.nombre") %></td>
-                            <td><%# Eval("problematica") %></td>
-                            <td class="oculto elementoMostrarOcultar"><%# Eval("Asignado.nombre") %></td>
-                            <td class="oculto elementoMostrarOcultar"><%# Eval("Prioridad.nombre") %></td>
-                            <td><%# Eval("Estado.nombre") %></td>
-                            <td><%# Eval("FechaCreacion") %></td>
-                            <td><%# Eval("FechaCierre") %></td>
-                            <td><%# Eval("ComentarioCierre") %></td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </tbody>
-        </table>
-        <asp:Button Text="Crear incidencia" runat="server" ID="crearIncidencia" OnClick="crearIncidencia_Click"/>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id incidencia</th>
+                        <th class="d-none">Id usuario</th>
+                        <th class="oculto elementoMostrarOcultar">Solicitado por</th>
+                        <th>Tipo de incidencia</th>
+                        <th>Problematica</th>
+                        <th class="oculto elementoMostrarOcultar">Asignado</th>
+                        <th class="oculto elementoMostrarOcultar">Prioridad</th>
+                        <th>Estado</th>
+                        <th>Fecha de creacion</th>
+                        <th>Fecha ultimo cambio</th>
+                        <th>Comentario de cierre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="rptIncidencias" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("Id") %></td>
+                                <td class="d-none"><%# Eval("Creador.id") %></td>
+                                <td class="oculto elementoMostrarOcultar"><%# Eval("Creador.nombre") %></td>
+                                <td><%# Eval("TipoIncidencia.nombre") %></td>
+                                <td><%# Eval("problematica") %></td>
+                                <td class="oculto elementoMostrarOcultar"><%# Eval("Asignado.nombre") %></td>
+                                <td class="oculto elementoMostrarOcultar"><%# Eval("Prioridad.nombre") %></td>
+                                <td><%# Eval("Estado.nombre") %></td>
+                                <td><%# Eval("FechaCreacion") %></td>
+                                <td><%# Eval("FechaCierre") %></td>
+                                <td><%# Eval("ComentarioCierre") %></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <b></b>
+    <section>
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <asp:Button Text="Crear incidencia" runat="server" ID="crearIncidencia" OnClick="crearIncidencia_Click" Visible="false" />
+                </div>
+            </div>
+        </div>
     </section>
     <section id="usuDatos" visible="false" runat="server">
         <div class="row">
@@ -129,30 +152,32 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>
-                    <th>Teléfono</th>
-                </tr>
-            </thead>
-            <tbody>
-                <asp:Repeater ID="rptUsuarios" runat="server">
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("id") %></td>
-                            <td><%# Eval("Nombre") %></td>
-                            <td><%# Eval("Apellido") %></td>
-                            <td><%# Eval("DNI") %></td>
-                            <td><%# Eval("Telefono") %></td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater ID="rptUsuarios" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("id") %></td>
+                                <td><%# Eval("Nombre") %></td>
+                                <td><%# Eval("Apellido") %></td>
+                                <td><%# Eval("DNI") %></td>
+                                <td><%# Eval("Telefono") %></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </div>
     </section>
     <section>
         <div class="row">

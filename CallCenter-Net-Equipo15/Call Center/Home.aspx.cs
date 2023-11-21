@@ -56,6 +56,7 @@ namespace Call_Center
                             usuDatos.Visible = true;
                             txbFiltraDNI.Visible = true;
                             lblFiltro.Visible = true;
+                            crearIncidencia.Visible = true;
                         }
                         else if (rolUsuario == "Supervisor" || rolUsuario == "Administrador")
                         {
@@ -74,6 +75,7 @@ namespace Call_Center
                             usuDatos.Visible = true;
                             txbFiltraDNI.Visible = true;
                             lblFiltro.Visible = true;
+                            crearIncidencia.Visible = true;
                         }
                     }
                 }
