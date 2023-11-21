@@ -60,7 +60,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, estado FROM Rol WHERE Nombre LIKE @Nombre";
+                string consulta = "SELECT id, nombre, estado FROM Rol WHERE Nombre LIKE @Nombre AND estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Nombre", Nombre);
@@ -90,7 +90,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, estado FROM Rol";
+                string consulta = "SELECT id, nombre, estado FROM Rol WHERE estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
