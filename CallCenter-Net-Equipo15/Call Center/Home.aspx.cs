@@ -39,6 +39,11 @@ namespace Call_Center
                             
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
+
+                            lblEstado.Visible = true;
+                            filtroEstado.Visible = true;
+                            lblTipoInci.Visible = true;
+                            filtroTipoInci.Visible = true;
                         }
                         else if (rolUsuario == "Telefonista")
                         {
@@ -124,6 +129,7 @@ namespace Call_Center
             filtroPrioridad.Visible = true;
             lblTipoInci.Visible = true;
             filtroTipoInci.Visible = true;
+            liBusqueda.Visible = true;
         }
 
         protected void filtro_TextChanged(object sender, EventArgs e)
@@ -135,6 +141,7 @@ namespace Call_Center
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
                 CargarIncidencias(id);
+                lblMenError.Visible = false;
                 return;
             }
 
@@ -142,9 +149,18 @@ namespace Call_Center
             {
                 List<Incidencia> listaFiltrada = listaInci.Where(x => x.Creador.Id == idFiltrado).ToList();
 
-                rptIncidencias.DataSource = listaFiltrada;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtro.Text))
+                {
+                    mostrarMensajeErrorVarios("No se encontro ID usuario proporcionado.");
+                    return;
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
+                }
             }
             else
             {
@@ -181,7 +197,7 @@ namespace Call_Center
 
                 if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(DNIFiltrado))
                 {
-                    MostrarMensajeDebajoTextBox("No se encontraron usuarios con el DNI proporcionado.");
+                    mostrarMensajeErrorDNI("No se encontraron usuarios con el DNI proporcionado.");
                     return;
                 }
                 else
@@ -213,6 +229,7 @@ namespace Call_Center
             int id = getIDsesion();
             if (string.IsNullOrWhiteSpace(filtroEstado.Text))
             {
+                lblMenError.Visible = false;
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
                 CargarIncidencias(id);
@@ -221,10 +238,19 @@ namespace Call_Center
             else
             {
                 List<Incidencia> listaFiltrada = listaInci.Where(x => x.Estado.Nombre == filtroEstado.Text).ToList();
-
-                rptIncidencias.DataSource = listaFiltrada;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+                
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroEstado.Text))
+                {
+                    mostrarMensajeErrorVarios("No se encontro el Estado proporcionado.");
+                    return;
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
+                }
             }
         }
 
@@ -234,6 +260,7 @@ namespace Call_Center
             int id = getIDsesion();
             if (string.IsNullOrWhiteSpace(filtroPrioridad.Text))
             {
+                lblMenError.Visible = false;
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
                 CargarIncidencias(id);
@@ -242,10 +269,19 @@ namespace Call_Center
             else
             {
                 List<Incidencia> listaFiltrada = listaInci.Where(x => x.Prioridad.Nombre == filtroPrioridad.Text).ToList();
-
-                rptIncidencias.DataSource = listaFiltrada;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+                
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroPrioridad.Text))
+                {
+                    mostrarMensajeErrorVarios("No se encontro la Prioridad proporcionada.");
+                    return;
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
+                }
             }
         }
 
@@ -258,22 +294,39 @@ namespace Call_Center
                 rptIncidencias.DataSource = listaInci;
                 rptIncidencias.DataBind();
                 CargarIncidencias(id);
+                lblMenError.Visible = false;
                 return;
             }
             else
             {
                 List<Incidencia> listaFiltrada = listaInci.Where(x => x.TipoIncidencia.Nombre == filtroTipoInci.Text).ToList();
-
-                rptIncidencias.DataSource = listaFiltrada;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+                
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroTipoInci.Text))
+                {
+                    mostrarMensajeErrorVarios("No se encontro el Tipo de incidencia proporcionado.");
+                    return;
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
+                }
+                
             }
         }
 
-        private void MostrarMensajeDebajoTextBox(string mensaje)
+        private void mostrarMensajeErrorDNI(string mensaje)
         {
             lblMensajeErrorDNI.Text = mensaje;
             lblMensajeErrorDNI.Visible = true;
+        }
+
+        private void mostrarMensajeErrorVarios(string mensaje)
+        {
+            lblMenError.Text = mensaje;
+            lblMenError.Visible = true;
         }
     }
 }
