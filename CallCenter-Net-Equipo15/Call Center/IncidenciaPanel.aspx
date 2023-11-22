@@ -87,6 +87,7 @@
                     <div class="card-header">
                         <div class="card-Title  d-flex justify-content-between align-items-center">
                             <asp:Label ID="lblId" runat="server" Text="" CssClass=""></asp:Label>
+                            <asp:Button runat="server" CssClass="btn btn-primary" Text="Ver" ID="BtnSeeMore" OnClick="BtnSeeMore_Click"/>
                             
                             <%if ((Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre == "Administrador")
                             { %>

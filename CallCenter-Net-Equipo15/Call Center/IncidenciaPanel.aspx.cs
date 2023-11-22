@@ -130,5 +130,15 @@ namespace Call_Center
         {
 
         }
+
+        protected void BtnSeeMore_Click(object sender, EventArgs e)
+        {
+            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+            Incidencia incidencia = incidenciaDAO.getIncidencia(int.Parse(lblId.Text));
+
+            
+            Response.Redirect($"CrearIncidencia.aspx?id={incidencia.Id}");
+        }
+
     }
 }

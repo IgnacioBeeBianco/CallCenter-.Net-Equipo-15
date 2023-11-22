@@ -17,6 +17,19 @@ namespace Call_Center
         EstadoDAO estadoDAO = new EstadoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+        Incidencia Incidencia = new Incidencia();
+
+        private void LoadData(Incidencia incidencia)
+        {
+            OwnerId.Text = incidencia.Asignado.Id.ToString();
+            Owner.Text = incidencia.Asignado.Nombre;
+            DropDownCreador.SelectedValue = incidencia.Creador.Nombre;
+            txtbFechaCreacion.Text = incidencia.FechaCreacion.ToString();
+            DropDownEstados.SelectedValue = incidencia.Estado.ToString();
+            DropDownPrio.SelectedValue = incidencia.Prioridad.ToString();
+            ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.ToString();
+            problematica.Value = incidencia.problematica.ToString();
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,6 +41,21 @@ namespace Call_Center
                 cargarDatosDDLUsuarios();
                 cargarDatosDDLUsuariosCreador();
                 cargarFechaHoraTxtBox();
+                Owner.Text = (Session["Usuario"] as Usuario).Nombre;
+                DropDownEstados.Enabled = false;
+                if (Request.QueryString["id"] != null)
+                {
+                    if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
+                    {
+                        Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
+                        LoadData(Incidencia);
+                        DropDownCreador.Enabled = false;
+                    }
+                    else
+                    {
+                        Response.Redirect("IncidenciaPanel.aspx");
+                    }
+                }
             }
         }
 
@@ -86,7 +114,8 @@ namespace Call_Center
                 Incidencia incidencia = new Incidencia();
 
                 incidencia.Creador.Id = usuarioDAO.getUsuarioId(DropDownCreador.SelectedValue);
-                incidencia.Asignado.Id = usuarioDAO.getUsuarioId(DropDownAsignado.SelectedValue);
+                //incidencia.Asignado.Id = usuarioDAO.getUsuarioId(DropDownAsignado.SelectedValue);
+                incidencia.Asignado.Id = (Session["Usuario"] as Usuario).Id;
                 incidencia.FechaCreacion = DateTime.ParseExact(txtbFechaCreacion.Text, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 incidencia.FechaCierre = DateTime.ParseExact(txtbFechaCambio.Text, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
 

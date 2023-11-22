@@ -16,34 +16,45 @@
     </script>
 
     <div class="container mt-4">
-        <h2>Crear incidencia</h2>
-        <div class="mb-3">
-            <label for="creador" class="form-label">Solicitado por:</label>
-            <asp:DropDownList ID="DropDownCreador" runat="server" CssClass="form-select"></asp:DropDownList>
+        <h1>Incidencia</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="creador" class="form-label">Solicitado por:</label>
+                <asp:DropDownList ID="DropDownCreador" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col">
+                <label for="asignado" class="form-label">Asignado:</label>
+                <asp:Label ID="OwnerId" runat="server" CssClass="form-control d-none"></asp:Label>
+                <asp:Label ID="Owner" runat="server" CssClass="form-control" Enabled="false"></asp:Label>
+
+                <asp:DropDownList ID="DropDownAsignado" runat="server" CssClass="form-select" Visible="false"></asp:DropDownList>
+            </div>
+
         </div>
-        <div class="mb-3">
-            <label for="asignado" class="form-label">Asignado:</label>
-            <asp:DropDownList ID="DropDownAsignado" runat="server" CssClass="form-select"></asp:DropDownList>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="fechaCreacion" class="form-label">Fecha creacion:</label>
+                <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)" CssClass="form-control" />
+            </div>
+            <div class="col">
+                <label for="fechaUltimoCambio" class="form-label">Fecha ultimo cambio:</label>
+                <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)" CssClass="form-control" />
+            </div>
+
         </div>
-        <div class="mb-3">
-            <label for="fechaCreacion" class="form-label">Fecha creacion:</label>
-            <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)" />
-        </div>
-        <div class="mb-3">
-            <label for="fechaUltimoCambio" class="form-label">Fecha ultimo cambio:</label>
-            <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)" />
-        </div>
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado:</label>
-            <asp:DropDownList ID="DropDownEstados" runat="server" CssClass="form-select"></asp:DropDownList>
-        </div>
-        <div class="mb-3">
-            <label for="prioridad" class="form-label">Prioridad:</label>
-            <asp:DropDownList ID="DropDownPrio" runat="server" CssClass="form-select"></asp:DropDownList>
-        </div>
-        <div class="mb-3">
-            <label for="tipoIncidencia" class="form-label">Tipo de Incidencia:</label>
-            <asp:DropDownList ID="ddlTipoIncidencia" runat="server" CssClass="form-select"></asp:DropDownList>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="estado" class="form-label">Estado:</label>
+                <asp:DropDownList ID="DropDownEstados" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col">
+                <label for="prioridad" class="form-label">Prioridad:</label>
+                <asp:DropDownList ID="DropDownPrio" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col">
+                <label for="tipoIncidencia" class="form-label">Tipo de Incidencia:</label>
+                <asp:DropDownList ID="ddlTipoIncidencia" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
         </div>
         <div class="mb-3">
             <label for="problematica" class="form-label">Problemática:</label>
@@ -53,5 +64,14 @@
             <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
             <asp:Button Text="Volver" runat="server" ID="btnVolver" OnClick="btnVolver_Click" class="btn btn-primary"/>
         </div>
+
+        <section class="comments">
+            <h3>Comentarios</h3>
+            <asp:Repeater ID="RptComments" runat="server">
+                <ItemTemplate>
+
+                </ItemTemplate>
+            </asp:Repeater>
+        </section>
     </div>
 </asp:Content>

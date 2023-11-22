@@ -69,6 +69,15 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Label lblId;
 
         /// <summary>
+        /// Control BtnSeeMore.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSeeMore;
+
+        /// <summary>
         /// Control btnMoverA.
         /// </summary>
         /// <remarks>
