@@ -40,10 +40,7 @@ namespace Call_Center
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
 
-                            lblEstado.Visible = true;
-                            filtroEstado.Visible = true;
-                            lblTipoInci.Visible = true;
-                            filtroTipoInci.Visible = true;
+                            mostrarObjetosCliente();
                         }
                         else if (rolUsuario == "Telefonista")
                         {
@@ -130,6 +127,18 @@ namespace Call_Center
             lblTipoInci.Visible = true;
             filtroTipoInci.Visible = true;
             liBusqueda.Visible = true;
+            lblInciID.Visible = true;
+            filtroInciID.Visible = true;
+        }
+
+        protected void mostrarObjetosCliente()
+        {
+            lblEstado.Visible = true;
+            filtroEstado.Visible = true;
+            lblTipoInci.Visible = true;
+            filtroTipoInci.Visible = true;
+            lblInciID.Visible = true;
+            filtroInciID.Visible = true;
         }
 
         protected void filtro_TextChanged(object sender, EventArgs e)
@@ -327,6 +336,44 @@ namespace Call_Center
         {
             lblMenError.Text = mensaje;
             lblMenError.Visible = true;
+        }
+
+        protected void filtroInciID_TextChanged(object sender, EventArgs e)
+        {
+            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+            int id = getIDsesion();
+            if (string.IsNullOrWhiteSpace(filtroInciID.Text))
+            {
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+                lblMenError.Visible = false;
+                return;
+            }
+
+            if (int.TryParse(filtroInciID.Text, out int idFiltrado))
+            {
+                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Id == idFiltrado).ToList();
+
+                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroInciID.Text))
+                {
+                    mostrarMensajeErrorVarios("No se encontro ID incidencia proporcionado.");
+                    return;
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
+                }
+            }
+            else
+            {
+                rptIncidencias.DataSource = listaInci;
+                rptIncidencias.DataBind();
+                CargarIncidencias(id);
+            }
         }
     }
 }

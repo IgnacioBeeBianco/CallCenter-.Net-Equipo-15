@@ -150,6 +150,24 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.Repeater rptIncidencias;
 
         /// <summary>
+        /// Control lblInciID.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInciID;
+
+        /// <summary>
+        /// Control filtroInciID.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox filtroInciID;
+
+        /// <summary>
         /// Control filtroIDusu.
         /// </summary>
         /// <remarks>

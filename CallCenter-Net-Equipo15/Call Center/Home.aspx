@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
         .table-container {
-            max-height: 400px;
+            max-height: 430px;
             overflow-y: auto;
         }
 
@@ -18,6 +18,12 @@
 
         .oculto {
             display: none;
+        }
+
+        .lbl-MenError {
+            font-size: 14px;
+            color: red;
+            align-content: center;
         }
     </style>
     <script>
@@ -109,7 +115,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="tickets-tab" data-bs-toggle="tab" data-bs-target="#tickets-tab-pane" type="button" role="tab" aria-controls="tickets-tab-pane" aria-selected="true">Tickets</button>
                 </li>
-                <li class="nav-item" role="presentation" Visible="false" runat="server" id="liBusqueda">
+                <li class="nav-item" role="presentation" visible="false" runat="server" id="liBusqueda">
                     <button class="nav-link" id="search-tickets-tab" data-bs-toggle="tab" data-bs-target="#search-tickets-tab-pane" type="button" role="tab" aria-controls="search-tickets-tab-pane" aria-selected="false">Busqueda</button>
                 </li>
 
@@ -217,6 +223,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-3 d-flex flex-column gap-1">
+                                <asp:Label Text="ID incidencia" runat="server" ID="lblInciID" Visible="false" CssClass="form-label" />
+                                <asp:TextBox runat="server" ID="filtroInciID" CssClass="form-control d-block" AutoPostBack="true" OnTextChanged="filtroInciID_TextChanged" Visible="false" />
+                            </div>
+                            <div class="mb-3 d-flex flex-column gap-1">
                                 <asp:Label Text="ID usuario" runat="server" ID="filtroIDusu" Visible="false" CssClass="form-label" />
                                 <asp:TextBox runat="server" ID="filtro" CssClass="form-control d-block" AutoPostBack="true" OnTextChanged="filtro_TextChanged" Visible="false" />
                             </div>
@@ -235,9 +245,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <asp:Label ID="lblMenError" runat="server" CssClass="text-danger"/>
+                        <div class="col-12">
+                            <div class="mb-4">
+                                <asp:Label ID="lblMenError" runat="server" CssClass="lbl-MenError" />
                             </div>
                         </div>
                     </div>
