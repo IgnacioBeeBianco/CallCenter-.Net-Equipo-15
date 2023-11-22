@@ -93,7 +93,7 @@
                                     <div class="input-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" placeholder="" ReadOnly="True" type="password"></asp:TextBox>
                                         <div class="input-group-append">
-                                            <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                                            <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibilityPerfil()">
                                                 <i class="bi bi-eye" id="password-toggle-icon"></i>
                                             </span>
                                         </div>
@@ -191,7 +191,7 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <script>
-        function togglePasswordVisibility() {
+        function togglePasswordVisibilityPerfil() {
             var passwordInput = document.getElementById('<%= txtPassword.ClientID %>');
             var passwordToggleIcon = document.getElementById('password-toggle-icon');
 
@@ -206,7 +206,7 @@
                     passwordToggleIcon.classList.add('bi-eye');
                 }
             } else {
-                console.error('Element with ID "PasswordInput" not found.');
+                console.error('Element with ID "txtPassword" not found.');
             }
         }
     </script>

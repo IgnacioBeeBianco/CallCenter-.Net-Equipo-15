@@ -64,6 +64,11 @@
                         </div>
                         <div class="input-group mb-2">
                             <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                                    <i class="bi bi-eye" id="password-toggle-icon"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="d-flex mt-2">
                             <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="PasswordInput" InitialValue="" ErrorMessage=" Contraseña es obligatorio" Display="Dynamic" ForeColor="Red" CssClass="validationError" />
@@ -80,4 +85,24 @@
     </section>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('<%= PasswordInput.ClientID %>');
+            var passwordToggleIcon = document.getElementById('password-toggle-icon');
+
+            if (passwordInput) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggleIcon.classList.remove('bi-eye');
+                    passwordToggleIcon.classList.add('bi-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggleIcon.classList.remove('bi-eye-slash');
+                    passwordToggleIcon.classList.add('bi-eye');
+                }
+            } else {
+                console.error('Element with ID "PasswordInput" not found.');
+            }
+        }
+    </script>
 </asp:Content>
