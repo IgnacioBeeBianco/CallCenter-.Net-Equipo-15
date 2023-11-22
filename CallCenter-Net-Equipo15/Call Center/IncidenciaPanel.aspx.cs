@@ -7,6 +7,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace Call_Center
 {
@@ -32,7 +34,7 @@ namespace Call_Center
         private void BindData()
         {
             EstadoDAO estadoDAO = new EstadoDAO();
-            List<Estado> Estados = estadoDAO.List();
+            List<Estado> Estados = estadoDAO.List().Where(estado => estado.estado).ToList();
             rptColumnas.DataSource = Estados;
             rptColumnas.DataBind();
 
@@ -74,8 +76,10 @@ namespace Call_Center
             Incidencia incidencia = incidenciaDAO.getIncidencia(id);
 
             lblId.Text = incidencia.Id.ToString();
-            lblProblematica.Text = incidencia.problematica;
-            lblEstado.Text = incidencia.Estado.Nombre.ToString();
+            lblProblematica.Text = "Incidencia:" + incidencia.problematica;
+            lblEstado.Text = "Estado: " + incidencia.Estado.Nombre.ToString();
+            lblOwner.Text = "Asignado: " + incidencia.Asignado.Nombre;
+            lblIssuer.Text = "Creador: " + incidencia.Creador.Nombre;
 
             IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
             rptMoverA.DataSource = incidenciaNegocio.TraerEstadosMenos(incidencia.Estado.Nombre);
@@ -120,6 +124,11 @@ namespace Call_Center
             {
                 throw ex;
             }
+        }
+
+        protected void BtnResolveTicket_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

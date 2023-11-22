@@ -66,6 +66,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
+    
 
     <style>
         .custom-modal {
@@ -87,22 +88,30 @@
                         <div class="card-Title  d-flex justify-content-between align-items-center">
                             <asp:Label ID="lblId" runat="server" Text="" CssClass=""></asp:Label>
                             
-                            <asp:Button ID="btnMoverA" runat="server" Text="Mover" CssClass="btn btn-secondary" OnClick="btnMoverA_Click" />
-                            <div id="moverAOpts" runat="server" class="bg-dark-subtle rounded" style="display: none; position: absolute; right: -15%; top: 0px; border: 1px solid black; display: flex; flex-direction: column">
-                                <asp:Repeater ID="rptMoverA" runat="server">
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnCambiarEstado" runat="server" Text='<%# Eval("Nombre") %>' CssClass="btn btn-secondary btn-sm m-2" CommandArgument='<%# lblId.Text %>' CommandName="id" OnClick="btnCambiarEstado_Click" idEstado='<%# Eval("Id") %>' />
-                                    </ItemTemplate>
-                                </asp:Repeater>
+                            <%if ((Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre == "Administrador")
+                            { %>
+                                <asp:Button ID="btnMoverA" runat="server" Text="Mover" CssClass="btn btn-primary" OnClick="btnMoverA_Click" />
+                                <div id="moverAOpts" runat="server" class="bg-dark-subtle rounded" style="display: none; position: absolute; right: -15%; top: 0px; border: 1px solid black; display: flex; flex-direction: column">
+                                    <asp:Repeater ID="rptMoverA" runat="server">
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnCambiarEstado" runat="server" Text='<%# Eval("Nombre") %>' CssClass="btn btn-secondary btn-sm m-2" CommandArgument='<%# lblId.Text %>' CommandName="id" OnClick="btnCambiarEstado_Click" idEstado='<%# Eval("Id") %>' />
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                <asp:Button ID="btnCerrarMoverA" runat="server" Text="Cancelar" OnClick="cerrarMoverA" CssClass="btn m-3" />
-                            </div>
+                                    <asp:Button ID="btnCerrarMoverA" runat="server" Text="Cancelar" OnClick="cerrarMoverA" CssClass="btn m-3" />
+                                </div>
+
+
+                            <%} %>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group d-flex flex-column">
                             <asp:Label ID="lblProblematica" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblOwner" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblIssuer" runat="server" Text=""></asp:Label>
                             <asp:Label ID="lblEstado" runat="server" Text=""></asp:Label>
+
 
                             <div class="alert alert-danger" id="alert" runat="server" style="display: none;">
                                 <asp:Label ID="lblRolErrores" runat="server" Text=""></asp:Label>
@@ -111,7 +120,7 @@
                     </div>
                     <div class="card-footer">
                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-secondary" />
-
+                        <asp:Button ID="BtnResolveTicket" runat="server" Text="Resolver" OnClick="BtnResolveTicket_Click" CssClass="btn btn-success"/>
                     </div>
                 </div>
             </div>

@@ -123,8 +123,8 @@
             <div class="tab-pane fade p-4" id="search-tickets-tab-pane" role="tabpanel" aria-labelledby="search-tickets-tab" tabindex="0">
                 <section id="usuDatos" visible="false" runat="server" class="p-3 d-flex">
                     <div class="d-flex flex-column col-10">
-                        <h1 class="fw-bold">Tickets</h1>
-                        <p>En esta sección verás todos los tickets</p>
+                        <h1 class="fw-bold">Búsqueda</h1>
+                        <p>En esta sección podrás buscar en base a una condición</p>
 
                         <table class="table table-bordered">
                             <thead>

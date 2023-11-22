@@ -130,10 +130,29 @@ BEGIN
     )
 END
 
-SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre 
+
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ComentarioIncidencia')
+BEGIN
+    CREATE TABLE ComentarioIncidencia (
+        id INT IDENTITY(1,1),
+        incidencia_id INT NOT NULL,
+        usuario_id INT NOT NULL,
+        fecha DATETIME NOT NULL,
+        texto NVARCHAR(500) NOT NULL,
+        estado BIT NOT NULL DEFAULT 1
+
+        PRIMARY KEY(id),
+        FOREIGN KEY(incidencia_id) REFERENCES Incidencia(id),
+        FOREIGN KEY(usuario_id) REFERENCES Usuario(id)
+    )
+END
+
+
+/* SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre 
 FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id 
 INNER JOIN Rol R ON R.id = C.id_rol 
 WHERE R.nombre = 'Cliente' AND (
     SELECT Count(*) FROM Incidencia as I
     WHERE I.creador_id = U.cuenta_id AND I.asignado_id = @idAsignado
-    ) > 0
+    ) > 0 */

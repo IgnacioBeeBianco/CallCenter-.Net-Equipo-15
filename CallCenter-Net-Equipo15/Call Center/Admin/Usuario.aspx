@@ -2,19 +2,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
-        .custom-modal{
-           height: 100% !important; 
-           position: relative !important;
-        }
-
-    </style>
+    
     <div class="buttons d-flex justify-content-end align-items-center mb-3">
         
         <asp:LinkButton ID="btnCrear" runat="server" OnClick="abrirModal" CssClass="btn btn-primary" action="create">
             Crear
         </asp:LinkButton>
+        
     </div>
+    
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -52,7 +48,9 @@
                 </ItemTemplate>
             </asp:Repeater>
         </tbody>
-    </table>    
+    </table>
+    <!-- Button trigger modal -->
+        
 
     
     
@@ -61,7 +59,7 @@
         <asp:UpdatePanel ID="upModal" runat="server">
                 <ContentTemplate>
                     <div id="modalUsuarios" runat="server" style="display: none;">
-                        <div class="custom-modal card">
+                        <div class="custom-modal card" id="userForm">
                             <div class="card-header mb-3">
                                 <div class="card-Title">
                                     <asp:Label ID="lblTitle" runat="server" Text="" CssClass=""></asp:Label>

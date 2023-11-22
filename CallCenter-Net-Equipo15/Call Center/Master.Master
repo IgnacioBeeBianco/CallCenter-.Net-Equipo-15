@@ -47,14 +47,14 @@
 
                         <li class="nav-item" id="incidenciaDashboard" runat="server">
                             <a class="nav-link" href="IncidenciaPanel.aspx">
-                                <i class="bi bi-plus-circle me-2"></i>
+                                <i class="bi bi-kanban me-2"></i>                                
                                 <span class="d-sm-none d-md-inline">Dashboard</span>
                             </a>
                         </li>
 
                         <li class="nav-item" id="incidenciaCrear" runat="server">
                             <a class="nav-link" href="CrearIncidencia.aspx">
-                                <i class="bi bi-plus"></i>
+                                <i class="bi bi-plus-circle me-2"></i>
                                 <span class="d-sm-none d-md-inline">Crear incidencia</span>
                             </a>
                         </li>
