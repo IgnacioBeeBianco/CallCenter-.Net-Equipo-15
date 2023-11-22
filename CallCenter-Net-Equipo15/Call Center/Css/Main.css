@@ -29,3 +29,15 @@
     padding: 3px;
 }
 
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+#password-toggle-icon {
+    font-size: 20px;
+    color: #ccc;
+}

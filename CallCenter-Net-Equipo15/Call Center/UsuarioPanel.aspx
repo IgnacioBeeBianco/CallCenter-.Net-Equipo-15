@@ -90,8 +90,13 @@
                                 </div>
                                 <div class="col">
                                     <label>Contraseña</label>
-                                    <div class="form-group mt-2 mb-3">
+                                    <div class="input-group mt-2 mb-3">
                                         <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" placeholder="" ReadOnly="True" type="password"></asp:TextBox>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                                                <i class="bi bi-eye" id="password-toggle-icon"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +116,7 @@
             </div>
         </div>
     </section>
-   
+
     <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>
@@ -185,4 +190,24 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('<%= txtPassword.ClientID %>');
+            var passwordToggleIcon = document.getElementById('password-toggle-icon');
+
+            if (passwordInput) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggleIcon.classList.remove('bi-eye');
+                    passwordToggleIcon.classList.add('bi-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggleIcon.classList.remove('bi-eye-slash');
+                    passwordToggleIcon.classList.add('bi-eye');
+                }
+            } else {
+                console.error('Element with ID "PasswordInput" not found.');
+            }
+        }
+    </script>
 </asp:Content>

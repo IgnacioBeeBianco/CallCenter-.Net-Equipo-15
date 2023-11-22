@@ -144,6 +144,48 @@ namespace DAO
             }
         }
 
+        public void UpdatePassword(Cuenta cuenta)
+        {
+            try
+            {
+                accesoADatos.AbrirConexion();
+                string consulta = "UPDATE Cuenta SET password_ = @password_ WHERE email = @email";
+                accesoADatos.setearParametro("@email", cuenta.Email);
+                accesoADatos.setearParametro("@password_", cuenta.Password);
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public bool getCuentaMail(Cuenta cuenta)
+        {
+            try
+            {
+                accesoADatos.AbrirConexion();
+                string consulta = "SELECT COUNT(*) FROM Cuenta WHERE email = @mail";
+                accesoADatos.setearParametro("@mail", cuenta.Email);
+                accesoADatos.consultar(consulta);
+
+                int count = accesoADatos.ejecutarAccionScalar();
+                return count > 0;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
 
     }
 }

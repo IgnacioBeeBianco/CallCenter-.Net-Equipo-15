@@ -15,25 +15,29 @@
 
                 <div class="input-group mb-4">
                     <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                            <i class="bi bi-eye" id="password-toggle-icon"></i>
+                        </span>
+                    </div>
                 </div>
-
                 <div class="button-container text-center d-grid gap-2">
-                    <asp:Button ID="CamPassButton" runat="server" Text="Cambiar contraseña" CssClass="btn btn-success" OnClick="CamPassButton_Click"/>
+                    <asp:Button ID="CamPassButton" runat="server" Text="Cambiar contraseña" CssClass="btn btn-success" OnClick="CamPassButton_Click" />
                     <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" CausesValidation="False" />
                 </div>
 
-                
+
 
                 <% if (Session["NoAccountFound"] != null && (bool)Session["NoAccountFound"])
                     { %>
                 <div class="alert alert-danger transition-effect mt-3" role="alert">
                     Oops...
                  <br />
-                    Email o contraseña incorrectos
+                    El email ingresado no existe
                 </div>
                 <% } %>
             </div>
-            
+
         </div>
     </section>
     <script>
@@ -43,6 +47,24 @@
                 element.style.opacity = 1;
             }
         }, 100);
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('<%= PasswordInput.ClientID %>');
+            var passwordToggleIcon = document.getElementById('password-toggle-icon');
+
+            if (passwordInput) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggleIcon.classList.remove('bi-eye');
+                    passwordToggleIcon.classList.add('bi-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggleIcon.classList.remove('bi-eye-slash');
+                    passwordToggleIcon.classList.add('bi-eye');
+                }
+            } else {
+                console.error('Element with ID "PasswordInput" not found.');
+            }
+        }
     </script>
 
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
