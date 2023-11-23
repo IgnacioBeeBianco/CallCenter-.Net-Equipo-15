@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server"> 
 
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="header-container d-flex mb-3 gap-2">
                 <h4>Creado por:</h4>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-        Cual es el proposito de esto?!--> 
+
 
     <h1>Dashboard</h1>
     <p>Aquí verás de una forma por columnas los tickets</p>

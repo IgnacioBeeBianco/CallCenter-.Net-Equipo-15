@@ -40,7 +40,15 @@ namespace Call_Center
 
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> Usuarios = usuarioDAO.GetUsuariosClientesConIncidencias(cuenta.Id);
+            List<Usuario> Usuarios = new List<Usuario>();
+            if (cuenta.Rol.Nombre == "Administrador")
+            {
+                Usuarios = usuarioDAO.GetUsuariosClientes();
+            }
+            else
+            {
+                Usuarios = usuarioDAO.GetUsuariosClientesConIncidencias(cuenta.Id);
+            }
             rptAsignados.DataSource = Usuarios;
             rptAsignados.DataBind();
         }
@@ -54,7 +62,15 @@ namespace Call_Center
                     string nombre = DataBinder.Eval(e.Item.DataItem, "nombre").ToString();
                     int idCreador = Request.QueryString["requested"]!= null ? int.Parse(Request.QueryString["requested"]) : -1;
                     IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-                    List<Incidencia> incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre, usuario.Id) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador, usuario.Id);
+                    List<Incidencia> incidencias = new List<Incidencia>();
+                    if(cuenta.Rol.Nombre == "Administrador")
+                    {
+                        incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador);
+                    }
+                    else
+                    {
+                        incidencias = idCreador == -1 ? incidenciaDAO.ListByEstado(nombre, usuario.Id) : incidenciaDAO.ListByEstadoxCliente(nombre, idCreador, usuario.Id);
+                    }
                     Repeater rptIncidencias = (Repeater)e.Item.FindControl("rptIncidencias");
                     rptIncidencias.DataSource = incidencias;
                     rptIncidencias.DataBind();

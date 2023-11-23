@@ -180,6 +180,44 @@ namespace DAO
             }
         }
 
+        public List<Incidencia> ListByEstado(string Nombre)
+        {
+            accesoADatos = new AccesoADatos();
+            List<Incidencia> incidencias = new List<Incidencia>();
+
+            try
+            {
+                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
+                    "FROM Incidencia as I " +
+                    "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
+                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
+                    "INNER JOIN Estado as E on I.estado_id = E.id " +
+                    "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
+                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
+                    "WHERE E.Nombre LIKE @Nombre AND I.estado = 1 " +
+                    "ORDER BY P.nivelPrioridad desc";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    incidencias.Add(LoadIncidencia(ref accesoADatos));
+                }
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
         public List<Incidencia> ListByEstadoxCliente(string Nombre, int idCuenta, int idUsuario)
         {
             accesoADatos = new AccesoADatos();
@@ -201,6 +239,45 @@ namespace DAO
                 accesoADatos.setearParametro("@Nombre", Nombre);
                 accesoADatos.setearParametro("@idCuenta", idCuenta);
                 accesoADatos.setearParametro("@idAsignado", idUsuario);
+                accesoADatos.ejecutarLectura();
+
+                while (accesoADatos.Lector.Read())
+                {
+                    incidencias.Add(LoadIncidencia(ref accesoADatos));
+                }
+
+                return incidencias;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
+        public List<Incidencia> ListByEstadoxCliente(string Nombre, int idCuenta)
+        {
+            accesoADatos = new AccesoADatos();
+            List<Incidencia> incidencias = new List<Incidencia>();
+
+            try
+            {
+                string consulta = "SELECT I.id,U.id as idCreador, U.nombre as creador,U2.id as idAsignado, U2.nombre as asignado, I.fecha_creacion, I.fecha_ultimo_cambio,E.id as idEstado, E.nombre as Estado,P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, I.comentario_cierra, I.problematica " +
+                    "FROM Incidencia as I " +
+                    "INNER JOIN Usuario as U on I.creador_id = U.cuenta_id " +
+                    "INNER JOIN Usuario as U2 on I.asignado_id = U2.cuenta_id " +
+                    "INNER JOIN Estado as E on I.estado_id = E.id " +
+                    "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
+                    "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
+                    "WHERE E.Nombre LIKE @Nombre AND U.id = @idCuenta AND I.estado = 1 " +
+                    "ORDER BY P.nivelPrioridad desc";
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.setearParametro("@Nombre", Nombre);
+                accesoADatos.setearParametro("@idCuenta", idCuenta);
                 accesoADatos.ejecutarLectura();
 
                 while (accesoADatos.Lector.Read())
