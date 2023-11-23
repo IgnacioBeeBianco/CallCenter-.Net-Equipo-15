@@ -18,6 +18,8 @@ namespace Call_Center
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
         Incidencia Incidencia = new Incidencia();
+        ComentarioIncidenciaDAO ComentarioIncidenciaDAO = new ComentarioIncidenciaDAO();
+        protected bool hasError = false;
 
         private void LoadData(Incidencia incidencia)
         {
@@ -28,6 +30,7 @@ namespace Call_Center
             DropDownEstados.SelectedValue = incidencia.Estado.ToString();
             DropDownPrio.SelectedValue = incidencia.Prioridad.ToString();
             ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.ToString();
+            IncidenciaId.Value = incidencia.Id.ToString();
             problematica.Value = incidencia.problematica.ToString();
         }
 
@@ -48,8 +51,12 @@ namespace Call_Center
                     if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
                     {
                         Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
+                        Incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(incidenciaId);
                         LoadData(Incidencia);
                         DropDownCreador.Enabled = false;
+                        RptComments.DataSource = Incidencia.Comentarios;
+                        RptComments.DataBind();
+                        
                     }
                     else
                     {
@@ -58,6 +65,17 @@ namespace Call_Center
                 }
             }
         }
+
+        protected string EnableAddCommentButton()
+        {
+            if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
+            {
+                return "disabled = true";
+            }
+
+            return ""; // Botón habilitado por defecto
+        }
+
 
         private void cargarDatosDDLTipoIncidencia()
         {
@@ -140,6 +158,36 @@ namespace Call_Center
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Home.aspx");
+        }
+
+        protected void BtnAddComment_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BtnSaveComment_Click(object sender, EventArgs e)
+        {
+            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+
+            Comentario comentario = new Comentario();
+            comentario.Fecha = DateTime.Now;
+            comentario.Usuario = new Usuario();
+            comentario.Usuario.Id = (Session["Usuario"] as Usuario).Id;
+            comentario.IncidenciaId = long.Parse(IncidenciaId.Value);
+            comentario.Texto = CommentTextArea.Text;
+            try
+            {
+                incidenciaDAO.AddComment(comentario);
+                EstadoDAO estadoDAO = new EstadoDAO();
+                Estado estado = estadoDAO.getEstado("En Análisis");
+                incidenciaDAO.ModifyState(estado.Id, int.Parse(IncidenciaId.Value));
+                Response.Redirect($"CrearIncidencia.aspx?id={IncidenciaId.Value}");
+            }
+            catch (Exception)
+            {
+                hasError = true;
+            }
+
         }
     }
 }

@@ -35,6 +35,29 @@ namespace DAO
             return incidencia;
         }
 
+        public void AddComment(Comentario comentario)
+        {
+            try
+            {
+                accesoADatos = new AccesoADatos();
+                string consulta = "INSERT INTO ComentarioIncidencia (incidencia_id, usuario_id, fecha, texto, estado) VALUES (@idIncidencia, @usuarioId, @fecha, @texto, @estado)";
+                accesoADatos.setearParametro("@idIncidencia", comentario.IncidenciaId);
+                accesoADatos.setearParametro("@usuarioId", comentario.Usuario.Id);
+                accesoADatos.setearParametro("@fecha", comentario.Fecha);
+                accesoADatos.setearParametro("@texto", comentario.Texto);
+                accesoADatos.setearParametro("@estado", 1);
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();
+            }catch (Exception ex)
+            {
+                throw ex;
+            }finally 
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
         public Incidencia getIncidencia(int Id)
         {
             accesoADatos = new AccesoADatos();
@@ -251,13 +274,33 @@ namespace DAO
             }
         }
 
+        public void ModifyState(int estadoId, int incidenciaId)
+        {
+            try
+            {
+                accesoADatos = new AccesoADatos();
+                string consulta = "UPDATE Incidencia SET estado_id = @estado_id WHERE id = @id";
+                accesoADatos.AbrirConexion();
+                accesoADatos.setearParametro("@id", incidenciaId);
+                accesoADatos.setearParametro("@estado_id", estadoId);
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();
+            }catch(Exception ex) {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
         public void Update(Incidencia newValue, long id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "setear consulta WHERE I.Id = @Id";
+                string consulta = "UPDATE  WHERE I.Id = @Id";
 
                 accesoADatos.AbrirConexion();
                 //Setear todos los datos

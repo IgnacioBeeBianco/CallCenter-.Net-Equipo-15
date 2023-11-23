@@ -19,6 +19,7 @@
         <h1>Incidencia</h1>
         <div class="row mb-3">
             <div class="col">
+                <asp:HiddenField ID="IncidenciaId" runat="server" />
                 <label for="creador" class="form-label">Solicitado por:</label>
                 <asp:DropDownList ID="DropDownCreador" runat="server" CssClass="form-select"></asp:DropDownList>
             </div>
@@ -66,12 +67,71 @@
         </div>
 
         <section class="comments">
-            <h3>Comentarios</h3>
+            <div class="header-section d-flex justify-content-between align-items-center">
+                <h3>Comentarios</h3>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" <%# EnableAddCommentButton() %>>
+                    Agregar comentario
+                </button>
+         
+
+            </div>
             <asp:Repeater ID="RptComments" runat="server">
                 <ItemTemplate>
+                    <div class="bg-dark rounded shadow mb-3 p-3">
+                        <div>
+                            <p><%# Eval("Fecha") %></p>
+                        </div>
+                        <div class="info d-flex justify-content-between">
+                            <div class="user-info">
+                                <p><%# Eval("Usuario.nombre") %></p>
+                            </div>
+                            <div class="delete-button mb-3">
+                                <asp:LinkButton ID="BtnDeleteComment" runat="server" CssClass="btn btn-danger">
+                                    <i class="bi bi-trash-fill"></i>                                
+                                </asp:LinkButton>
 
+                            </div>
+                        </div>
+                        <textarea class="form-control"><%# Eval("texto") %></textarea>
+                    </div>
                 </ItemTemplate>
             </asp:Repeater>
+
+
+
         </section>
+        
+        <asp:ScriptManager ID="SMModal" runat="server" />
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar comentario</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="form-floating">
+                                <asp:TextBox ID="CommentTextArea" runat="server" CssClass="form-control"></asp:TextBox>
+                                <label for="CommentTextArea">Comentario</label>
+                            </div> 
+                                  
+                            <%if (hasError)
+                                { %>
+                                    <div class="alert alert-danger transition-effect mt-3" role="alert">
+                                        Hubo un error al agregar el comentario
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnSaveComment" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="BtnSaveComment_Click" />
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+                </asp:UpdatePanel>
     </div>
 </asp:Content>
