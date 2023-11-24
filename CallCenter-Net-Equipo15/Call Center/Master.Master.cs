@@ -12,40 +12,55 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                setearImagenSegunRol();
-            }
-            
-            if (Session["Usuario"] == null)
-            {
-                Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
-            }
-            Usuario usuario = new Usuario();
-            usuario = (Usuario)Session["Usuario"];
-            Cuenta cuenta = new Cuenta();
-            cuenta = (Cuenta)Session["Cuenta"];
+                if (!IsPostBack)
+                {
+                    setearImagenSegunRol();
+                }
 
-            Username.Text = (usuario.Nombre + " " + usuario.Apellido);
+                if (Session["Usuario"] == null)
+                {
+                    Response.Redirect("Login.aspx",false);
+                    return;
+                }
+                Usuario usuario = new Usuario();
+                usuario = (Usuario)Session["Usuario"];
+                Cuenta cuenta = new Cuenta();
+                cuenta = (Cuenta)Session["Cuenta"];
 
-            if ( cuenta.Rol.Nombre != "Administrador")
-            {
-                adminDashboard.Style["display"] = "none";
+                Username.Text = (usuario.Nombre + " " + usuario.Apellido);
+
+                if (cuenta.Rol.Nombre != "Administrador")
+                {
+                    adminDashboard.Style["display"] = "none";
+                }
+                if (cuenta.Rol.Nombre == "Cliente")
+                {
+                    incidenciaDashboard.Style["display"] = "none";
+                    incidenciaCrear.Style["display"] = "none";
+                }
             }
-            if (cuenta.Rol.Nombre == "Cliente")
+            catch (Exception)
             {
-                incidenciaDashboard.Style["display"] = "none";
-                incidenciaCrear.Style["display"] = "none";
+                Response.Redirect("Error.aspx");
             }
 
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
         {
-            Session.Remove("Usuario");
-            Session.Remove("Cuenta");
+            try
+            {
+                Session.Remove("Usuario");
+                Session.Remove("Cuenta");
 
-            Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/Login.aspx", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         public string setearImagenSegunRol()
@@ -55,38 +70,53 @@ namespace Call_Center
 
         private string setearURLImagenSegunRol()
         {
-            if (Session["Cuenta"] != null)
+            try
             {
-                string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
-
-                switch (userRol)
+                if (Session["Cuenta"] != null)
                 {
-                    case "Administrador":
-                        return "~/Images/admin.png";
+                    string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
 
-                    case "Cliente":
-                        return "~/Images/businessman.png";
+                    switch (userRol)
+                    {
+                        case "Administrador":
+                            return "~/Images/admin.png";
 
-                    case "Telefonista":
-                        return "~/Images/customer-service.png";
+                        case "Cliente":
+                            return "~/Images/businessman.png";
 
-                    case "Supervisor":
-                        return "~/Images/supervisor.png";
+                        case "Telefonista":
+                            return "~/Images/customer-service.png";
 
-                    default:
-                        return "~/Images/client.png";
+                        case "Supervisor":
+                            return "~/Images/supervisor.png";
 
+                        default:
+                            return "~/Images/client.png";
+
+                    }
+                }
+                else
+                {
+                    return "~/Images/default.png";
                 }
             }
-            else
+            catch (Exception)
             {
+                Response.Redirect("Error.aspx");
                 return "~/Images/default.png";
             }
         }
 
         protected void ImageUser_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/UsuarioPanel.aspx");
+            try
+            {
+                Response.Redirect("~/UsuarioPanel.aspx", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }

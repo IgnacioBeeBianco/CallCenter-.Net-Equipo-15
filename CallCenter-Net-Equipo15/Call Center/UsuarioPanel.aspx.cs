@@ -19,89 +19,118 @@ namespace Call_Center
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                setearImagenSegunRol();
-            }
-            if (Session["Usuario"] != null && Session["Cuenta"] != null)
-            {
-                h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
-                txtNombre.Text = (Session["Usuario"] as Dominio.Usuario).Nombre;
-                txtApellido.Text = (Session["Usuario"] as Dominio.Usuario).Apellido;
-                txtDNI.Text = (Session["Usuario"] as Dominio.Usuario).DNI;
-                txtDomicilio.Text = (Session["Usuario"] as Dominio.Usuario).Domicilio;
-                txtTelefono.Text = (Session["Usuario"] as Dominio.Usuario).Telefono;
-                txtGenero.Text = (Session["Usuario"] as Dominio.Usuario).Genero.ToString();
-                txtRol.Text = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
-                txtMail.Text = (Session["Cuenta"] as Dominio.Cuenta).Email;
-                txtPassword.Text = (Session["Cuenta"] as Dominio.Cuenta).Password;
+                if (!IsPostBack)
+                {
+                    setearImagenSegunRol();
+                }
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                {
+                    h4NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
+                    txtNombre.Text = (Session["Usuario"] as Dominio.Usuario).Nombre;
+                    txtApellido.Text = (Session["Usuario"] as Dominio.Usuario).Apellido;
+                    txtDNI.Text = (Session["Usuario"] as Dominio.Usuario).DNI;
+                    txtDomicilio.Text = (Session["Usuario"] as Dominio.Usuario).Domicilio;
+                    txtTelefono.Text = (Session["Usuario"] as Dominio.Usuario).Telefono;
+                    txtGenero.Text = (Session["Usuario"] as Dominio.Usuario).Genero.ToString();
+                    txtRol.Text = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
+                    txtMail.Text = (Session["Cuenta"] as Dominio.Cuenta).Email;
+                    txtPassword.Text = (Session["Cuenta"] as Dominio.Cuenta).Password;
 
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx", false);
+                }
             }
-            else
+            catch (Exception)
             {
-                Response.Redirect("Login.aspx", false);
+                Response.Redirect("Error.aspx");
             }
 
         }
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            modalUsuarios.Style["display"] = "block";
-
-            switch (btn.Attributes["action"])
+            try
             {
-                case "modify":
-                    int id = (Session["Usuario"] as Dominio.Usuario).Id;
+                Button btn = sender as Button;
+                modalUsuarios.Style["display"] = "block";
 
-                    Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
-                    Session.Add("ModificandoUsuario", usuario);
-                    txbUsuarioNombre.Text = usuario.Nombre;
-                    lblTitle.Text = "Modificar a ";
-                    lblNombre.Text = txbUsuarioNombre.Text;
-                    TxbUsuarioApellido.Text = usuario.Apellido;
-                    TxbUsuarioDNI.Text = usuario.DNI;
-                    TxbUsuarioDomicilio.Text = usuario.Domicilio;
-                    TxbUsuarioTelefono.Text = usuario.Telefono;
-                    TxbEMail.Text = usuario.CuentaId.Email;
-                    TxbPassword.Text = usuario.CuentaId.Password;
-                    string genero = usuario.Genero.ToString();
-                    GenderRadioButtons.SelectedValue = genero;
-                    txtRolActua.Text = txtRol.Text;
+                switch (btn.Attributes["action"])
+                {
+                    case "modify":
+                        int id = (Session["Usuario"] as Dominio.Usuario).Id;
 
-                    break;
+                        Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
+                        Session.Add("ModificandoUsuario", usuario);
+                        txbUsuarioNombre.Text = usuario.Nombre;
+                        lblTitle.Text = "Modificar a ";
+                        lblNombre.Text = txbUsuarioNombre.Text;
+                        TxbUsuarioApellido.Text = usuario.Apellido;
+                        TxbUsuarioDNI.Text = usuario.DNI;
+                        TxbUsuarioDomicilio.Text = usuario.Domicilio;
+                        TxbUsuarioTelefono.Text = usuario.Telefono;
+                        TxbEMail.Text = usuario.CuentaId.Email;
+                        TxbPassword.Text = usuario.CuentaId.Password;
+                        string genero = usuario.Genero.ToString();
+                        GenderRadioButtons.SelectedValue = genero;
+                        txtRolActua.Text = txtRol.Text;
 
-                default:
+                        break;
 
-                    break;
+                    default:
+
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void submitModal(object sender, EventArgs e)
         {
-            Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
+            try
+            {
+                Dominio.Usuario usuario = Session["ModificandoUsuario"] as Dominio.Usuario;
 
-            usuario.Nombre = txbUsuarioNombre.Text;
-            usuario.Apellido = TxbUsuarioApellido.Text;
-            usuario.Domicilio = TxbUsuarioDomicilio.Text;
-            usuario.Telefono = TxbUsuarioTelefono.Text;
-            usuario.DNI = TxbUsuarioDNI.Text;
-            usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
-            usuario.CuentaId.Email = TxbEMail.Text;
-            usuario.CuentaId.Password = TxbPassword.Text;
-            usuario.CuentaId.Rol.Nombre = txtRolActua.Text;
+                usuario.Nombre = txbUsuarioNombre.Text;
+                usuario.Apellido = TxbUsuarioApellido.Text;
+                usuario.Domicilio = TxbUsuarioDomicilio.Text;
+                usuario.Telefono = TxbUsuarioTelefono.Text;
+                usuario.DNI = TxbUsuarioDNI.Text;
+                usuario.Genero = Convert.ToChar(GenderRadioButtons.SelectedValue);
+                usuario.CuentaId.Email = TxbEMail.Text;
+                usuario.CuentaId.Password = TxbPassword.Text;
+                usuario.CuentaId.Rol.Nombre = txtRolActua.Text;
 
-            usuarioDAO.Update(usuario);
-            Session["Usuario"] = usuario;
-            Session["Cuenta"] = usuario.CuentaId;
+                usuarioDAO.Update(usuario);
+                Session["Usuario"] = usuario;
+                Session["Cuenta"] = usuario.CuentaId;
 
-            Response.Redirect("UsuarioPanel.aspx");
+                Response.Redirect("UsuarioPanel.aspx", false);
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
         protected void cancelarModal(object sender, EventArgs e)
         {
-            modalUsuarios.Style["display"] = "none";
-            txbUsuarioNombre.Text = "";
-            alertPrio.Style["display"] = "none";
+            try
+            {
+                modalUsuarios.Style["display"] = "none";
+                txbUsuarioNombre.Text = "";
+                alertPrio.Style["display"] = "none";
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
+
         }
 
         public string setearImagenSegunRol()
@@ -111,34 +140,40 @@ namespace Call_Center
 
         private string setearURLImagenSegunRol()
         {
-            if (Session["Cuenta"] != null)
+            try
             {
-                string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
-
-                switch (userRol)
+                if (Session["Cuenta"] != null)
                 {
-                    case "Administrador":
-                        return "~/Images/admin.png";
+                    string userRol = (Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre;
 
-                    case "Cliente":
-                        return "~/Images/businessman.png";
+                    switch (userRol)
+                    {
+                        case "Administrador":
+                            return "~/Images/admin.png";
 
-                    case "Telefonista":
-                        return "~/Images/customer-service.png";
+                        case "Cliente":
+                            return "~/Images/businessman.png";
 
-                    case "Supervisor":
-                        return "~/Images/supervisor.png";
+                        case "Telefonista":
+                            return "~/Images/customer-service.png";
 
-                    default:
-                        return "~/Images/client.png";
+                        case "Supervisor":
+                            return "~/Images/supervisor.png";
 
+                        default:
+                            return "~/Images/client.png";
+                    }
+                }
+                else
+                {
+                    return "~/Images/default.png";
                 }
             }
-            else
+            catch (Exception)
             {
+                Response.Redirect("Error.aspx");
                 return "~/Images/default.png";
             }
-                
         }
     }
 }

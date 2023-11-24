@@ -39,9 +39,9 @@ namespace Call_Center
                     Session.Add("NoAccountFound", true);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                Response.Redirect("Error.aspx");
             }
         }
 

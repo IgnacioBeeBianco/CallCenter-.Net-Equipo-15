@@ -75,10 +75,9 @@
     <Content Include="AdminPanel.aspx" />
     <Content Include="CrearCliente.aspx" />
     <Content Include="CrearIncidencia.aspx" />
-    <Content Include="CrearUsuario.aspx" />
     <Content Include="Css\Login.css" />
     <Content Include="Css\Main.css" />
-    <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="Admin\CRUD.Master" />
@@ -159,19 +158,12 @@
     <Compile Include="CrearIncidencia.aspx.designer.cs">
       <DependentUpon>CrearIncidencia.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CrearUsuario.aspx.cs">
-      <DependentUpon>CrearUsuario.aspx</DependentUpon>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CrearUsuario.aspx.designer.cs">
-      <DependentUpon>CrearUsuario.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

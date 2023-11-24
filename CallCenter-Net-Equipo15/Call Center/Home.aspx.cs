@@ -19,7 +19,6 @@ namespace Call_Center
         {
             try
             {
-                
                 int id = getIDsesion();
 
                 if (Session["Usuario"] != null && Session["Cuenta"] != null)
@@ -74,40 +73,50 @@ namespace Call_Center
             }
             catch (Exception)
             {
-                MostrarMensajeError("Se ha producido un error. Por favor, inténtalo de nuevo más tarde.");
+                Response.Redirect("Error.aspx");
             }
-        }
-
-        private void MostrarMensajeError(string mensaje)
-        {
-            lblMensajeError.Text = mensaje;
-            lblMensajeError.Visible = true;
         }
 
         protected int getIDsesion()
         {
-            if (Session["Usuario"] != null)
+            try
             {
-                int id = (Session["Usuario"] as Dominio.Usuario).Id;
-                return id;
+                if (Session["Usuario"] != null)
+                {
+                    int id = (Session["Usuario"] as Dominio.Usuario).Id;
+                    return id;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else
+            catch(Exception) 
             {
+                Response.Redirect("Error.aspx");
                 return 0;
             }
+
         }
 
         protected void CargarIncidencias(int id)
         {
-            List<Incidencia> listaIncidencias = Session["listaIncidencias"] as List<Incidencia>;
-
-            if (listaIncidencias != null)
+            try
             {
-                inciTotales.Text = listaIncidencias.Count.ToString();
-                inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente").ToString();
-                inciPen.Text = listaIncidencias.Count(x => x.Estado.Nombre != "Cerrado" && x.Estado.Nombre != "Resuelto").ToString();
-                inciFin.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Resuelto").ToString();
-                inciClose.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Cerrado").ToString();
+                List<Incidencia> listaIncidencias = Session["listaIncidencias"] as List<Incidencia>;
+
+                if (listaIncidencias != null)
+                {
+                    inciTotales.Text = listaIncidencias.Count.ToString();
+                    inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente").ToString();
+                    inciPen.Text = listaIncidencias.Count(x => x.Estado.Nombre != "Cerrado" && x.Estado.Nombre != "Resuelto").ToString();
+                    inciFin.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Resuelto").ToString();
+                    inciClose.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Cerrado").ToString();
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -143,186 +152,223 @@ namespace Call_Center
 
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            if (string.IsNullOrWhiteSpace(filtro.Text))
+            try
             {
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
-                lblMenError.Visible = false;
-                return;
-            }
 
-            if (int.TryParse(filtro.Text, out int idFiltrado))
-            {
-                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Creador.Id == idFiltrado).ToList();
 
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtro.Text))
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                if (string.IsNullOrWhiteSpace(filtro.Text))
                 {
-                    mostrarMensajeErrorVarios("No se encontro ID usuario proporcionado.");
-                    return;
-                }
-                else
-                {
-                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataSource = listaInci;
                     rptIncidencias.DataBind();
                     CargarIncidencias(id);
                     lblMenError.Visible = false;
+                    return;
+                }
+
+                if (int.TryParse(filtro.Text, out int idFiltrado))
+                {
+                    List<Incidencia> listaFiltrada = listaInci.Where(x => x.Creador.Id == idFiltrado).ToList();
+
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtro.Text))
+                    {
+                        mostrarMensajeErrorVarios("No se encontro ID usuario proporcionado.");
+                        return;
+                    }
+                    else
+                    {
+                        rptIncidencias.DataSource = listaFiltrada;
+                        rptIncidencias.DataBind();
+                        CargarIncidencias(id);
+                        lblMenError.Visible = false;
+                    }
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
                 }
             }
-            else
+            catch (Exception)
             {
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void txbFiltraDNI_TextChanged(object sender, EventArgs e)
         {
-            List<Usuario> listaUsu = (List<Usuario>)Session["listaUsuario"];
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            string DNIFiltrado = txbFiltraDNI.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(DNIFiltrado))
+            try
             {
-                lblMensajeErrorDNI.Visible = false;
+                List<Usuario> listaUsu = (List<Usuario>)Session["listaUsuario"];
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                string DNIFiltrado = txbFiltraDNI.Text.Trim();
 
-                rptUsuarios.DataSource = listaUsu;
-                rptUsuarios.DataBind();
-
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-
-                CargarIncidencias(id);
-                return;
-            }
-            else
-            {
-
-                List<Usuario> listaFiltrada = listaUsu.Where(x => x.DNI == DNIFiltrado).ToList();
-
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(DNIFiltrado))
+                if (string.IsNullOrWhiteSpace(DNIFiltrado))
                 {
-                    mostrarMensajeErrorDNI("No se encontraron usuarios con el DNI proporcionado.");
+                    lblMensajeErrorDNI.Visible = false;
+
+                    rptUsuarios.DataSource = listaUsu;
+                    rptUsuarios.DataBind();
+
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+
+                    CargarIncidencias(id);
                     return;
                 }
                 else
                 {
-                    int idUsuarioFiltrado = listaFiltrada.FirstOrDefault()?.Id ?? -1;
 
-                    List<Incidencia> listaIncidenciasFiltrada = listaInci.Where(x => x.Creador.Id == idUsuarioFiltrado).ToList();
-                    rptUsuarios.DataSource = listaFiltrada;
-                    rptUsuarios.DataBind();
+                    List<Usuario> listaFiltrada = listaUsu.Where(x => x.DNI == DNIFiltrado).ToList();
 
-                    rptIncidencias.DataSource = listaIncidenciasFiltrada;
-                    rptIncidencias.DataBind();
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(DNIFiltrado))
+                    {
+                        mostrarMensajeErrorDNI("No se encontraron usuarios con el DNI proporcionado.");
+                        return;
+                    }
+                    else
+                    {
+                        int idUsuarioFiltrado = listaFiltrada.FirstOrDefault()?.Id ?? -1;
 
-                    CargarIncidencias(id);
+                        List<Incidencia> listaIncidenciasFiltrada = listaInci.Where(x => x.Creador.Id == idUsuarioFiltrado).ToList();
+                        rptUsuarios.DataSource = listaFiltrada;
+                        rptUsuarios.DataBind();
 
-                    lblMensajeErrorDNI.Visible = false;
-                } 
+                        rptIncidencias.DataSource = listaIncidenciasFiltrada;
+                        rptIncidencias.DataBind();
+
+                        CargarIncidencias(id);
+
+                        lblMensajeErrorDNI.Visible = false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void crearIncidencia_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CrearIncidencia.aspx");
+            Response.Redirect("CrearIncidencia.aspx",false);
         }
 
         protected void filtroEstado_TextChanged(object sender, EventArgs e)
         {
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            if (string.IsNullOrWhiteSpace(filtroEstado.Text))
+            try
             {
-                lblMenError.Visible = false;
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
-                return;
-            }
-            else
-            {
-                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Estado.Nombre == filtroEstado.Text).ToList();
-                
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroEstado.Text))
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                if (string.IsNullOrWhiteSpace(filtroEstado.Text))
                 {
-                    mostrarMensajeErrorVarios("No se encontro el Estado proporcionado.");
+                    lblMenError.Visible = false;
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
                     return;
                 }
                 else
                 {
-                    rptIncidencias.DataSource = listaFiltrada;
-                    rptIncidencias.DataBind();
-                    CargarIncidencias(id);
-                    lblMenError.Visible = false;
+                    List<Incidencia> listaFiltrada = listaInci.Where(x => x.Estado.Nombre == filtroEstado.Text).ToList();
+
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroEstado.Text))
+                    {
+                        mostrarMensajeErrorVarios("No se encontro el Estado proporcionado.");
+                        return;
+                    }
+                    else
+                    {
+                        rptIncidencias.DataSource = listaFiltrada;
+                        rptIncidencias.DataBind();
+                        CargarIncidencias(id);
+                        lblMenError.Visible = false;
+                    }
                 }
+            }
+            catch (Exception) 
+            { 
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void filtroPrioridad_TextChanged(object sender, EventArgs e)
         {
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            if (string.IsNullOrWhiteSpace(filtroPrioridad.Text))
+            try
             {
-                lblMenError.Visible = false;
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
-                return;
-            }
-            else
-            {
-                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Prioridad.Nombre == filtroPrioridad.Text).ToList();
-                
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroPrioridad.Text))
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                if (string.IsNullOrWhiteSpace(filtroPrioridad.Text))
                 {
-                    mostrarMensajeErrorVarios("No se encontro la Prioridad proporcionada.");
+                    lblMenError.Visible = false;
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
                     return;
                 }
                 else
                 {
-                    rptIncidencias.DataSource = listaFiltrada;
-                    rptIncidencias.DataBind();
-                    CargarIncidencias(id);
-                    lblMenError.Visible = false;
+                    List<Incidencia> listaFiltrada = listaInci.Where(x => x.Prioridad.Nombre == filtroPrioridad.Text).ToList();
+
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroPrioridad.Text))
+                    {
+                        mostrarMensajeErrorVarios("No se encontro la Prioridad proporcionada.");
+                        return;
+                    }
+                    else
+                    {
+                        rptIncidencias.DataSource = listaFiltrada;
+                        rptIncidencias.DataBind();
+                        CargarIncidencias(id);
+                        lblMenError.Visible = false;
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void filtroTipoPrio_TextChanged(object sender, EventArgs e)
         {
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            if (string.IsNullOrWhiteSpace(filtroTipoInci.Text))
+            try
             {
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
-                lblMenError.Visible = false;
-                return;
-            }
-            else
-            {
-                List<Incidencia> listaFiltrada = listaInci.Where(x => x.TipoIncidencia.Nombre == filtroTipoInci.Text).ToList();
-                
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroTipoInci.Text))
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                if (string.IsNullOrWhiteSpace(filtroTipoInci.Text))
                 {
-                    mostrarMensajeErrorVarios("No se encontro el Tipo de incidencia proporcionado.");
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
+                    lblMenError.Visible = false;
                     return;
                 }
                 else
                 {
-                    rptIncidencias.DataSource = listaFiltrada;
-                    rptIncidencias.DataBind();
-                    CargarIncidencias(id);
-                    lblMenError.Visible = false;
+                    List<Incidencia> listaFiltrada = listaInci.Where(x => x.TipoIncidencia.Nombre == filtroTipoInci.Text).ToList();
+
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroTipoInci.Text))
+                    {
+                        mostrarMensajeErrorVarios("No se encontro el Tipo de incidencia proporcionado.");
+                        return;
+                    }
+                    else
+                    {
+                        rptIncidencias.DataSource = listaFiltrada;
+                        rptIncidencias.DataBind();
+                        CargarIncidencias(id);
+                        lblMenError.Visible = false;
+                    }
+
                 }
-                
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -340,39 +386,46 @@ namespace Call_Center
 
         protected void filtroInciID_TextChanged(object sender, EventArgs e)
         {
-            List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
-            int id = getIDsesion();
-            if (string.IsNullOrWhiteSpace(filtroInciID.Text))
+            try
             {
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
-                lblMenError.Visible = false;
-                return;
-            }
-
-            if (int.TryParse(filtroInciID.Text, out int idFiltrado))
-            {
-                List<Incidencia> listaFiltrada = listaInci.Where(x => x.Id == idFiltrado).ToList();
-
-                if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroInciID.Text))
+                List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
+                int id = getIDsesion();
+                if (string.IsNullOrWhiteSpace(filtroInciID.Text))
                 {
-                    mostrarMensajeErrorVarios("No se encontro ID incidencia proporcionado.");
-                    return;
-                }
-                else
-                {
-                    rptIncidencias.DataSource = listaFiltrada;
+                    rptIncidencias.DataSource = listaInci;
                     rptIncidencias.DataBind();
                     CargarIncidencias(id);
                     lblMenError.Visible = false;
+                    return;
+                }
+
+                if (int.TryParse(filtroInciID.Text, out int idFiltrado))
+                {
+                    List<Incidencia> listaFiltrada = listaInci.Where(x => x.Id == idFiltrado).ToList();
+
+                    if (listaFiltrada.Count == 0 && !string.IsNullOrWhiteSpace(filtroInciID.Text))
+                    {
+                        mostrarMensajeErrorVarios("No se encontro ID incidencia proporcionado.");
+                        return;
+                    }
+                    else
+                    {
+                        rptIncidencias.DataSource = listaFiltrada;
+                        rptIncidencias.DataBind();
+                        CargarIncidencias(id);
+                        lblMenError.Visible = false;
+                    }
+                }
+                else
+                {
+                    rptIncidencias.DataSource = listaInci;
+                    rptIncidencias.DataBind();
+                    CargarIncidencias(id);
                 }
             }
-            else
-            {
-                rptIncidencias.DataSource = listaInci;
-                rptIncidencias.DataBind();
-                CargarIncidencias(id);
+            catch (Exception) 
+            { 
+                Response.Redirect("Error.aspx"); 
             }
         }
     }
