@@ -220,6 +220,7 @@ namespace Call_Center
             {
                 Owner.Text = selectedItem.Text;
                 OwnerId.Text = selectedItem.Value;
+                Incidencia.Id = long.Parse(IncidenciaId.Value);
                 try
                 {
                     incidenciaDAO.ModifyOwner(int.Parse(OwnerId.Text), Incidencia.Id);
