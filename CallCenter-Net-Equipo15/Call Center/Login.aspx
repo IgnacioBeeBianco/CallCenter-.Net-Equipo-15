@@ -14,12 +14,11 @@
                 </div>
 
                 <div class="input-group mb-4">
-                    <input runat="server" id="PasswordInput" type="password" class="form-control rounded" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
-                            <i class="bi bi-eye" id="password-toggle-icon"></i>
-                        </span>
-                    </div>
+                    <input runat="server" id="PasswordInput" type="password" class="form-control" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" />
+                    <span class="input-group-text" id="password-toggle" onclick="togglePasswordVisibility()">
+                        <i class="bi bi-eye" id="password-toggle-icon"></i>
+                    </span>
+                    
                 </div>
 
                 <div class="forgot-text text-center">

@@ -36,8 +36,3 @@
     transform: translateY(-50%);
     cursor: pointer;
 }
-
-#password-toggle-icon {
-    font-size: 20px;
-    color: #ccc;
-}

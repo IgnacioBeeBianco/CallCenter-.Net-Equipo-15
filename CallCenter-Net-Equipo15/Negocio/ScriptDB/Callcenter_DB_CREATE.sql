@@ -148,11 +148,19 @@ BEGIN
     )
 END
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Encuesta')
+BEGIN
+    CREATE TABLE Encuesta(
+        id INT IDENTITY(1,1),
+        incidencia_id INT NOT NULL,
+        usuario_id INT NOT NULL,
+        calificacion INT NOT NULL,
+        comentario NVARCHAR(500),
+        estado BIT NOT NULL DEFAULT 1
 
-/* SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre 
-FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id 
-INNER JOIN Rol R ON R.id = C.id_rol 
-WHERE R.nombre = 'Cliente' AND (
-    SELECT Count(*) FROM Incidencia as I
-    WHERE I.creador_id = U.cuenta_id AND I.asignado_id = @idAsignado
-    ) > 0 */
+        PRIMARY KEY(id),
+        FOREIGN KEY(incidencia_id) REFERENCES Incidencia(id),
+        FOREIGN KEY(usuario_id) REFERENCES Usuario(id)
+    )
+
+END

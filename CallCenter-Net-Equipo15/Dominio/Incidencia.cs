@@ -26,6 +26,7 @@ namespace Dominio
         public Prioridad Prioridad { get; set; }
         public TipoIncidencia TipoIncidencia { get; set; }
         public List<Comentario> Comentarios { get; set; }
+        public Encuesta Encuesta { get; set; }
 
     }
 }

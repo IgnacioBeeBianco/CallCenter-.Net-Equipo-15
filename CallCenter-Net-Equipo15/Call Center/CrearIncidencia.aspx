@@ -16,7 +16,18 @@
     </script>
 
     <div class="container mt-4">
-        <h1>Incidencia</h1>
+        <div class="row mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1>Incidencia</h1>
+                <div>
+                    <asp:Button Text="Volver" runat="server" ID="btnVolver" OnClick="btnVolver_Click" class="btn btn-secondary"/>
+                    <asp:Button Text="Guardar" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
+                    <asp:Button ID="BtnResolveTicket" runat="server" Text="Resolver" OnClick="BtnResolveTicket_Click" CssClass="btn btn-success" />
+                    <asp:Button ID="BtnCloseTicket" runat="server" Text="Cerrar" OnClick="BtnCloseTicket_Click" CssClass="btn btn-danger" />
+                </div>
+
+            </div>
+        </div>
         <div class="row mb-3">
             <div class="col">
                 <asp:HiddenField ID="IncidenciaId" runat="server" />
@@ -64,10 +75,6 @@
             <label for="problematica" class="form-label">Problemática:</label>
             <textarea class="form-control" id="problematica" rows="3" runat="server"></textarea>
         </div>
-        <div class="mb-3">
-            <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
-            <asp:Button Text="Volver" runat="server" ID="btnVolver" OnClick="btnVolver_Click" class="btn btn-primary"/>
-        </div>
 
         <%if (hasError)
             { %>
@@ -76,8 +83,10 @@
                 </div>
             <% } %>
 
-        <section class="comments">
-            <div class="header-section d-flex justify-content-between align-items-center">
+        
+
+        <section class="comments mt-3">
+            <div class="header-section d-flex justify-content-between align-items-center mb-3">
                 <h3>Comentarios</h3>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" <%# EnableAddCommentButton() %>>
                     Agregar comentario

@@ -34,7 +34,35 @@ namespace DAO
 
             return incidencia;
         }
-
+        public void AddSurvey(Encuesta encuesta, long incidenciaId, int usuarioId)
+        {
+            try
+            {
+                accesoADatos.AbrirConexion();
+                string consulta = "INSERT INTO Encuesta (incidencia_id, usuario_id, calificacion, comentario, estado) VALUES (@incidencia, @usuario, @calificacion, @comentario, @estado)";
+                accesoADatos.setearParametro("@incidencia", incidenciaId);
+                accesoADatos.setearParametro("@usuario", usuarioId);
+                accesoADatos.setearParametro("calificacion", encuesta.Calificacion);
+                if(encuesta.Comentario != null)
+                {
+                    accesoADatos.setearParametro("@comentario", encuesta.Comentario);
+                }
+                else
+                {
+                    accesoADatos.setearParametro("@comentario", DBNull.Value);
+                }
+                accesoADatos.setearParametro("@estado", 1);
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }finally 
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
         public void AddComment(Comentario comentario)
         {
             try

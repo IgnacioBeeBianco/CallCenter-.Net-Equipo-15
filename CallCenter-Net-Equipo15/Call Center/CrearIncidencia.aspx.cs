@@ -182,11 +182,6 @@ namespace Call_Center
             Response.Redirect("Home.aspx");
         }
 
-        protected void BtnAddComment_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void BtnSaveComment_Click(object sender, EventArgs e)
         {
             IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
@@ -233,6 +228,16 @@ namespace Call_Center
 
                 }
             }
+        }
+
+        protected void BtnResolveTicket_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"Survey.aspx?ticketId={IncidenciaId.Value}");
+        }
+
+        protected void BtnCloseTicket_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

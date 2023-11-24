@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Comentario.cs" />
     <Compile Include="Cuenta.cs" />
+    <Compile Include="Encuesta.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Incidencia.cs" />
     <Compile Include="Prioridad.cs" />
