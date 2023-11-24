@@ -73,6 +73,8 @@ namespace Call_Center
                 else
                 {
                     Owner.Text = (Session["Usuario"] as Usuario).Nombre;
+                    OwnerId.Text = (Session["Usuario"] as Usuario).Id.ToString();
+                    IncidenciaId.Value = "0";
                     cargarFechaHoraTxtBox();
                 }
             }
@@ -145,8 +147,12 @@ namespace Call_Center
                 Incidencia.Id = long.Parse(IncidenciaId.Value.ToString());
                 Incidencia.Creador.Id = usuarioDAO.getUsuarioId(DropDownCreador.SelectedValue);
                 Incidencia.Asignado.Id = int.Parse(OwnerId.Text);
-                Incidencia.FechaCreacion = DateTime.Parse(txtbFechaCreacion.Text, CultureInfo.InvariantCulture);
-                Incidencia.FechaCierre = DateTime.Parse(txtbFechaCambio.Text, CultureInfo.InvariantCulture);
+                DateTime fechaCreacion;
+                DateTime.TryParseExact(txtbFechaCreacion.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaCreacion);
+                Incidencia.FechaCreacion = fechaCreacion;
+                DateTime fechaUltimoCambio;
+                DateTime.TryParseExact(txtbFechaCambio.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaUltimoCambio);
+                Incidencia.FechaCierre = fechaUltimoCambio;
 
                 Incidencia.Estado.Id = estadoDAO.getEstadoId(DropDownEstados.SelectedValue);
                 Incidencia.Prioridad.Id = prioridadDAO.getPrioridadId(DropDownPrio.SelectedValue);
