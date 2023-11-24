@@ -19,6 +19,7 @@ namespace Call_Center
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
         Incidencia Incidencia = new Incidencia();
         ComentarioIncidenciaDAO ComentarioIncidenciaDAO = new ComentarioIncidenciaDAO();
+        Incidencia incidencia = new Incidencia();
         protected bool hasError = false;
 
         private void LoadData(Incidencia incidencia)
@@ -27,6 +28,7 @@ namespace Call_Center
             Owner.Text = incidencia.Asignado.Nombre;
             DropDownCreador.SelectedValue = incidencia.Creador.Nombre;
             txtbFechaCreacion.Text = incidencia.FechaCreacion.ToString();
+            txtbFechaCambio.Text = incidencia.FechaCierre.ToString();
             DropDownEstados.SelectedValue = incidencia.Estado.ToString();
             DropDownPrio.SelectedValue = incidencia.Prioridad.ToString();
             ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.ToString();
@@ -43,8 +45,6 @@ namespace Call_Center
                 cargarDatosDDLEstado();
                 cargarDatosDDLUsuarios();
                 cargarDatosDDLUsuariosCreador();
-                cargarFechaHoraTxtBox();
-                Owner.Text = (Session["Usuario"] as Usuario).Nombre;
                 DropDownEstados.Enabled = false;
                 if (Request.QueryString["id"] != null)
                 {
@@ -53,7 +53,14 @@ namespace Call_Center
                         Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
                         Incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(incidenciaId);
                         LoadData(Incidencia);
-                        DropDownCreador.Enabled = false;
+                        if ((Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador")
+                        {
+                            DropDownCreador.Enabled = true;
+                        }
+                        else
+                        {
+                            DropDownCreador.Enabled = false;
+                        }
                         RptComments.DataSource = Incidencia.Comentarios;
                         RptComments.DataBind();
                         
@@ -62,6 +69,11 @@ namespace Call_Center
                     {
                         Response.Redirect("IncidenciaPanel.aspx");
                     }
+                }
+                else
+                {
+                    Owner.Text = (Session["Usuario"] as Usuario).Nombre;
+                    cargarFechaHoraTxtBox();
                 }
             }
         }
@@ -105,7 +117,7 @@ namespace Call_Center
         {
             DropDownAsignado.DataSource = usuarioDAO.GetUsuariosDistintosClientes();
             DropDownAsignado.DataTextField = "Nombre";
-            DropDownAsignado.DataValueField = "Nombre";
+            DropDownAsignado.DataValueField = "Id";
             DropDownAsignado.DataBind();
         }
 
@@ -115,6 +127,7 @@ namespace Call_Center
             DropDownCreador.DataTextField = "Nombre";
             DropDownCreador.DataValueField = "Nombre";
             DropDownCreador.DataBind();
+            
         }
 
         private void cargarFechaHoraTxtBox()
@@ -129,27 +142,36 @@ namespace Call_Center
         {
             try
             {
-                Incidencia incidencia = new Incidencia();
+                Incidencia.Id = long.Parse(IncidenciaId.Value.ToString());
+                Incidencia.Creador.Id = usuarioDAO.getUsuarioId(DropDownCreador.SelectedValue);
+                Incidencia.Asignado.Id = int.Parse(OwnerId.Text);
+                Incidencia.FechaCreacion = DateTime.Parse(txtbFechaCreacion.Text, CultureInfo.InvariantCulture);
+                Incidencia.FechaCierre = DateTime.Parse(txtbFechaCambio.Text, CultureInfo.InvariantCulture);
 
-                incidencia.Creador.Id = usuarioDAO.getUsuarioId(DropDownCreador.SelectedValue);
-                //incidencia.Asignado.Id = usuarioDAO.getUsuarioId(DropDownAsignado.SelectedValue);
-                incidencia.Asignado.Id = (Session["Usuario"] as Usuario).Id;
-                incidencia.FechaCreacion = DateTime.ParseExact(txtbFechaCreacion.Text, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                incidencia.FechaCierre = DateTime.ParseExact(txtbFechaCambio.Text, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                Incidencia.Estado.Id = estadoDAO.getEstadoId(DropDownEstados.SelectedValue);
+                Incidencia.Prioridad.Id = prioridadDAO.getPrioridadId(DropDownPrio.SelectedValue);
+                Incidencia.TipoIncidencia.id = tipoIncidenciaDAO.getTipoIncidenciaId(ddlTipoIncidencia.SelectedValue);
 
-                incidencia.Estado.Id = estadoDAO.getEstadoId(DropDownEstados.SelectedValue);
-                incidencia.Prioridad.Id = prioridadDAO.getPrioridadId(DropDownPrio.SelectedValue);
-                incidencia.TipoIncidencia.id = tipoIncidenciaDAO.getTipoIncidenciaId(ddlTipoIncidencia.SelectedValue);
+                Incidencia.ComentarioCierre = null;
+                Incidencia.problematica = problematica.InnerText;
 
-                incidencia.ComentarioCierre = "";
-                incidencia.problematica = problematica.InnerText;
+                if(Incidencia.Id == 0)
+                {
+                    incidenciaDAO.Create(Incidencia);
+                    Response.Redirect("CrearIncidencia.aspx");
+                }
+                else
+                {
+                    Incidencia.FechaCierre = DateTime.Now;
+                    Incidencia.Estado.Id = estadoDAO.getEstadoId("En Análisis");
+                    incidenciaDAO.Update(Incidencia);
+                    Response.Redirect($"CrearIncidencia.aspx?id={IncidenciaId.Value}");
+                }
 
-                incidenciaDAO.Create(incidencia);
-
-                Response.Redirect("Home.aspx");
             }
             catch (Exception ex)
             {
+                hasError = true;
                 throw ex;
             }
             
@@ -188,6 +210,28 @@ namespace Call_Center
                 hasError = true;
             }
 
+        }
+
+        protected void DropDownAsignado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListItem selectedItem = DropDownAsignado.SelectedItem;
+
+            if(selectedItem != null)
+            {
+                Owner.Text = selectedItem.Text;
+                OwnerId.Text = selectedItem.Value;
+                try
+                {
+                    incidenciaDAO.ModifyOwner(int.Parse(OwnerId.Text), Incidencia.Id);
+                    Estado estado = estadoDAO.getEstado("Asignado");
+                    incidenciaDAO.ModifyState(estado.Id, Incidencia.Id);
+                }
+                catch (Exception)
+                {
+                    hasError = true;
+
+                }
+            }
         }
     }
 }

@@ -28,18 +28,21 @@
                 <asp:Label ID="OwnerId" runat="server" CssClass="form-control d-none"></asp:Label>
                 <asp:Label ID="Owner" runat="server" CssClass="form-control" Enabled="false"></asp:Label>
 
-                <asp:DropDownList ID="DropDownAsignado" runat="server" CssClass="form-select" Visible="false"></asp:DropDownList>
+            </div>
+            <div class="col">
+                <label for="reasignacion" class="form-label">Reasignar:</label>
+                <asp:DropDownList ID="DropDownAsignado" runat="server" CssClass="form-select" OnSelectedIndexChanged="DropDownAsignado_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
             </div>
 
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="fechaCreacion" class="form-label">Fecha creacion:</label>
-                <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtbFechaCreacion" onblur="validarFecha(this.value)" CssClass="form-control" Enabled="false"/>
             </div>
             <div class="col">
                 <label for="fechaUltimoCambio" class="form-label">Fecha ultimo cambio:</label>
-                <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtbFechaCambio" onblur="validarFecha(this.value)" CssClass="form-control" Enabled="false"/>
             </div>
 
         </div>
@@ -65,6 +68,13 @@
             <asp:Button Text="Crear" runat="server" ID="btnCrear" OnClick="btnCrear_Click" class="btn btn-primary" type="submit" />
             <asp:Button Text="Volver" runat="server" ID="btnVolver" OnClick="btnVolver_Click" class="btn btn-primary"/>
         </div>
+
+        <%if (hasError)
+            { %>
+                <div class="alert alert-danger transition-effect mt-3" role="alert">
+                    Error persistiendo la entidad
+                </div>
+            <% } %>
 
         <section class="comments">
             <div class="header-section d-flex justify-content-between align-items-center">
@@ -133,5 +143,6 @@
                     </div>
                 </ContentTemplate>
                 </asp:UpdatePanel>
+
     </div>
 </asp:Content>

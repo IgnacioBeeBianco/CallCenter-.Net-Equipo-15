@@ -58,6 +58,27 @@ namespace DAO
             }
         }
 
+        public void ModifyOwner(int usuarioId, long incidenciaId)
+        {
+            try
+            {
+                accesoADatos = new AccesoADatos();
+                string consulta = "UPDATE Incidencia SET asignado_id = @usuarioId WHERE id = @incidenciaId";
+                accesoADatos.setearParametro("@usuarioId", usuarioId);
+                accesoADatos.setearParametro("@incidenciaId", incidenciaId);
+                accesoADatos.AbrirConexion();
+                accesoADatos.consultar(consulta);
+                accesoADatos.ejecutarAccion();
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                accesoADatos.cerrarConexion();
+            }
+        }
+
         public Incidencia getIncidencia(int Id)
         {
             accesoADatos = new AccesoADatos();
@@ -351,7 +372,7 @@ namespace DAO
             }
         }
 
-        public void ModifyState(int estadoId, int incidenciaId)
+        public void ModifyState(int estadoId, long incidenciaId)
         {
             try
             {
@@ -371,17 +392,28 @@ namespace DAO
             }
         }
 
-        public void Update(Incidencia newValue, long id)
+        public void Update(Incidencia newValue)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consulta = "UPDATE  WHERE I.Id = @Id";
+                string consulta = "UPDATE Incidencia SET creador_id = @creador_id, asignado_id = @asignado_id, fecha_creacion = @fecha_creacion, fecha_ultimo_cambio = @fecha_ultimo_cambio, " +
+                    "estado_id = @estado_id, prioridad_id = @prioridad_id, tipo_incidencia_id = @tipo_incidencia_id, comentario_cierra = @comentario_cierre, problematica = @problematica, estado = 1 " +
+                    " WHERE Id = @Id";
 
                 accesoADatos.AbrirConexion();
                 //Setear todos los datos
-                accesoADatos.setearParametro("@Id", id);
+                accesoADatos.setearParametro("@Id", newValue.Id);
+                accesoADatos.setearParametro("@creador_id", newValue.Creador.Id);
+                accesoADatos.setearParametro("@asignado_id", newValue.Asignado.Id);
+                accesoADatos.setearParametro("@fecha_creacion", newValue.FechaCreacion.ToString());
+                accesoADatos.setearParametro("@fecha_ultimo_cambio", newValue.FechaCierre.ToString());
+                accesoADatos.setearParametro("@estado_id", newValue.Estado.Id);
+                accesoADatos.setearParametro("@prioridad_id", newValue.Prioridad.Id);
+                accesoADatos.setearParametro("@tipo_incidencia_id", newValue.TipoIncidencia.id);
+                accesoADatos.setearParametro("@comentario_cierre", DBNull.Value);
+                accesoADatos.setearParametro("@problematica", newValue.problematica);
                 accesoADatos.consultar(consulta);
 
                 accesoADatos.ejecutarAccion();
