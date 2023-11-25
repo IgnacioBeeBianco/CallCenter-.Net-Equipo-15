@@ -132,9 +132,19 @@ namespace Call_Center
                 Button btn = sender as Button;
                 int id = int.Parse(((Button)sender).CommandArgument);
                 int idEstado = int.Parse(btn.Attributes["idEstado"]);
+                Incidencia incidencia = new Incidencia();
+                IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+                incidencia = incidenciaDAO.getIncidencia(id);
                 incidenciaNegocio.UpdateEstado(idEstado, id);
+                //Enviar mail
+                EmailService emailService = new EmailService();
+                string asunto = "Se cambio el estado de " + id;
+                string mensaje = "Hola " +  usuario.Apellido + " " + usuario.Nombre + ". La incidencia " + id
+                    + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
+                emailService.armarCorreo(cuenta.Email, asunto, mensaje);
+                emailService.enviarEmail();
                 Response.Redirect("IncidenciaPanel.aspx");
-
+                
             }
             catch(Exception ex)
             {
@@ -144,7 +154,7 @@ namespace Call_Center
 
         protected void BtnResolveTicket_Click(object sender, EventArgs e)
         {
-
+            //Enviar mail
         }
 
         protected void BtnSeeMore_Click(object sender, EventArgs e)
