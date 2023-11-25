@@ -5,10 +5,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         function validarFecha(fecha) {
-            var regexFecha = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/;
+            var regexFecha = /^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/;
 
             if (!regexFecha.test(fecha)) {
-                alert('Formato de fecha y hora inválido. Utiliza el formato DD/MM/YYYY HH:mm:ss');
+                alert('Formato de fecha y hora inválido. Utiliza el formato yyyy-MM-dd HH:mm:ss');
                 document.getElementById('<%= txtbFechaCreacion.ClientID %>').value = '';
                 document.getElementById('<%= txtbFechaCambio.ClientID %>').value = '';
             }

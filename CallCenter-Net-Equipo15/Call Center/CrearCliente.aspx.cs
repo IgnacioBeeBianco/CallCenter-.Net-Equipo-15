@@ -20,7 +20,6 @@ namespace Call_Center
         {
             try
             {
-
                 Cuenta cuenta = new Cuenta();
                 Usuario cliente = new Usuario();
                 CuentaDAO cuentaDAO = new CuentaDAO();
@@ -44,9 +43,9 @@ namespace Call_Center
                 */
                 Response.Redirect("Login.aspx", false);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
 

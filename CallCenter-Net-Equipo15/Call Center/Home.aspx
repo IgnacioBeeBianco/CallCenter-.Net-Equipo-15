@@ -255,13 +255,4 @@
             </div>
         </div>
     </section>
-    <section>
-        <div class="row">
-            <div class="col-6">
-                <div class="mb-3">
-                    <asp:Label ID="lblMensajeError" Text="" runat="server" Visible="false" />
-                </div>
-            </div>
-        </div>
-    </section>
 </asp:Content>
