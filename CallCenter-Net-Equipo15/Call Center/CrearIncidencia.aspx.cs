@@ -158,7 +158,7 @@ namespace Call_Center
                 Incidencia.Prioridad.Id = prioridadDAO.getPrioridadId(DropDownPrio.SelectedValue);
                 Incidencia.TipoIncidencia.id = tipoIncidenciaDAO.getTipoIncidenciaId(ddlTipoIncidencia.SelectedValue);
 
-                Incidencia.ComentarioCierre = "";
+                Incidencia.ComentarioCierre = null;
                 Incidencia.problematica = problematica.InnerText;
 
                 if(Incidencia.Id == 0)

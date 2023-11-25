@@ -385,7 +385,7 @@ namespace DAO
                 accesoADatos.setearParametro("@estado_id", incidencia.Estado.Id);
                 accesoADatos.setearParametro("@prioridad_id", incidencia.Prioridad.Id);
                 accesoADatos.setearParametro("@tipo_incidencia_id", incidencia.TipoIncidencia.id);
-                accesoADatos.setearParametro("@comentario_cierra ", incidencia.ComentarioCierre);
+                accesoADatos.setearParametro("@comentario_cierra ", (object)incidencia.ComentarioCierre ?? DBNull.Value);
                 accesoADatos.setearParametro("@problematica", incidencia.problematica);
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarAccion();
