@@ -154,8 +154,6 @@ namespace Call_Center
         {
             try
             {
-
-
                 List<Incidencia> listaInci = (List<Incidencia>)Session["listaIncidencias"];
                 int id = getIDsesion();
                 if (string.IsNullOrWhiteSpace(filtro.Text))

@@ -136,8 +136,8 @@ namespace Call_Center
         {
             DateTime fechaActual = DateTime.Now;
 
-            txtbFechaCreacion.Text = fechaActual.ToString("dd/MM/yyyy HH:mm:ss");
-            txtbFechaCambio.Text = fechaActual.ToString("dd/MM/yyyy HH:mm:ss");
+            txtbFechaCreacion.Text = fechaActual.ToString("yyyy-MM-dd HH:mm:ss");
+            txtbFechaCambio.Text = fechaActual.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         protected void btnCrear_Click(object sender, EventArgs e)
@@ -148,23 +148,23 @@ namespace Call_Center
                 Incidencia.Creador.Id = usuarioDAO.getUsuarioId(DropDownCreador.SelectedValue);
                 Incidencia.Asignado.Id = int.Parse(OwnerId.Text);
                 DateTime fechaCreacion;
-                DateTime.TryParseExact(txtbFechaCreacion.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaCreacion);
+                DateTime.TryParseExact(txtbFechaCreacion.Text, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaCreacion);
                 Incidencia.FechaCreacion = fechaCreacion;
                 DateTime fechaUltimoCambio;
-                DateTime.TryParseExact(txtbFechaCambio.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaUltimoCambio);
+                DateTime.TryParseExact(txtbFechaCambio.Text, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaUltimoCambio);
                 Incidencia.FechaCierre = fechaUltimoCambio;
 
                 Incidencia.Estado.Id = estadoDAO.getEstadoId(DropDownEstados.SelectedValue);
                 Incidencia.Prioridad.Id = prioridadDAO.getPrioridadId(DropDownPrio.SelectedValue);
                 Incidencia.TipoIncidencia.id = tipoIncidenciaDAO.getTipoIncidenciaId(ddlTipoIncidencia.SelectedValue);
 
-                Incidencia.ComentarioCierre = null;
+                Incidencia.ComentarioCierre = "";
                 Incidencia.problematica = problematica.InnerText;
 
                 if(Incidencia.Id == 0)
                 {
                     incidenciaDAO.Create(Incidencia);
-                    Response.Redirect("CrearIncidencia.aspx");
+                    Response.Redirect("Home.aspx", false);
                 }
                 else
                 {
