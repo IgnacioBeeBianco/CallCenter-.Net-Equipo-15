@@ -17,7 +17,7 @@ namespace DAO
             List<Usuario> usuarios = new List<Usuario>();
             try
             {
-                string consulta = "SELECT id, nombre, apellido, dni, domicilio, telefono, estado FROM Usuario";
+                string consulta = "SELECT id, nombre, apellido, dni, domicilio, telefono, estado FROM Usuario WHERE estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -251,7 +251,7 @@ namespace DAO
         {
             try
             {
-                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, U.estado, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre != 'Cliente'";
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, U.estado, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre != 'Cliente' and u.estado=1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();

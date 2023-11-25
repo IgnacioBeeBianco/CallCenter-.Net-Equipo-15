@@ -91,7 +91,7 @@ namespace DAO
 
             try
             {
-                string consulta = "SELECT id, nombre, descripcion, estado FROM TipoIncidencia";
+                string consulta = "SELECT id, nombre, descripcion, estado FROM TipoIncidencia WHERE estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();

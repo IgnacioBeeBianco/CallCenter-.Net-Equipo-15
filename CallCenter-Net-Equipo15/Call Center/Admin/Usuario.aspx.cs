@@ -33,7 +33,7 @@ namespace Call_Center.ABML
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
@@ -43,10 +43,10 @@ namespace Call_Center.ABML
             {
                 int id = int.Parse(((LinkButton)sender).CommandArgument);
                 usuarioDAO.Delete(id);
-                Response.Redirect("Usuario.aspx");
+                Response.Redirect("Usuario.aspx",false);
             }catch(Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
@@ -93,7 +93,7 @@ namespace Call_Center.ABML
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
