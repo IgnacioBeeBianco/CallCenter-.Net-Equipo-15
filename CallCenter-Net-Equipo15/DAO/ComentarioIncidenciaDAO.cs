@@ -66,10 +66,12 @@ namespace DAO
                 }
 
                 return Comentarios;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
-            }finally 
+            }
+            finally 
             {
                 AccesoADatos.cerrarConexion();
             }

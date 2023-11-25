@@ -89,8 +89,10 @@
                             <asp:Label ID="lblId" runat="server" Text="" CssClass=""></asp:Label>
                             <asp:Button runat="server" CssClass="btn btn-primary" Text="Ver" ID="BtnSeeMore" OnClick="BtnSeeMore_Click"/>
                             
-                            <%if ((Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre == "Administrador")
-                            { %>
+                            <%if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                                {
+                                    if ((Session["Cuenta"] as Dominio.Cuenta).Rol.Nombre == "Administrador")
+                                    { %>
                                 <asp:Button ID="btnMoverA" runat="server" Text="Mover" CssClass="btn btn-primary" OnClick="btnMoverA_Click" />
                                 <div id="moverAOpts" runat="server" class="bg-dark-subtle rounded" style="display: none; position: absolute; right: -15%; top: 0px; border: 1px solid black; display: flex; flex-direction: column">
                                     <asp:Repeater ID="rptMoverA" runat="server">
@@ -103,7 +105,12 @@
                                 </div>
 
 
-                            <%} %>
+                            <%      }
+                                }
+                                else
+                                {
+                                    Response.Redirect("~/Login.aspx", false);
+                                }%>
                         </div>
                     </div>
                     <div class="card-body">
