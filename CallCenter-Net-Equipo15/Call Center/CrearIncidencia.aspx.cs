@@ -41,13 +41,9 @@ namespace Call_Center
             hasError = false;
             if (!IsPostBack)
             {
-                cargarDatosDDLTipoIncidencia();
-                cargarDatosDDLPrioridad();
-                cargarDatosDDLEstado();
-                cargarDatosDDLUsuarios();
-                cargarDatosDDLUsuariosCreador();
+                LoadCombos(); 
                 DropDownEstados.Enabled = false;
-                if (IsEditingTicket() != null)
+                if (IsEditingTicket())
                 {
                     if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
                     {
@@ -76,12 +72,21 @@ namespace Call_Center
                     LoadDataToCreateTicket();
                     DropDownAsignado.Enabled = false;
                 }
+                
             }
         }
-
-        protected string IsEditingTicket()
+        private void LoadCombos()
         {
-            return Request.QueryString["id"];
+            cargarDatosDDLTipoIncidencia();
+            cargarDatosDDLPrioridad();
+            cargarDatosDDLEstado();
+            cargarDatosDDLUsuarios();
+            cargarDatosDDLUsuariosCreador();
+        }
+        
+        protected bool IsEditingTicket()
+        {
+            return Request.QueryString["id"] != null;
         }
 
         private bool IsAdmin()

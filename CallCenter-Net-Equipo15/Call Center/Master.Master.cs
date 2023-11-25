@@ -10,6 +10,9 @@ namespace Call_Center
 {
     public partial class Master : System.Web.UI.MasterPage
     {
+        protected Usuario Usuario { get; set; }
+        protected Cuenta Cuenta { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -19,23 +22,23 @@ namespace Call_Center
                     setearImagenSegunRol();
                 }
 
-                if (Session["Usuario"] == null)
+                if (!IsLogged())
                 {
                     Response.Redirect("Login.aspx",false);
                     return;
                 }
-                Usuario usuario = new Usuario();
-                usuario = (Usuario)Session["Usuario"];
-                Cuenta cuenta = new Cuenta();
-                cuenta = (Cuenta)Session["Cuenta"];
-
-                Username.Text = (usuario.Nombre + " " + usuario.Apellido);
-
-                if (cuenta.Rol.Nombre != "Administrador")
+                else
+                {
+                    Usuario = (Usuario)Session["Usuario"];
+                    Cuenta = (Cuenta)Session["Cuenta"];
+                    Username.Text = (Usuario.Nombre + " " + Usuario.Apellido);
+                }
+                
+                if (!IsAdmin())
                 {
                     adminDashboard.Style["display"] = "none";
                 }
-                if (cuenta.Rol.Nombre == "Cliente")
+                if (IsClient())
                 {
                     incidenciaDashboard.Style["display"] = "none";
                     incidenciaCrear.Style["display"] = "none";
@@ -46,6 +49,21 @@ namespace Call_Center
                 Response.Redirect("Error.aspx");
             }
 
+        }
+
+        private bool IsAdmin()
+        {
+            return Cuenta.Rol.Nombre == "Administrador";
+        }
+
+        private bool IsClient()
+        {
+            return Cuenta.Rol.Nombre == "Cliente";
+        }
+
+        private bool IsLogged()
+        {
+            return Session["Usuario"] != null;
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
