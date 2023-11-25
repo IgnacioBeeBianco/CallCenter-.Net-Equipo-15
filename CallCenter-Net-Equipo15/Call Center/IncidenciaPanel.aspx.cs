@@ -19,38 +19,52 @@ namespace Call_Center
         Cuenta cuenta = new Cuenta();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"] == null)
+            try
             {
-                Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
+                if (Session["Usuario"] == null)
+                {
+                    Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
+                }
+                usuario = (Usuario)Session["Usuario"];
+                cuenta = (Cuenta)Session["Cuenta"];
+                if (!IsPostBack)
+                {
+                    BindData();
+                }
             }
-            usuario = (Usuario) Session["Usuario"];
-            cuenta = (Cuenta) Session["Cuenta"];
-            if (!IsPostBack)
+            catch(Exception)
             {
-                BindData();
+                Response.Redirect("Error.aspx");
             }
         }
 
         private void BindData()
         {
-            EstadoDAO estadoDAO = new EstadoDAO();
-            List<Estado> Estados = estadoDAO.List().Where(estado => estado.estado).ToList();
-            rptColumnas.DataSource = Estados;
-            rptColumnas.DataBind();
+            try
+            {
+                EstadoDAO estadoDAO = new EstadoDAO();
+                List<Estado> Estados = estadoDAO.List().Where(estado => estado.estado).ToList();
+                rptColumnas.DataSource = Estados;
+                rptColumnas.DataBind();
 
 
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            List<Usuario> Usuarios = new List<Usuario>();
-            if (cuenta.Rol.Nombre == "Administrador")
-            {
-                Usuarios = usuarioDAO.GetUsuariosClientes();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                List<Usuario> Usuarios = new List<Usuario>();
+                if (cuenta.Rol.Nombre == "Administrador")
+                {
+                    Usuarios = usuarioDAO.GetUsuariosClientes();
+                }
+                else
+                {
+                    Usuarios = usuarioDAO.GetUsuariosClientesConIncidencias(cuenta.Id);
+                }
+                rptAsignados.DataSource = Usuarios;
+                rptAsignados.DataBind();
             }
-            else
+            catch (Exception)
             {
-                Usuarios = usuarioDAO.GetUsuariosClientesConIncidencias(cuenta.Id);
+                Response.Redirect("Error.aspx");
             }
-            rptAsignados.DataSource = Usuarios;
-            rptAsignados.DataBind();
         }
 
         protected void rptColumnas_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -75,31 +89,38 @@ namespace Call_Center
                     rptIncidencias.DataSource = incidencias;
                     rptIncidencias.DataBind();
 
-                }catch(Exception ex)
+                }catch(Exception)
                 {
-                    throw ex;
+                    Response.Redirect("Error.aspx");
                 }
             }
         }
 
         protected void optionsTicket(object sender, EventArgs e)
         {
-            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-            Button btn = sender as Button;
-            modal.Style["display"] = "block";
-            moverAOpts.Style["display"] = "none";
-            int id = int.Parse(((Button)sender).CommandArgument);
-            Incidencia incidencia = incidenciaDAO.getIncidencia(id);
+            try
+            {
+                IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+                Button btn = sender as Button;
+                modal.Style["display"] = "block";
+                moverAOpts.Style["display"] = "none";
+                int id = int.Parse(((Button)sender).CommandArgument);
+                Incidencia incidencia = incidenciaDAO.getIncidencia(id);
 
-            lblId.Text = incidencia.Id.ToString();
-            lblProblematica.Text = "Incidencia:" + incidencia.problematica;
-            lblEstado.Text = "Estado: " + incidencia.Estado.Nombre.ToString();
-            lblOwner.Text = "Asignado: " + incidencia.Asignado.Nombre;
-            lblIssuer.Text = "Creador: " + incidencia.Creador.Nombre;
+                lblId.Text = incidencia.Id.ToString();
+                lblProblematica.Text = "Incidencia:" + incidencia.problematica;
+                lblEstado.Text = "Estado: " + incidencia.Estado.Nombre.ToString();
+                lblOwner.Text = "Asignado: " + incidencia.Asignado.Nombre;
+                lblIssuer.Text = "Creador: " + incidencia.Creador.Nombre;
 
-            IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
-            rptMoverA.DataSource = incidenciaNegocio.TraerEstadosMenos(incidencia.Estado.Nombre);
-            rptMoverA.DataBind();
+                IncidenciaNegocio incidenciaNegocio = new IncidenciaNegocio();
+                rptMoverA.DataSource = incidenciaNegocio.TraerEstadosMenos(incidencia.Estado.Nombre);
+                rptMoverA.DataBind();
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void cancelarModal(object sender, EventArgs e)
@@ -146,9 +167,9 @@ namespace Call_Center
                 Response.Redirect("IncidenciaPanel.aspx");
                 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw ex;
+                Response.Redirect("Error.aspx");
             }
         }
 

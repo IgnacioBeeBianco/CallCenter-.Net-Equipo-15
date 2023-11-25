@@ -15,10 +15,25 @@ namespace Call_Center.ABML
         protected bool hasSuccess = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack) {
+            try
+            {
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                {
+                    if (!IsPostBack)
+                    {
 
-                rptUsuarios.DataSource = usuarioDAO.GetUsuarios().Where(user => user.Estado);
-                rptUsuarios.DataBind();
+                        rptUsuarios.DataSource = usuarioDAO.GetUsuarios().Where(user => user.Estado);
+                        rptUsuarios.DataBind();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx",false);
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -29,49 +44,56 @@ namespace Call_Center.ABML
                 int id = int.Parse(((LinkButton)sender).CommandArgument);
                 usuarioDAO.Delete(id);
                 Response.Redirect("Usuario.aspx");
-            }catch(Exception ex)
+            }catch(Exception)
             {
-                throw ex;
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            LinkButton btn = sender as LinkButton;
-            modalUsuarios.Style["display"] = "block";
-
-            switch (btn.Attributes["action"])
+            try
             {
-                case "create":
-                    RolDAO rolDAO = new RolDAO();
-                    RoleDropdown.DataSource = rolDAO.List();
-                    RoleDropdown.DataTextField = "Nombre";
-                    RoleDropdown.DataValueField = "Id";
-                    RoleDropdown.DataBind();
-                    lblTitle.Text = "Crear";
-                    break;
+                LinkButton btn = sender as LinkButton;
+                modalUsuarios.Style["display"] = "block";
 
-                case "modify":
-                    int id = int.Parse(((LinkButton)sender).CommandArgument);
-                 
-                    Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
-                    Session.Add("ModificandoUsuario", usuario);
-                    txbUsuarioNombre.Text = usuario.Nombre;
-                    lblTitle.Text = "Modificar a ";
-                    lblNombre.Text = txbUsuarioNombre.Text;
-                    TxbUsuarioApellido.Text = usuario.Apellido;
-                    TxbUsuarioDNI.Text = usuario.DNI;
-                    TxbUsuarioDomicilio.Text = usuario.Domicilio;
-                    TxbUsuarioTelefono.Text = usuario.Telefono;
-                    TxbEMail.Text = usuario.CuentaId.Email;
-                    TxbPassword.Text = usuario.CuentaId.Password;
-                    string genero = usuario.Genero.ToString();
-                    GenderRadioButtons.SelectedValue  = genero;
-                    break;
+                switch (btn.Attributes["action"])
+                {
+                    case "create":
+                        RolDAO rolDAO = new RolDAO();
+                        RoleDropdown.DataSource = rolDAO.List();
+                        RoleDropdown.DataTextField = "Nombre";
+                        RoleDropdown.DataValueField = "Id";
+                        RoleDropdown.DataBind();
+                        lblTitle.Text = "Crear";
+                        break;
 
-                default:
+                    case "modify":
+                        int id = int.Parse(((LinkButton)sender).CommandArgument);
 
-                    break;
+                        Dominio.Usuario usuario = usuarioDAO.GetUsuario(id);
+                        Session.Add("ModificandoUsuario", usuario);
+                        txbUsuarioNombre.Text = usuario.Nombre;
+                        lblTitle.Text = "Modificar a ";
+                        lblNombre.Text = txbUsuarioNombre.Text;
+                        TxbUsuarioApellido.Text = usuario.Apellido;
+                        TxbUsuarioDNI.Text = usuario.DNI;
+                        TxbUsuarioDomicilio.Text = usuario.Domicilio;
+                        TxbUsuarioTelefono.Text = usuario.Telefono;
+                        TxbEMail.Text = usuario.CuentaId.Email;
+                        TxbPassword.Text = usuario.CuentaId.Password;
+                        string genero = usuario.Genero.ToString();
+                        GenderRadioButtons.SelectedValue = genero;
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -114,10 +136,11 @@ namespace Call_Center.ABML
                     usuarioDAO.Update(usuario);
                 }
 
-                Response.Redirect("Usuario.aspx");
+                Response.Redirect("Usuario.aspx",false);
                 hasSuccess = true;
                 Session["hasSuccess"] = hasSuccess;
-            }catch (Exception)
+            }
+            catch (Exception)
             {
                 hasError = true;
             }
@@ -125,12 +148,9 @@ namespace Call_Center.ABML
 
         protected void cancelarModal(object sender, EventArgs e)
         {
-
             modalUsuarios.Style["display"] = "none";
             txbUsuarioNombre.Text = "";
             alertPrio.Style["display"] = "none";
-
-
         }
 
     }

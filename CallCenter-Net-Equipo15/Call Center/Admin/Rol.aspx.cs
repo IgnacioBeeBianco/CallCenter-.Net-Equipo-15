@@ -13,12 +13,25 @@ namespace Call_Center.ABML
         RolDAO rolDAO = new RolDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
-            RolDAO rolDAO = new RolDAO();
+            try
+            {
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                {
+                    RolDAO rolDAO = new RolDAO();
 
-
-            //Aca cargamos el repeater
-            rptRol.DataSource = rolDAO.List().Where(rol => rol.Estado);
-            rptRol.DataBind();
+                    //Aca cargamos el repeater
+                    rptRol.DataSource = rolDAO.List().Where(rol => rol.Estado);
+                    rptRol.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx",false);
+                }
+            }
+            catch(Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
 
         }
 
@@ -32,74 +45,88 @@ namespace Call_Center.ABML
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            //Logica que abre el modal y le carga datos segun si es crear o modificar"
-            LinkButton btn = sender as LinkButton;
-            modalRol.Style["display"] = "block";
-
-            switch (btn.Attributes["action"])
+            try
             {
-                case "create":
-                    lblTitle.Text = "Crear";
-                    break;
+                //Logica que abre el modal y le carga datos segun si es crear o modificar"
+                LinkButton btn = sender as LinkButton;
+                modalRol.Style["display"] = "block";
 
-                case "modify":
-                    int id = int.Parse(((LinkButton)sender).CommandArgument);
-                    Dominio.Rol rol = rolDAO.getRol(id);
-                    Session.Add("RolModificado", rol);
-                    txbRolNombre.Text = rol.Nombre;
-                    lblTitle.Text = "Modificar a ";
-                    lblNombre.Text = txbRolNombre.Text;
-                    break;
+                switch (btn.Attributes["action"])
+                {
+                    case "create":
+                        lblTitle.Text = "Crear";
+                        break;
 
-                default:
+                    case "modify":
+                        int id = int.Parse(((LinkButton)sender).CommandArgument);
+                        Dominio.Rol rol = rolDAO.getRol(id);
+                        Session.Add("RolModificado", rol);
+                        txbRolNombre.Text = rol.Nombre;
+                        lblTitle.Text = "Modificar a ";
+                        lblNombre.Text = txbRolNombre.Text;
+                        break;
 
-                    break;
+                    default:
+
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void submitModal(object sender, EventArgs e)
         {
-            //Verificamos si es crear o modificar, y ejecutamos las acciones respectivas
-            if (lblTitle.Text == "Crear")
+            try
             {
-                Dominio.Rol rol = new Dominio.Rol();
-                rol.Nombre = txbRolNombre.Text;
-                //Validaciones
-                if (txbRolNombre.Text == "" || txbRolNombre.Text == null)
+                //Verificamos si es crear o modificar, y ejecutamos las acciones respectivas
+                if (lblTitle.Text == "Crear")
                 {
-                    alertRol.Style["display"] = "block";
-                    lblRolErrores.Text = "El Rol debe tener nombre...";
-                    return;
+                    Dominio.Rol rol = new Dominio.Rol();
+                    rol.Nombre = txbRolNombre.Text;
+                    //Validaciones
+                    if (txbRolNombre.Text == "" || txbRolNombre.Text == null)
+                    {
+                        alertRol.Style["display"] = "block";
+                        lblRolErrores.Text = "El Rol debe tener nombre...";
+                        return;
+                    }
+                    if (rolDAO.getRol(txbRolNombre.Text).Nombre != null)
+                    {
+                        alertRol.Style["display"] = "block";
+                        lblRolErrores.Text = "Rol ya creado...";
+                        return;
+                    }
+                    rolDAO.Create(rol);
                 }
-                if (rolDAO.getRol(txbRolNombre.Text).Nombre != null)
+                else
                 {
-                    alertRol.Style["display"] = "block";
-                    lblRolErrores.Text = "Rol ya creado...";
-                    return;
+                    Dominio.Rol rol = Session["RolModificado"] as Dominio.Rol;
+                    string nombre = txbRolNombre.Text;
+                    //Validamos antes de efectuar ningun cambio
+                    if (txbRolNombre.Text == "" || txbRolNombre.Text == null)
+                    {
+                        alertRol.Style["display"] = "block";
+                        lblRolErrores.Text = "No hay un rol buscado";
+                        return;
+                    }
+                    if (rolDAO.getRol(txbRolNombre.Text).Nombre != null)
+                    {
+                        alertRol.Style["display"] = "block";
+                        lblRolErrores.Text = "Rol ya creado...";
+                        return;
+                    }
+                    rolDAO.Update(nombre, rol.Id);
                 }
-                rolDAO.Create(rol);
-            }
-            else
-            {
-                Dominio.Rol rol = Session["RolModificado"] as Dominio.Rol;
-                string nombre = txbRolNombre.Text;
-                //Validamos antes de efectuar ningun cambio
-                if (txbRolNombre.Text == "" || txbRolNombre.Text == null)
-                {
-                    alertRol.Style["display"] = "block";
-                    lblRolErrores.Text = "No hay un rol buscado";
-                    return;
-                }
-                if (rolDAO.getRol(txbRolNombre.Text).Nombre != null)
-                {
-                    alertRol.Style["display"] = "block";
-                    lblRolErrores.Text = "Rol ya creado...";
-                    return;
-                }
-                rolDAO.Update(nombre, rol.Id);
-            }
 
-            Response.Redirect("Rol.aspx");
+                Response.Redirect("Rol.aspx", false);
+            }
+            catch(Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void cancelarModal(object sender, EventArgs e)

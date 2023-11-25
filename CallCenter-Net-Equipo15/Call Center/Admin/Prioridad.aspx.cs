@@ -14,13 +14,25 @@ namespace Call_Center.ABML
         PrioridadDAO prioridadDAO = new PrioridadDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
-            PrioridadDAO prioridadDAO = new PrioridadDAO();
+            try
+            {
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                {
+                    PrioridadDAO prioridadDAO = new PrioridadDAO();
 
-            
-            //Aca cargamos el repeater
-            rptPrioridades.DataSource = prioridadDAO.List().Where(prio => prio.Estado);
-            rptPrioridades.DataBind();
-
+                    //Aca cargamos el repeater
+                    rptPrioridades.DataSource = prioridadDAO.List().Where(prio => prio.Estado);
+                    rptPrioridades.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx", false);
+                }
+            }
+            catch(Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void btnQuitar(object sender, EventArgs e)
@@ -33,88 +45,101 @@ namespace Call_Center.ABML
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            //Logica que abre el modal y le carga datos segun si es crear o modificar"
-            LinkButton btn = sender as LinkButton;
-            modalPrioridad.Style["display"] = "block";
-
-            switch (btn.Attributes["action"])
+            try
             {
-                case "create":
-                    lblTitle.Text = "Crear";
-                    break;
+                //Logica que abre el modal y le carga datos segun si es crear o modificar"
+                LinkButton btn = sender as LinkButton;
+                modalPrioridad.Style["display"] = "block";
 
-                case "modify":
-                    int id = int.Parse(((LinkButton)sender).CommandArgument);
-                    txbPrioNombre.Text = prioridadDAO.getPrioridad(id).Nombre;
-                    txbNivelPrioridad.Text = prioridadDAO.getPrioridad(id).nivelPrioridad.ToString();
-                    lblTitle.Text = "Modificar a ";
-                    lblNombre.Text = txbPrioNombre.Text;
-                    break;
+                switch (btn.Attributes["action"])
+                {
+                    case "create":
+                        lblTitle.Text = "Crear";
+                        break;
 
-                default:
+                    case "modify":
+                        int id = int.Parse(((LinkButton)sender).CommandArgument);
+                        txbPrioNombre.Text = prioridadDAO.getPrioridad(id).Nombre;
+                        txbNivelPrioridad.Text = prioridadDAO.getPrioridad(id).nivelPrioridad.ToString();
+                        lblTitle.Text = "Modificar a ";
+                        lblNombre.Text = txbPrioNombre.Text;
+                        break;
 
-                    break;
+                    default:
+
+                        break;
+                }
+            }
+            catch(Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
         protected void submitModal(object sender, EventArgs e)
         {
-            //Verificamos si es crear o modificar, y ejecutamos las acciones respectivas
-            if (lblTitle.Text == "Crear")
+            try
             {
-                Dominio.Prioridad prioridad = new Dominio.Prioridad();
-                prioridad.Nombre = txbPrioNombre.Text;
-                prioridad.nivelPrioridad = int.Parse(txbNivelPrioridad.Text);
-                //Validaciones
-                if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
+                //Verificamos si es crear o modificar, y ejecutamos las acciones respectivas
+                if (lblTitle.Text == "Crear")
                 {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "La prioridad debe tener nombre...";
-                    return;
+                    Dominio.Prioridad prioridad = new Dominio.Prioridad();
+                    prioridad.Nombre = txbPrioNombre.Text;
+                    prioridad.nivelPrioridad = int.Parse(txbNivelPrioridad.Text);
+                    //Validaciones
+                    if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "La prioridad debe tener nombre...";
+                        return;
+                    }
+                    if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "Prioridad ya creada...";
+                        return;
+                    }
+                    if (prioridad.nivelPrioridad < 1 || prioridad.nivelPrioridad > 10)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "El nivel de prioridad debe estar entre 1 y 10...";
+                        return;
+                    }
+                    prioridadDAO.Create(prioridad);
                 }
-                if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
+                else
                 {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "Prioridad ya creada...";
-                    return;
+                    int id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
+                    Dominio.Prioridad prioridad = new Dominio.Prioridad();
+                    prioridad.Nombre = txbPrioNombre.Text;
+                    prioridad.nivelPrioridad = int.Parse(txbNivelPrioridad.Text);
+                    //Validamos antes de efectuar ningun cambio
+                    if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "No hay una prioridad buscada";
+                        return;
+                    }
+                    if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "Prioridad ya creada...";
+                        return;
+                    }
+                    if (prioridad.nivelPrioridad < 1 || prioridad.nivelPrioridad > 10)
+                    {
+                        alertPrio.Style["display"] = "block";
+                        lblPrioErrores.Text = "El nivel de prioridad debe estar entre 1 y 10...";
+                        return;
+                    }
+                    prioridadDAO.Update(prioridad, id);
                 }
-                if (prioridad.nivelPrioridad < 1 || prioridad.nivelPrioridad > 10)
-                {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "El nivel de prioridad debe estar entre 1 y 10...";
-                    return;
-                }
-                prioridadDAO.Create(prioridad);
+                Response.Redirect("Prioridad.aspx",false);
             }
-            else
+            catch (Exception)
             {
-                int id = prioridadDAO.getPrioridad(lblNombre.Text).Id;
-                Dominio.Prioridad prioridad = new Dominio.Prioridad();
-                prioridad.Nombre = txbPrioNombre.Text;
-                prioridad.nivelPrioridad = int.Parse(txbNivelPrioridad.Text);
-                //Validamos antes de efectuar ningun cambio
-                if (txbPrioNombre.Text == "" || txbPrioNombre.Text == null)
-                {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "No hay una prioridad buscada";
-                    return;
-                }
-                if (prioridadDAO.getPrioridad(txbPrioNombre.Text).Nombre != null)
-                {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "Prioridad ya creada...";
-                    return;
-                }
-                if (prioridad.nivelPrioridad < 1 || prioridad.nivelPrioridad > 10)
-                {
-                    alertPrio.Style["display"] = "block";
-                    lblPrioErrores.Text = "El nivel de prioridad debe estar entre 1 y 10...";
-                    return;
-                }
-                prioridadDAO.Update(prioridad, id);
+                Response.Redirect("Error.aspx");
             }
-
-            Response.Redirect("Prioridad.aspx");
         }
 
         protected void cancelarModal(object sender, EventArgs e)
@@ -123,8 +148,6 @@ namespace Call_Center.ABML
             modalPrioridad.Style["display"] = "none";
             txbPrioNombre.Text = "";
             alertPrio.Style["display"] = "none";
-
-
         }
     }
 }

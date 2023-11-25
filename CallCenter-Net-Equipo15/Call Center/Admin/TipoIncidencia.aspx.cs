@@ -14,13 +14,25 @@ namespace Call_Center.ABML
         protected bool hasError = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                rptPrioridades.DataSource = tipoIncidenciaDAO.List().Where(incidence => incidence.Estado);
-                rptPrioridades.DataBind();
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                {
+                    if (!IsPostBack)
+                    {
+                        rptPrioridades.DataSource = tipoIncidenciaDAO.List().Where(incidence => incidence.Estado);
+                        rptPrioridades.DataBind();
+                    }
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx", false);
+                }
             }
-                       
-
+            catch(Exception)
+            {
+                Response.Redirect("Error.aspx");
+            }
         }
 
         protected void btnQuitar(object sender, EventArgs e)
@@ -31,7 +43,7 @@ namespace Call_Center.ABML
                 tipoIncidenciaDAO.Delete(id);
                 Response.Redirect("TipoIncidencia.aspx");
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 hasError = true;
             }
@@ -40,28 +52,35 @@ namespace Call_Center.ABML
 
         protected void abrirModal(object sender, EventArgs e)
         {
-            LinkButton btn = sender as LinkButton;
-            modalPrioridad.Style["display"] = "block";
-
-            switch (btn.Attributes["action"])
+            try
             {
-                case "create":
-                    lblTitle.Text = "Crear";
-                    break;
+                LinkButton btn = sender as LinkButton;
+                modalPrioridad.Style["display"] = "block";
 
-                case "modify":
-                    int id = int.Parse(((LinkButton)sender).CommandArgument);
-                    Dominio.TipoIncidencia tipoIncidencia = tipoIncidenciaDAO.getTipoIncidencia(id);
-                    txbPrioNombre.Text = tipoIncidencia.Nombre;
-                    txbPrioDesc.Text = tipoIncidencia.Descripcion;
+                switch (btn.Attributes["action"])
+                {
+                    case "create":
+                        lblTitle.Text = "Crear";
+                        break;
 
-                    lblTitle.Text = "Modificar a ";
-                    lblNombre.Text = txbPrioNombre.Text;
-                    break;
+                    case "modify":
+                        int id = int.Parse(((LinkButton)sender).CommandArgument);
+                        Dominio.TipoIncidencia tipoIncidencia = tipoIncidenciaDAO.getTipoIncidencia(id);
+                        txbPrioNombre.Text = tipoIncidencia.Nombre;
+                        txbPrioDesc.Text = tipoIncidencia.Descripcion;
 
-                default:
+                        lblTitle.Text = "Modificar a ";
+                        lblNombre.Text = txbPrioNombre.Text;
+                        break;
 
-                    break;
+                    default:
+
+                        break;
+                }
+            }
+            catch(Exception) 
+            {
+                Response.Redirect("Error.aspx");
             }
         }
 
@@ -119,7 +138,7 @@ namespace Call_Center.ABML
                     }
                     tipoIncidenciaDAO.Update(newValue, id);
                 }
-                Response.Redirect("TipoIncidencia.aspx");
+                Response.Redirect("TipoIncidencia.aspx",false);
 
             }
             catch (Exception)
