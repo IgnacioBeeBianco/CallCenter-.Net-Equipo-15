@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAO;
 using Dominio;
+using Negocio;
 
 namespace Call_Center
 {
@@ -17,9 +18,8 @@ namespace Call_Center
         EstadoDAO estadoDAO = new EstadoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+        IncidenciaNegocio IncidenciaNegocio = new IncidenciaNegocio();
         Incidencia Incidencia = new Incidencia();
-        ComentarioIncidenciaDAO ComentarioIncidenciaDAO = new ComentarioIncidenciaDAO();
-        Incidencia incidencia = new Incidencia();
         protected bool hasError = false;
 
         private void LoadData(Incidencia incidencia)
@@ -29,7 +29,7 @@ namespace Call_Center
             DropDownCreador.SelectedValue = incidencia.Creador.Nombre;
             txtbFechaCreacion.Text = incidencia.FechaCreacion.ToString();
             txtbFechaCambio.Text = incidencia.FechaCierre.ToString();
-            DropDownEstados.SelectedValue = incidencia.Estado.ToString();
+            LblEstado.Text = incidencia.Estado.Nombre.ToString();
             DropDownPrio.SelectedValue = incidencia.Prioridad.ToString();
             ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.ToString();
             IncidenciaId.Value = incidencia.Id.ToString();
@@ -38,6 +38,7 @@ namespace Call_Center
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            hasError = false;
             if (!IsPostBack)
             {
                 cargarDatosDDLTipoIncidencia();
@@ -46,20 +47,20 @@ namespace Call_Center
                 cargarDatosDDLUsuarios();
                 cargarDatosDDLUsuariosCreador();
                 DropDownEstados.Enabled = false;
-                if (Request.QueryString["id"] != null)
+                if (IsEditingTicket() != null)
                 {
                     if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
                     {
-                        Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
-                        Incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(incidenciaId);
+                        DropDownCreador.Enabled = false;
+                        Incidencia = IncidenciaNegocio.List(incidenciaId);
                         LoadData(Incidencia);
-                        if ((Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador")
+                        if (IsAdmin())
                         {
-                            DropDownCreador.Enabled = true;
+                            DropDownAsignado.Enabled = true;
                         }
                         else
                         {
-                            DropDownCreador.Enabled = false;
+                            DropDownAsignado.Enabled = false;
                         }
                         RptComments.DataSource = Incidencia.Comentarios;
                         RptComments.DataBind();
@@ -72,24 +73,32 @@ namespace Call_Center
                 }
                 else
                 {
-                    Owner.Text = (Session["Usuario"] as Usuario).Nombre;
-                    OwnerId.Text = (Session["Usuario"] as Usuario).Id.ToString();
-                    IncidenciaId.Value = "0";
-                    cargarFechaHoraTxtBox();
+                    LoadDataToCreateTicket();
+                    DropDownAsignado.Enabled = false;
                 }
             }
         }
 
-        protected string EnableAddCommentButton()
+        protected string IsEditingTicket()
         {
-            if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
-            {
-                return "disabled = true";
-            }
-
-            return ""; // Botón habilitado por defecto
+            return Request.QueryString["id"];
         }
 
+        private bool IsAdmin()
+        {
+            return (Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador";
+        }
+
+        private void LoadDataToCreateTicket()
+        {
+            Owner.Text = (Session["Usuario"] as Usuario).Nombre;
+            OwnerId.Text = (Session["Usuario"] as Usuario).Id.ToString();
+            Estado estado = estadoDAO.getEstado("Abierto");
+            HdfEstado.Value = estado.Id.ToString();
+            LblEstado.Text = estado.Nombre;
+            IncidenciaId.Value = "0";
+            cargarFechaHoraTxtBox();
+        }
 
         private void cargarDatosDDLTipoIncidencia()
         {
@@ -175,10 +184,9 @@ namespace Call_Center
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 hasError = true;
-                throw ex;
             }
             
         }
@@ -243,7 +251,19 @@ namespace Call_Center
 
         protected void BtnCloseTicket_Click(object sender, EventArgs e)
         {
+            Response.Redirect($"CloseComment.aspx?ticketId={IncidenciaId.Value}");
+        }
 
+        protected void BtnDeleteComment_Click(object sender, EventArgs e)
+        {
+            int commentId = int.Parse(((LinkButton)sender).CommandArgument);
+            try
+            {
+                IncidenciaNegocio.DeleteComment(commentId);
+            }catch(Exception)
+            {
+                hasError = true;
+            }
         }
     }
 }

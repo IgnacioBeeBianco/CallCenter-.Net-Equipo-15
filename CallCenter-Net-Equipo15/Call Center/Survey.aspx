@@ -9,7 +9,7 @@
             <div class="row text-center mb-3">
                 <h5>Encuesta</h5>
             </div>
-                        <hr />
+            <hr />
             <div class="row d-flex justify-content-center align-items-center flex-column mt-4 mb-4">
                 <asp:Label ID="LblSurvey" runat="server" Text="Califica al telefonista" CssClass="form-label text-center h3"></asp:Label>
                 <asp:TextBox ID="TxbCalification" runat="server" CssClass="form-range w-50" TextMode="Range" min="1" max="5"></asp:TextBox>

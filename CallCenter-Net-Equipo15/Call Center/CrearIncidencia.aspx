@@ -60,7 +60,9 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="estado" class="form-label">Estado:</label>
-                <asp:DropDownList ID="DropDownEstados" runat="server" CssClass="form-select"></asp:DropDownList>
+                <asp:HiddenField ID="HdfEstado" runat="server" />
+                <asp:Label ID="LblEstado" runat="server" CssClass="form-control"></asp:Label>
+                <asp:DropDownList ID="DropDownEstados" runat="server" CssClass="form-select" Visible="false"></asp:DropDownList>
             </div>
             <div class="col">
                 <label for="prioridad" class="form-label">Prioridad:</label>
@@ -84,11 +86,14 @@
             <% } %>
 
         
-
+        <%if(IsEditingTicket() != null)
+            { %>
+            
+           
         <section class="comments mt-3">
             <div class="header-section d-flex justify-content-between align-items-center mb-3">
                 <h3>Comentarios</h3>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" <%# EnableAddCommentButton() %>>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Agregar comentario
                 </button>
          
@@ -105,26 +110,24 @@
                                 <p><%# Eval("Usuario.nombre") %></p>
                             </div>
                             <div class="delete-button mb-3">
-                                <asp:LinkButton ID="BtnDeleteComment" runat="server" CssClass="btn btn-danger">
-                                    <i class="bi bi-trash-fill"></i>                                
+                                
+                                <asp:LinkButton ID="BtnDeleteComment" CssClass="btn btn-danger" runat="server" OnClick="BtnDeleteComment_Click" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                    <i class="bi bi-trash3-fill"></i>
                                 </asp:LinkButton>
 
-                            </div>
+                            </div>  
                         </div>
                         <textarea class="form-control"><%# Eval("texto") %></textarea>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
-
-
-
         </section>
-        
+               
         <asp:ScriptManager ID="SMModal" runat="server" />
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar comentario</h1>
@@ -152,6 +155,8 @@
                     </div>
                 </ContentTemplate>
                 </asp:UpdatePanel>
+
+        <% } %>
 
     </div>
 </asp:Content>

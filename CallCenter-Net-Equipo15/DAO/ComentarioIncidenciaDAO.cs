@@ -9,7 +9,7 @@ namespace DAO
 {
     public class ComentarioIncidenciaDAO
     {
-        private AccesoADatos AccesoADatos;
+        private AccesoADatos AccesoADatos = new AccesoADatos();
         private List<Comentario> Comentarios = new List<Comentario>();
 
         private Comentario LoadComments(ref AccesoADatos accesoADatos)
@@ -24,6 +24,24 @@ namespace DAO
             comentario.Texto = accesoADatos.Lector["texto"].ToString();
             comentario.Estado = bool.Parse(accesoADatos.Lector["estado"].ToString());
             return comentario;
+        }
+        public void DeleteComment(int id)
+        {
+            try
+            {
+                AccesoADatos.AbrirConexion();
+                string consulta = "UPDATE ComentarioIncidencia SET estado = 0 WHERE id = @id";
+                AccesoADatos.setearParametro("@id", id);
+                AccesoADatos.consultar(consulta);
+                AccesoADatos.ejecutarAccion();
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                AccesoADatos.cerrarConexion();
+            }
         }
         public List<Comentario> GetComentarios(int incidenciaId)
         {

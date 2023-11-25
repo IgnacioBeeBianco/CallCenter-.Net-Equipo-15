@@ -11,6 +11,8 @@ namespace Negocio
     public class IncidenciaNegocio
     {
         AccesoADatos accesoADatos;
+        IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
+        ComentarioIncidenciaDAO ComentarioIncidenciaDAO = new ComentarioIncidenciaDAO();
         public void UpdateEstado(int idEstado, long id)
         {
             accesoADatos = new AccesoADatos();
@@ -34,6 +36,31 @@ namespace Negocio
             finally
             {
                 accesoADatos.cerrarConexion();
+            }
+        }
+
+        public Incidencia List(int id)
+        {
+            try
+            {
+                Incidencia incidencia = new Incidencia();
+                incidencia = incidenciaDAO.getIncidencia(id);
+                incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(id).Where(comment => comment.Estado).ToList();
+                return incidencia;
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void DeleteComment(int id)
+        {
+            try
+            {
+                ComentarioIncidenciaDAO.DeleteComment(id);
+            }catch(Exception ex)
+            {
+                throw ex;
             }
         }
 

@@ -114,6 +114,24 @@ namespace Call_Center
         protected global::System.Web.UI.WebControls.TextBox txtbFechaCambio;
 
         /// <summary>
+        /// Control HdfEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HdfEstado;
+
+        /// <summary>
+        /// Control LblEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblEstado;
+
+        /// <summary>
         /// Control DropDownEstados.
         /// </summary>
         /// <remarks>

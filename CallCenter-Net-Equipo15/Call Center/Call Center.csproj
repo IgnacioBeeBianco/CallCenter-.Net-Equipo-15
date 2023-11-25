@@ -82,6 +82,7 @@
     <Content Include="Home.aspx" />
     <Content Include="Admin\CRUD.Master" />
     <Content Include="Survey.aspx" />
+    <Content Include="CloseComment.aspx" />
     <None Include="Images\default.png" />
     <Content Include="Images\admin.png" />
     <Content Include="Images\businessman.png" />
@@ -229,6 +230,13 @@
     </Compile>
     <Compile Include="Survey.aspx.designer.cs">
       <DependentUpon>Survey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CloseComment.aspx.cs">
+      <DependentUpon>CloseComment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CloseComment.aspx.designer.cs">
+      <DependentUpon>CloseComment.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
