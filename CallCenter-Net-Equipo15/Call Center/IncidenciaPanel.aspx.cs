@@ -21,16 +21,20 @@ namespace Call_Center
         {
             try
             {
-                if (Session["Usuario"] == null)
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
                 {
-                    Response.Redirect("~/Login.aspx"); //Aca nos encargamos de implementar que si no logeo vaya al login
+                    usuario = (Usuario)Session["Usuario"];
+                    cuenta = (Cuenta)Session["Cuenta"];
+                    if (!IsPostBack)
+                    {
+                        BindData();
+                    }
                 }
-                usuario = (Usuario)Session["Usuario"];
-                cuenta = (Cuenta)Session["Cuenta"];
-                if (!IsPostBack)
+                else
                 {
-                    BindData();
+                    Response.Redirect("~/Login.aspx", false);
                 }
+
             }
             catch(Exception)
             {

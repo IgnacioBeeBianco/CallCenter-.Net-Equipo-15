@@ -40,45 +40,52 @@ namespace Call_Center
         {
             try
             {
-                if (!IsPostBack)
+                if (Session["Usuario"] != null && Session["Cuenta"] != null)
                 {
-                    cargarDatosDDLTipoIncidencia();
-                    cargarDatosDDLPrioridad();
-                    cargarDatosDDLEstado();
-                    cargarDatosDDLUsuarios();
-                    cargarDatosDDLUsuariosCreador();
-                    DropDownEstados.Enabled = false;
-                    if (Request.QueryString["id"] != null)
+                    if (!IsPostBack)
                     {
-                        if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
+                        cargarDatosDDLTipoIncidencia();
+                        cargarDatosDDLPrioridad();
+                        cargarDatosDDLEstado();
+                        cargarDatosDDLUsuarios();
+                        cargarDatosDDLUsuariosCreador();
+                        DropDownEstados.Enabled = false;
+                        if (Request.QueryString["id"] != null)
                         {
-                            Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
-                            Incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(incidenciaId);
-                            LoadData(Incidencia);
-                            if ((Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador")
+                            if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
                             {
-                                DropDownCreador.Enabled = true;
+                                Incidencia = incidenciaDAO.getIncidencia(incidenciaId);
+                                Incidencia.Comentarios = ComentarioIncidenciaDAO.GetComentarios(incidenciaId);
+                                LoadData(Incidencia);
+                                if ((Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador")
+                                {
+                                    DropDownCreador.Enabled = true;
+                                }
+                                else
+                                {
+                                    DropDownCreador.Enabled = false;
+                                }
+                                RptComments.DataSource = Incidencia.Comentarios;
+                                RptComments.DataBind();
+
                             }
                             else
                             {
-                                DropDownCreador.Enabled = false;
+                                Response.Redirect("IncidenciaPanel.aspx", false);
                             }
-                            RptComments.DataSource = Incidencia.Comentarios;
-                            RptComments.DataBind();
-
                         }
                         else
                         {
-                            Response.Redirect("IncidenciaPanel.aspx");
+                            Owner.Text = (Session["Usuario"] as Usuario).Nombre;
+                            OwnerId.Text = (Session["Usuario"] as Usuario).Id.ToString();
+                            IncidenciaId.Value = "0";
+                            cargarFechaHoraTxtBox();
                         }
                     }
-                    else
-                    {
-                        Owner.Text = (Session["Usuario"] as Usuario).Nombre;
-                        OwnerId.Text = (Session["Usuario"] as Usuario).Id.ToString();
-                        IncidenciaId.Value = "0";
-                        cargarFechaHoraTxtBox();
-                    }
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx", false);
                 }
             }
             catch (Exception)
