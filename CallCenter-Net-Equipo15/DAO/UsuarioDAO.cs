@@ -169,7 +169,7 @@ namespace DAO
         {
             try
             {
-                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre = 'Cliente'";
+                string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre = 'Cliente' AND u.estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
