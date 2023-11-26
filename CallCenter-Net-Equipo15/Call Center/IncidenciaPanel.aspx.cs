@@ -161,14 +161,26 @@ namespace Call_Center
                 IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
                 incidencia = incidenciaDAO.getIncidencia(id);
                 incidenciaNegocio.UpdateEstado(idEstado, id);
-                //Enviar mail
+
+                Usuario cliente = new Usuario();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                cliente = usuarioDAO.GetUsuario(incidencia.Creador.Id);
                 EmailService emailService = new EmailService();
+                string asuntoCliente = "Se cambio el estado de " + id;
+                string mensajeCliente = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + id
+                    + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
+                emailService.armarCorreo(cuenta.Email, asuntoCliente, mensajeCliente);
+                emailService.enviarEmail();
+
+                Usuario asignado = usuarioDAO.GetUsuario(incidencia.Asignado.Id);
                 string asunto = "Se cambio el estado de " + id;
-                string mensaje = "Hola " +  usuario.Apellido + " " + usuario.Nombre + ". La incidencia " + id
+                string mensaje = "Hola " +  asignado.Apellido + " " + asignado.Nombre + ". La incidencia " + id
                     + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
                 emailService.armarCorreo(cuenta.Email, asunto, mensaje);
                 emailService.enviarEmail();
                 Response.Redirect("IncidenciaPanel.aspx");
+
+
                 
             }
             catch(Exception)
