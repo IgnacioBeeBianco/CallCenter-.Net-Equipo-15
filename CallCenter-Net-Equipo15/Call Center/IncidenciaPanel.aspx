@@ -128,7 +128,7 @@
                     </div>
                     <div class="card-footer">
                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" OnClick="cancelarModal" CssClass="btn btn-secondary" />
-                        <asp:Button ID="BtnResolveTicket" runat="server" Text="Resolver" OnClick="BtnResolveTicket_Click" CssClass="btn btn-success"/>
+                        <asp:Button ID="BtnResolveTicket" runat="server" Text="Resolver" OnClick="BtnResolveTicket_Click" CssClass="btn btn-success" CommandArgument='<%# lblId.Text %>' CommandName="id"/>
                     </div>
                 </div>
             </div>

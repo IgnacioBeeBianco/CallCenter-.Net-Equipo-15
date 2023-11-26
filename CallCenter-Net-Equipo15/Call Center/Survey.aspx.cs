@@ -29,12 +29,12 @@ namespace Call_Center
         {
             try
             {
-                Incidencia.Encuesta = new Encuesta();
+                Encuesta encuesta = new Encuesta();
 
-                Incidencia.Encuesta.Calificacion = int.Parse(TxbCalification.Text);
-                Incidencia.Encuesta.Comentario = TxbComments.Text;
+                encuesta.Calificacion = int.Parse(TxbCalification.Text);
+                encuesta.Comentario = TxbComments.Text;
                 int usuarioId = ((Usuario)Session["Usuario"]).Id;
-                IncidenciaDAO.AddSurvey(Incidencia.Encuesta, Incidencia.Id, usuarioId);
+                IncidenciaDAO.AddSurvey(encuesta, Incidencia.Id, usuarioId);
                 Estado estado = new Estado();
                 estado = EstadoDAO.getEstado("Resuelto");
                 IncidenciaDAO.ModifyState(estado.Id, Incidencia.Id);
@@ -46,8 +46,8 @@ namespace Call_Center
                 string asuntoCliente = "Se cambio el estado de " + Incidencia.Id;
                 string mensajeCliente = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + Incidencia.Id
                     + " ha sido modificada, del estado " + Incidencia.Estado.Nombre + " al estado Resuelto. " +
-                    "Con el siguiente comentario " + Incidencia.Encuesta.Comentario +
-                    " su calificación fue de " + Incidencia.Encuesta.Calificacion.ToString() + "/5";
+                    "Con el siguiente comentario " + encuesta.Comentario +
+                    " su calificación fue de " + encuesta.Calificacion.ToString() + "/5";
                 emailService.armarCorreo(cliente.CuentaId.Email, asuntoCliente, mensajeCliente);
                 emailService.enviarEmail();
 
@@ -55,8 +55,8 @@ namespace Call_Center
                 string asuntoAsignado = "Se cambio el estado de " + Incidencia.Id;
                 string mensajeAsignado = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + Incidencia.Id
                     + " ha sido modificada, del estado " + Incidencia.Estado.Nombre + " al estado Resuelto. " +
-                    "Con el siguiente comentario " + Incidencia.Encuesta.Comentario + 
-                    " su calificación fue de " + Incidencia.Encuesta.Calificacion.ToString() + "/5";
+                    "Con el siguiente comentario " + encuesta.Comentario + 
+                    " su calificación fue de " + encuesta.Calificacion.ToString() + "/5";
                 emailService.armarCorreo(asignado.CuentaId.Email, asuntoAsignado, mensajeAsignado);
                 emailService.enviarEmail();
 

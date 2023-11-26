@@ -191,16 +191,15 @@ namespace Call_Center
 
         protected void BtnResolveTicket_Click(object sender, EventArgs e)
         {
-            //Enviar mail
+            string id = lblId.Text;
+            Response.Redirect($"Survey.aspx?ticketId=" + id);
         }
 
         protected void BtnSeeMore_Click(object sender, EventArgs e)
         {
-            IncidenciaDAO incidenciaDAO = new IncidenciaDAO();
-            Incidencia incidencia = incidenciaDAO.getIncidencia(int.Parse(lblId.Text));
 
-            
-            Response.Redirect($"CrearIncidencia.aspx?id={incidencia.Id}");
+            string id = lblId.Text;
+            Response.Redirect($"CrearIncidencia.aspx?id=" + id);
         }
 
     }
