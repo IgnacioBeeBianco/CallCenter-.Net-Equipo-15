@@ -169,14 +169,14 @@ namespace Call_Center
                 string asuntoCliente = "Se cambio el estado de " + id;
                 string mensajeCliente = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + id
                     + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
-                emailService.armarCorreo(cuenta.Email, asuntoCliente, mensajeCliente);
+                emailService.armarCorreo(cliente.CuentaId.Email, asuntoCliente, mensajeCliente);
                 emailService.enviarEmail();
 
                 Usuario asignado = usuarioDAO.GetUsuario(incidencia.Asignado.Id);
                 string asunto = "Se cambio el estado de " + id;
                 string mensaje = "Hola " +  asignado.Apellido + " " + asignado.Nombre + ". La incidencia " + id
                     + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
-                emailService.armarCorreo(cuenta.Email, asunto, mensaje);
+                emailService.armarCorreo(asignado.CuentaId.Email, asunto, mensaje);
                 emailService.enviarEmail();
                 Response.Redirect("IncidenciaPanel.aspx");
 
