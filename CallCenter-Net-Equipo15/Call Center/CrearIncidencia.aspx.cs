@@ -70,6 +70,8 @@ namespace Call_Center
                 else
                 {
                     LoadDataToCreateTicket();
+                    BtnCloseTicket.Style["display"] = "none";
+                    BtnResolveTicket.Style["display"] = "none";
                     DropDownAsignado.Enabled = false;
                 }
                 
@@ -139,7 +141,7 @@ namespace Call_Center
 
         private void cargarDatosDDLUsuariosCreador()
         {
-            DropDownCreador.DataSource = usuarioDAO.GetUsuarios();
+            DropDownCreador.DataSource = usuarioDAO.GetUsuariosClientes();
             DropDownCreador.DataTextField = "Nombre";
             DropDownCreador.DataValueField = "Nombre";
             DropDownCreador.DataBind();
@@ -213,6 +215,10 @@ namespace Call_Center
             comentario.Texto = CommentTextArea.Text;
             try
             {
+                if(comentario.Texto == "" || comentario.Texto ==  null)
+                {
+                    throw new Exception("No puede ser nulo el comentario");
+                }
                 incidenciaDAO.AddComment(comentario);
                 EstadoDAO estadoDAO = new EstadoDAO();
                 Estado estado = estadoDAO.getEstado("En Análisis");
