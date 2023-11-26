@@ -1,5 +1,6 @@
 ﻿using DAO;
 using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,27 @@ namespace Call_Center
                 Estado estado = new Estado();
                 estado = EstadoDAO.getEstado("Resuelto");
                 IncidenciaDAO.ModifyState(estado.Id, Incidencia.Id);
+
+                Usuario cliente = new Usuario();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                cliente = usuarioDAO.GetUsuario(Incidencia.Creador.Id);
+                EmailService emailService = new EmailService();
+                string asuntoCliente = "Se cambio el estado de " + Incidencia.Id;
+                string mensajeCliente = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + Incidencia.Id
+                    + " ha sido modificada, del estado " + Incidencia.Estado.Nombre + " al estado Resuelto. " +
+                    "Con el siguiente comentario " + Incidencia.Encuesta.Comentario +
+                    " su calificación fue de " + Incidencia.Encuesta.Calificacion.ToString() + "/5";
+                emailService.armarCorreo(cliente.CuentaId.Email, asuntoCliente, mensajeCliente);
+                emailService.enviarEmail();
+
+                Usuario asignado = usuarioDAO.GetUsuario(Incidencia.Asignado.Id);
+                string asuntoAsignado = "Se cambio el estado de " + Incidencia.Id;
+                string mensajeAsignado = "Hola " + cliente.Apellido + " " + cliente.Nombre + ". La incidencia " + Incidencia.Id
+                    + " ha sido modificada, del estado " + Incidencia.Estado.Nombre + " al estado Resuelto. " +
+                    "Con el siguiente comentario " + Incidencia.Encuesta.Comentario + 
+                    " su calificación fue de " + Incidencia.Encuesta.Calificacion.ToString() + "/5";
+                emailService.armarCorreo(asignado.CuentaId.Email, asuntoAsignado, mensajeAsignado);
+                emailService.enviarEmail();
 
                 Response.Redirect("Home.aspx");
             }
