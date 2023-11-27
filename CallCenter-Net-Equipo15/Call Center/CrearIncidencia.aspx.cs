@@ -30,8 +30,8 @@ namespace Call_Center
             txtbFechaCreacion.Text = incidencia.FechaCreacion.ToString();
             txtbFechaCambio.Text = incidencia.FechaCierre.ToString();
             LblEstado.Text = incidencia.Estado.Nombre.ToString();
-            DropDownPrio.SelectedValue = incidencia.Prioridad.ToString();
-            ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.ToString();
+            DropDownPrio.SelectedValue = incidencia.Prioridad.Nombre.ToString();
+            ddlTipoIncidencia.SelectedValue = incidencia.TipoIncidencia.Nombre.ToString();
             IncidenciaId.Value = incidencia.Id.ToString();
             problematica.Value = incidencia.problematica.ToString();
         }

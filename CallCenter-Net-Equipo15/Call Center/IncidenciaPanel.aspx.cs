@@ -178,7 +178,8 @@ namespace Call_Center
                     + " ha sido modificada, del estado " + incidencia.Estado.Nombre + " al estado " + btn.Text;
                 emailService.armarCorreo(asignado.CuentaId.Email, asuntoAsignado, mensajeAsignado);
                 emailService.enviarEmail();
-                Response.Redirect("IncidenciaPanel.aspx");
+
+                Response.Redirect("IncidenciaPanel.aspx",false);
 
 
                 
