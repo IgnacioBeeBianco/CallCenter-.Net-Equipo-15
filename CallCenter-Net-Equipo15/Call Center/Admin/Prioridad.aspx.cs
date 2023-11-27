@@ -31,7 +31,7 @@ namespace Call_Center.ABML
             }
             catch(Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Call_Center.ABML
             //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
             int id = int.Parse(((LinkButton)sender).CommandArgument);
             prioridadDAO.Delete(id);
-            Response.Redirect("Prioridad.aspx");
+            Response.Redirect("Prioridad.aspx",false);
         }
 
         protected void abrirModal(object sender, EventArgs e)
@@ -72,7 +72,7 @@ namespace Call_Center.ABML
             }
             catch(Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
@@ -138,7 +138,7 @@ namespace Call_Center.ABML
             }
             catch (Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 

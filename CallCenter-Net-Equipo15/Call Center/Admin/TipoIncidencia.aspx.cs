@@ -31,7 +31,7 @@ namespace Call_Center.ABML
             }
             catch(Exception)
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
@@ -41,7 +41,7 @@ namespace Call_Center.ABML
             {
                 int id = int.Parse(((LinkButton)sender).CommandArgument);
                 tipoIncidenciaDAO.Delete(id);
-                Response.Redirect("TipoIncidencia.aspx");
+                Response.Redirect("TipoIncidencia.aspx",false);
             }
             catch(Exception)
             {
@@ -80,7 +80,7 @@ namespace Call_Center.ABML
             }
             catch(Exception) 
             {
-                Response.Redirect("Error.aspx");
+                Response.Redirect("~/Error.aspx");
             }
         }
 
