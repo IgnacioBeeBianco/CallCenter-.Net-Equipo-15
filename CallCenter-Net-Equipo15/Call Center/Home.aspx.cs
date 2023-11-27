@@ -35,7 +35,7 @@ namespace Call_Center
                         if (rolUsuario == "Cliente")
                         {
                             Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
-                            
+
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
 
@@ -59,7 +59,7 @@ namespace Call_Center
                             Session["listaIncidencias"] = incidenciaDAO.List();
                             rptIncidencias.DataSource = Session["listaIncidencias"];
                             rptIncidencias.DataBind();
-                            
+
 
                             Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
                             rptUsuarios.DataSource = Session["listaUsuario"];
@@ -91,7 +91,7 @@ namespace Call_Center
                     return 0;
                 }
             }
-            catch(Exception) 
+            catch (Exception)
             {
                 Response.Redirect("Error.aspx");
                 return 0;
@@ -107,14 +107,19 @@ namespace Call_Center
 
                 if (listaIncidencias != null)
                 {
-                    //REVISAR YA QUE CUENTA AUNQUE NO ESTEN ACTIVOS LOS ESTADOS!!
-                    //inciTotales.Text = listaIncidencias.Count(x => x.Estado.estado==true).ToString();
                     inciTotales.Text = listaIncidencias.Count.ToString();
-                    //inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente" && x.Estado.estado == true).ToString();
-                    inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente").ToString();
-                    inciPen.Text = listaIncidencias.Count(x => x.Estado.Nombre != "Cerrado" && x.Estado.Nombre != "Resuelto").ToString();
-                    inciFin.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Resuelto").ToString();
+                    
+                    inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente" &&
+                    (x.Estado.Nombre != "Resuelto" && x.Estado.Nombre != "Cerrado")).ToString();
+
+                    inciPen.Text = listaIncidencias.Count(x => x.Prioridad.Nombre != "Urgente" && x.Estado.Nombre != "Cerrado" &&
+                    x.Estado.Nombre != "Resuelto").ToString();
+
+                    inciFin.Text = listaIncidencias.Count(x => x.Prioridad.Nombre != "Urgente" && x.Estado.Nombre == "Resuelto" &&
+                    x.Estado.Nombre != "Cerrado").ToString();
+
                     inciClose.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Cerrado").ToString();
+
                 }
             }
             catch (Exception)
@@ -255,7 +260,7 @@ namespace Call_Center
 
         protected void crearIncidencia_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CrearIncidencia.aspx",false);
+            Response.Redirect("CrearIncidencia.aspx", false);
         }
 
         protected void filtroEstado_TextChanged(object sender, EventArgs e)
@@ -290,8 +295,8 @@ namespace Call_Center
                     }
                 }
             }
-            catch (Exception) 
-            { 
+            catch (Exception)
+            {
                 Response.Redirect("Error.aspx");
             }
         }
@@ -424,9 +429,9 @@ namespace Call_Center
                     CargarIncidencias(id);
                 }
             }
-            catch (Exception) 
-            { 
-                Response.Redirect("Error.aspx"); 
+            catch (Exception)
+            {
+                Response.Redirect("Error.aspx");
             }
         }
     }
