@@ -167,6 +167,7 @@ namespace DAO
 
         public List<Usuario> GetUsuariosClientes()
         {
+            List<Usuario> usuarios = new List<Usuario>();
             try
             {
                 string consulta = "SELECT U.id, U.nombre, U.apellido, U.dni, U.telefono, C.id_rol, R.nombre FROM Usuario U INNER JOIN Cuenta C ON C.id = U.cuenta_id INNER JOIN Rol R ON R.id = C.id_rol WHERE R.nombre = 'Cliente' AND u.estado = 1";

@@ -107,7 +107,10 @@ namespace Call_Center
 
                 if (listaIncidencias != null)
                 {
+                    //REVISAR YA QUE CUENTA AUNQUE NO ESTEN ACTIVOS LOS ESTADOS!!
+                    //inciTotales.Text = listaIncidencias.Count(x => x.Estado.estado==true).ToString();
                     inciTotales.Text = listaIncidencias.Count.ToString();
+                    //inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente" && x.Estado.estado == true).ToString();
                     inciUrg.Text = listaIncidencias.Count(x => x.Prioridad.Nombre == "Urgente").ToString();
                     inciPen.Text = listaIncidencias.Count(x => x.Estado.Nombre != "Cerrado" && x.Estado.Nombre != "Resuelto").ToString();
                     inciFin.Text = listaIncidencias.Count(x => x.Estado.Nombre == "Resuelto").ToString();

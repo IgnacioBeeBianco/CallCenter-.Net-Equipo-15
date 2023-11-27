@@ -86,7 +86,7 @@
             <% } %>
 
         
-        <%if(IsEditingTicket() != null)
+        <%if(IsEditingTicket())
             { %>
             
            

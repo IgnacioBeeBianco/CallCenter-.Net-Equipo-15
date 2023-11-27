@@ -80,7 +80,7 @@ namespace Negocio
 
             try
             {
-                string consulta = "SELECT id, nombre FROM Estado WHERE nombre <>  @Estado order by nivelEstado desc";
+                string consulta = "SELECT id, nombre FROM Estado WHERE nombre <>  @Estado AND estado=1 order by nivelEstado desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@Estado", Estado);

@@ -28,7 +28,7 @@ namespace Call_Center.ABML
                 }
                 else
                 {
-                    Response.Redirect("~/Login.aspx",false);
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             catch (Exception)

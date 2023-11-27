@@ -39,42 +39,49 @@ namespace Call_Center
         protected void Page_Load(object sender, EventArgs e)
         {
             hasError = false;
-            if (!IsPostBack)
+            if (!(Seguridad.sesionActivaUsuario(Session["Usuario"]) && Seguridad.sesionActivaCuenta(Session["Cuenta"])))
             {
-                LoadCombos(); 
-                DropDownEstados.Enabled = false;
-                if (IsEditingTicket())
+                if (!IsPostBack)
                 {
-                    if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
+                    LoadCombos();
+                    DropDownEstados.Enabled = false;
+                    if (IsEditingTicket())
                     {
-                        DropDownCreador.Enabled = false;
-                        Incidencia = IncidenciaNegocio.List(incidenciaId);
-                        LoadData(Incidencia);
-                        if (IsAdmin())
+                        if (int.TryParse(Request.QueryString["id"], out int incidenciaId))
                         {
-                            DropDownAsignado.Enabled = true;
+                            DropDownCreador.Enabled = false;
+                            Incidencia = IncidenciaNegocio.List(incidenciaId);
+                            LoadData(Incidencia);
+                            if (IsAdmin())
+                            {
+                                DropDownAsignado.Enabled = true;
+                            }
+                            else
+                            {
+                                DropDownAsignado.Enabled = false;
+                            }
+                            RptComments.DataSource = Incidencia.Comentarios;
+                            RptComments.DataBind();
+
                         }
                         else
                         {
-                            DropDownAsignado.Enabled = false;
+                            Response.Redirect("IncidenciaPanel.aspx");
                         }
-                        RptComments.DataSource = Incidencia.Comentarios;
-                        RptComments.DataBind();
-                        
                     }
                     else
                     {
-                        Response.Redirect("IncidenciaPanel.aspx");
+                        LoadDataToCreateTicket();
+                        BtnCloseTicket.Style["display"] = "none";
+                        BtnResolveTicket.Style["display"] = "none";
+                        DropDownAsignado.Enabled = false;
                     }
+
                 }
                 else
                 {
-                    LoadDataToCreateTicket();
-                    BtnCloseTicket.Style["display"] = "none";
-                    BtnResolveTicket.Style["display"] = "none";
-                    DropDownAsignado.Enabled = false;
+                    Response.Redirect("~/Login.aspx", false);
                 }
-                
             }
         }
         private void LoadCombos()
@@ -85,7 +92,7 @@ namespace Call_Center
             cargarDatosDDLUsuarios();
             cargarDatosDDLUsuariosCreador();
         }
-        
+
         protected bool IsEditingTicket()
         {
             return Request.QueryString["id"] != null;
@@ -145,7 +152,7 @@ namespace Call_Center
             DropDownCreador.DataTextField = "Nombre";
             DropDownCreador.DataValueField = "Nombre";
             DropDownCreador.DataBind();
-            
+
         }
 
         private void cargarFechaHoraTxtBox()
@@ -177,7 +184,7 @@ namespace Call_Center
                 Incidencia.ComentarioCierre = null;
                 Incidencia.problematica = problematica.InnerText;
 
-                if(Incidencia.Id == 0)
+                if (Incidencia.Id == 0)
                 {
                     incidenciaDAO.Create(Incidencia);
                     Response.Redirect("Home.aspx", false);
@@ -195,7 +202,7 @@ namespace Call_Center
             {
                 hasError = true;
             }
-            
+
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -215,7 +222,7 @@ namespace Call_Center
             comentario.Texto = CommentTextArea.Text;
             try
             {
-                if(comentario.Texto == "" || comentario.Texto ==  null)
+                if (comentario.Texto == "" || comentario.Texto == null)
                 {
                     throw new Exception("No puede ser nulo el comentario");
                 }
@@ -236,7 +243,7 @@ namespace Call_Center
         {
             ListItem selectedItem = DropDownAsignado.SelectedItem;
 
-            if(selectedItem != null)
+            if (selectedItem != null)
             {
                 Owner.Text = selectedItem.Text;
                 OwnerId.Text = selectedItem.Value;
@@ -271,7 +278,8 @@ namespace Call_Center
             try
             {
                 IncidenciaNegocio.DeleteComment(commentId);
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 hasError = true;
             }
