@@ -192,7 +192,7 @@ namespace DAO
                                     "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
                                     "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
                                     "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.id " +
-                                    "WHERE E.estado = 1 AND U.estado = 1 AND U2.estado = 1 AND P.estado = 1 AND TI.estado = 1";
+                                    "WHERE E.estado = 1 AND U.estado = 1 AND U2.estado = 1 AND P.estado = 1 AND TI.estado = 1 AND I.estado = 1";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.ejecutarLectura();
@@ -267,7 +267,7 @@ namespace DAO
                     "INNER JOIN Estado as E on I.estado_id = E.id " +
                     "INNER JOIN Prioridad as P on I.prioridad_id = P.id " +
                     "INNER JOIN TipoIncidencia as TI on I.tipo_incidencia_id = TI.id " +
-                    "WHERE E.Nombre LIKE @Nombre AND I.estado = 1 " +
+                    "WHERE E.Nombre LIKE @Nombre AND I.estado = 1 AND E.estado=1 AND U.estado=1 AND U2.estado=1 AND P.estado=1 AND TI.estado=1 " +
                     "ORDER BY P.nivelPrioridad desc";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
@@ -492,7 +492,7 @@ namespace DAO
                                     "E.id as idEstado, E.nombre as Estado, P.id as idPrioridad, P.nombre as Prioridad, TI.id as idTipoIncidencia, TI.nombre as TipoIncidencia, " +
                                     "I.comentario_cierra, I.problematica FROM Incidencia as I INNER JOIN Usuario as U ON I.creador_id = U.id INNER JOIN Usuario as U2 ON I.asignado_id = U2.id " +
                                     "INNER JOIN Estado as E ON I.estado_id = E.id INNER JOIN Prioridad as P ON I.prioridad_id = P.id INNER JOIN TipoIncidencia as TI ON I.tipo_incidencia_id = TI.id " +
-                                    "WHERE U.id = @id OR U2.id = @id AND E.estado = 1 AND U.estado = 1 AND U2.estado = 1 AND P.estado = 1 AND TI.estado = 1 ORDER BY I.fecha_ultimo_cambio DESC";
+                                    "WHERE U.id = @id OR U2.id = @id AND E.estado = 1 AND U.estado = 1 AND U2.estado = 1 AND P.estado = 1 AND TI.estado = 1 AND I.estado = 1 ORDER BY I.fecha_ultimo_cambio DESC";
                 accesoADatos.AbrirConexion();
                 accesoADatos.consultar(consulta);
                 accesoADatos.setearParametro("@id", id);
