@@ -8,39 +8,43 @@
             Crear
         </asp:LinkButton>
     </div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th class="d-none">Id</th>
-                <th>Nombre</th>
-                <th>Nivel de Prioridad</th>
-                <th style="width: 10%" class="text-center">Modificar</th>
-                <th style="width: 10%" class="text-center">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <asp:Repeater ID="rptPrioridades" runat="server">
-                <ItemTemplate>
-                    <tr>
-                        <td class="d-none" name="id"><%# Eval("id") %></td>
-                        <td><%# Eval("nombre") %></td>
-                        <td><%# Eval("nivelPrioridad") %></td>
-                        <td style="width: 6%; text-align: center;">
-                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="d-none">Id</th>
+                    <th>Nombre</th>
+                    <th>Nivel de Prioridad</th>
+                    <th style="width: 10%" class="text-center">Modificar</th>
+                    <th style="width: 10%" class="text-center">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <asp:Repeater ID="rptPrioridades" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                            <td class="d-none" name="id"><%# Eval("id") %></td>
+                            <td><%# Eval("nombre") %></td>
+                            <td><%# Eval("nivelPrioridad") %></td>
+                            <td style="width: 6%; text-align: center;">
+                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
                                 <i class="bi bi-pencil-fill"></i>
-                            </asp:LinkButton>
-                        </td>
-                        <td style="width: 6%; text-align: center;">
-                            <asp:LinkButton ID="LinkButton2" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                </asp:LinkButton>
+                            </td>
+                            <td style="width: 6%; text-align: center;">
+                                <asp:LinkButton ID="LinkButton2" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
                                 <i class="bi bi-trash3-fill"></i>
-                            </asp:LinkButton>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-        </tbody>
-    </table>
-
+                                </asp:LinkButton>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-danger" id="alertDelete" runat="server" style="display: none;">
+        <asp:Label ID="lblErrorDelete" runat="server" Text=""></asp:Label>
+    </div>
     <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>

@@ -190,22 +190,21 @@ namespace DAO
             }
         }
 
-        public void Delete(int Id)
+        public bool Delete(int Id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                
-                string consultar = "UPDATE Rol SET estado = 0 WHERE Id = @Id";
-
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Id", Id);
-                accesoADatos.consultar(consultar);
+                accesoADatos.setearProcedimiento("SP_VerificarUsoRol");
+                accesoADatos.setearParametro("@RolId", Id);
                 accesoADatos.ejecutarAccion();
+                return true;
             }
             catch (Exception ex)
             {
+                return false;
                 throw ex;
             }
             finally

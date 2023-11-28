@@ -39,7 +39,11 @@
                 </asp:Repeater>
             </tbody>
         </table>
-
+    </div>
+    <div class="alert alert-danger" id="alertDelete" runat="server" style="display: none;">
+        <asp:Label ID="lblErrorDelete" runat="server" Text=""></asp:Label>
+    </div>
+    <div>
         <asp:ScriptManager ID="SMModal" runat="server" />
         <asp:UpdatePanel ID="upModal" runat="server">
             <ContentTemplate>
@@ -71,6 +75,5 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-
-        </div>
+    </div>
 </asp:Content>

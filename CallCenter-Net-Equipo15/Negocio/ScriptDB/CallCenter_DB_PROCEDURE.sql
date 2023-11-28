@@ -142,3 +142,113 @@ BEGIN
         RAISERROR('Error al crear incidencia', 1,2)
     END CATCH
 END
+
+GO
+
+CREATE PROCEDURE SP_VerificarUsoPrioridad
+    @PrioridadId INT
+AS
+BEGIN
+    DECLARE @ExisteUso INT
+
+    SELECT @ExisteUso = COUNT(*)
+    FROM Incidencia
+    WHERE prioridad_id = @PrioridadId
+
+    IF @ExisteUso = 0
+    BEGIN
+        UPDATE Prioridad SET estado = 0 WHERE id = @PrioridadId
+    END
+    ELSE
+    BEGIN
+        RAISERROR('No se puede realizar la baja lógica. La Prioridad está siendo utilizada en una incidencia.', 16, 1)
+    END
+END
+
+GO
+
+CREATE PROCEDURE SP_VerificarUsoTipoIncidencia
+    @TipoIncidenciaId INT
+AS
+BEGIN
+    DECLARE @ExisteUso INT
+
+    SELECT @ExisteUso = COUNT(*)
+    FROM Incidencia
+    WHERE tipo_incidencia_id = @TipoIncidenciaId
+
+    IF @ExisteUso = 0
+    BEGIN
+        UPDATE TipoIncidencia SET estado = 0 WHERE id = @TipoIncidenciaId
+    END
+    ELSE
+    BEGIN
+        RAISERROR('No se puede realizar la baja lógica. El Tipo de Incidencia está siendo utilizado en una incidencia.', 16, 1)
+    END
+END
+
+GO
+
+CREATE PROCEDURE SP_VerificarUsoEstado
+    @EstadoId INT
+AS
+BEGIN
+    DECLARE @ExisteUso INT
+
+    SELECT @ExisteUso = COUNT(*)
+    FROM Incidencia
+    WHERE estado_id = @EstadoId
+
+    IF @ExisteUso = 0
+    BEGIN
+        UPDATE Estado SET estado = 0 WHERE id = @EstadoId
+    END
+    ELSE
+    BEGIN
+        RAISERROR('No se puede realizar la baja lógica. El Estado está siendo utilizado en una incidencia.', 16, 1)
+    END
+END
+
+GO
+
+CREATE PROCEDURE SP_VerificarUsoUsuario
+    @UsuarioId INT
+AS
+BEGIN
+    DECLARE @ExisteUso INT
+
+    SELECT @ExisteUso = COUNT(*)
+    FROM Incidencia
+    WHERE creador_id = @UsuarioId OR asignado_id = @UsuarioId
+
+    IF @ExisteUso = 0
+    BEGIN
+        UPDATE Usuario SET estado = 0 WHERE id = @UsuarioId
+    END
+    ELSE
+    BEGIN
+        RAISERROR('No se puede realizar la baja lógica. El Usuario está siendo utilizado en una incidencia.', 16, 1)
+    END
+END
+
+GO
+
+CREATE PROCEDURE SP_VerificarUsoRol
+    @RolId INT
+AS
+BEGIN
+    DECLARE @ExisteUso INT
+
+    SELECT @ExisteUso = COUNT(*)
+    FROM Cuenta
+    WHERE id_rol = @RolId
+
+    IF @ExisteUso = 0
+    BEGIN
+        UPDATE Rol SET estado = 0 WHERE id = @RolId
+    END
+    ELSE
+    BEGIN
+        RAISERROR('No se puede realizar la baja lógica. El Rol está siendo utilizado en una incidencia.', 16, 1)
+    END
+END

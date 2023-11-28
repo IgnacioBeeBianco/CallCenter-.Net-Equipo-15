@@ -40,8 +40,16 @@ namespace Call_Center.ABML
             try
             {
                 int id = int.Parse(((LinkButton)sender).CommandArgument);
-                tipoIncidenciaDAO.Delete(id);
-                Response.Redirect("TipoIncidencia.aspx",false);
+                if (tipoIncidenciaDAO.Delete(id))
+                {
+                    Response.Redirect("TipoIncidencia.aspx", false);
+                }
+                else
+                {
+                    alertDelete.Style["display"] = "block";
+                    lblErrorDelete.Text = "El Tipo de Incidencia esta en uso en una incidencia...";
+                    return;
+                }
             }
             catch(Exception)
             {
