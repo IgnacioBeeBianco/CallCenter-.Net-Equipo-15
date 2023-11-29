@@ -33,14 +33,17 @@
                         <td style="width: 6%; text-align: center;">
                             <asp:LinkButton ID="BtnQuitar" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
                                 <i class="bi bi-trash3-fill"></i>
-                            </asp:LinkButton>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-        </tbody>
-    </table>
-
+                                </asp:LinkButton>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-danger" id="alertDelete" runat="server" style="display: none;">
+        <asp:Label ID="lblErrorDelete" runat="server" Text=""></asp:Label>
+    </div>
     <asp:ScriptManager ID="SMModal" runat="server" />
     <asp:UpdatePanel ID="upModal" runat="server">
         <ContentTemplate>

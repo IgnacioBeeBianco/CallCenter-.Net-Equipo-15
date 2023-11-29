@@ -193,21 +193,22 @@ namespace DAO
             }
         }
 
-        public void Delete(int Id)
+        public bool Delete(int Id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consultar = "DELETE FROM Prioridad WHERE Id = @Id";
-
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@Id", Id);
-                accesoADatos.consultar(consultar);
+                accesoADatos.setearProcedimiento("SP_VerificarUsoPrioridad");
+                accesoADatos.setearParametro("@PrioridadId", Id);
                 accesoADatos.ejecutarAccion();
+                return true;
+
             }
             catch (Exception ex)
             {
+                return false;
                 throw ex;
             }
             finally

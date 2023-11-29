@@ -163,21 +163,21 @@ namespace DAO
             }
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             accesoADatos = new AccesoADatos();
 
             try
             {
-                string consultar = "UPDATE TipoIncidencia SET Estado = 0 WHERE id = @id";
-
                 accesoADatos.AbrirConexion();
-                accesoADatos.setearParametro("@id", id);
-                accesoADatos.consultar(consultar);
+                accesoADatos.setearProcedimiento("SP_VerificarUsoTipoIncidencia");
+                accesoADatos.setearParametro("@TipoIncidenciaId", id);
                 accesoADatos.ejecutarAccion();
+                return true;
             }
             catch (Exception ex)
             {
+                return false;
                 throw ex;
             }
             finally

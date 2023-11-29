@@ -47,18 +47,19 @@ namespace DAO
             
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             try
             {
-                string consulta = "DELETE FROM Usuario WHERE id = @id";
-                accesoADatos.setearParametro("@id", id);
                 accesoADatos.AbrirConexion();
-                accesoADatos.consultar(consulta);
-                accesoADatos.ejecutarAccion();  
+                accesoADatos.setearProcedimiento("SP_VerificarUsoUsuario");
+                accesoADatos.setearParametro("@UsuarioId", id);
+                accesoADatos.ejecutarAccion(); 
+                return true;
             }
             catch (Exception ex)
             {
+                return false;
                 throw ex;
             }
             finally 

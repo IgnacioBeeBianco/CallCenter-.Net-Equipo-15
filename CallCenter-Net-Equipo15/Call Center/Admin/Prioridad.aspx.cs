@@ -37,10 +37,28 @@ namespace Call_Center.ABML
 
         protected void btnQuitar(object sender, EventArgs e)
         {
-            //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
-            int id = int.Parse(((LinkButton)sender).CommandArgument);
-            prioridadDAO.Delete(id);
-            Response.Redirect("Prioridad.aspx",false);
+            try
+            {
+                //Obtenemos el id que esta puesto como argumento del boton de delete y borramos
+                int id = int.Parse(((LinkButton)sender).CommandArgument);
+                if (prioridadDAO.Delete(id))
+                {
+                    Response.Redirect("Prioridad.aspx", false);
+                }
+                else
+                {
+                    alertDelete.Style["display"] = "block";
+                    lblErrorDelete.Text = "La Prioridad esta en uso en una incidencia...";
+                    return;
+                }
+                
+            }
+            catch (Exception)
+            {
+                Response.Redirect("~/Error.aspx");
+            }
+            
+            
         }
 
         protected void abrirModal(object sender, EventArgs e)

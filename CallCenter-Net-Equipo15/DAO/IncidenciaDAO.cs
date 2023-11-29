@@ -464,8 +464,7 @@ namespace DAO
 
             try
             {
-                string consultar = "DELETE FROM Incidencia WHERE id = @id";
-
+                string consultar = "UPDATE Incidencia SET estado = 0 WHERE id = @id";
                 accesoADatos.AbrirConexion();
                 accesoADatos.setearParametro("@id", id);
                 accesoADatos.consultar(consultar);

@@ -42,9 +42,19 @@ namespace Call_Center.ABML
             try
             {
                 int id = int.Parse(((LinkButton)sender).CommandArgument);
-                usuarioDAO.Delete(id);
-                Response.Redirect("Usuario.aspx",false);
-            }catch(Exception)
+                if (usuarioDAO.Delete(id))
+                {
+                    Response.Redirect("Usuario.aspx", false);
+                }
+                else
+                {
+                    alertDelete.Style["display"] = "block";
+                    lblErrorDelete.Text = "El Usuario esta en uso en una incidencia...";
+                    return;
+                }
+                
+            }
+            catch(Exception)
             {
                 Response.Redirect("~/Error.aspx");
             }
