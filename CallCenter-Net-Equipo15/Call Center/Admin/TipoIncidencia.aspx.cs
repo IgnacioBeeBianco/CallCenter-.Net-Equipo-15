@@ -1,4 +1,5 @@
-﻿using DAO;
+﻿using Call_Center.Admin;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,17 @@ namespace Call_Center.ABML
         {
             try
             {
-                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                Site1 MasterPage = (Site1)this.Master;
+
+                if (!IsPostBack)
                 {
-                    if (!IsPostBack)
+                    rptPrioridades.DataSource = tipoIncidenciaDAO.List().Where(incidence => incidence.Estado);
+                    rptPrioridades.DataBind();
+                    if (MasterPage.IsTelefonista())
                     {
-                        rptPrioridades.DataSource = tipoIncidenciaDAO.List().Where(incidence => incidence.Estado);
-                        rptPrioridades.DataBind();
+                        MasterPage.DisableButtonsInRepeater(rptPrioridades);
+                        btnCrear.Enabled = false;
                     }
-                }
-                else
-                {
-                    Response.Redirect("~/Login.aspx", false);
                 }
             }
             catch(Exception)

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
+using Call_Center.Admin;
 
 namespace Call_Center.ABML
 {
@@ -16,18 +17,17 @@ namespace Call_Center.ABML
         {
             try
             {
-                if (Session["Usuario"] != null && Session["Cuenta"] != null)
-                {
-                    PrioridadDAO prioridadDAO = new PrioridadDAO();
+                Site1 MasterPage = (Site1)this.Master;
 
-                    //Aca cargamos el repeater
-                    rptPrioridades.DataSource = prioridadDAO.List().Where(prio => prio.Estado);
-                    rptPrioridades.DataBind();
-                }
-                else
+                //Aca cargamos el repeater
+                rptPrioridades.DataSource = prioridadDAO.List().Where(prio => prio.Estado);
+                rptPrioridades.DataBind();
+                if (MasterPage.IsTelefonista())
                 {
-                    Response.Redirect("~/Login.aspx", false);
+                    MasterPage.DisableButtonsInRepeater(rptPrioridades);
+                    btnCrear.Enabled = false;
                 }
+
             }
             catch(Exception)
             {

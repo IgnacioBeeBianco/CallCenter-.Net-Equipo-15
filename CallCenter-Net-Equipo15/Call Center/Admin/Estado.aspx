@@ -27,12 +27,12 @@
                             <td><%# Eval("nombre") %></td>
                             <td><%# Eval("nivelEstado") %></td>
                             <td style="width: 6%; text-align: center;">
-                                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
+                                <asp:LinkButton ID="BtnUpdate" runat="server" OnClick="abrirModal" CommandArgument='<%#Eval("id") %>' CommandName="id" action="modify" CssClass="btn btn-secondary">
                                     <i class="bi bi-pencil-fill"></i>
                                 </asp:LinkButton>
                             </td>
                             <td style="width: 6%; text-align: center;">
-                                <asp:LinkButton ID="btnQuitar" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
+                                <asp:LinkButton ID="BtnQuitar" CssClass="btn btn-danger" runat="server" OnClick="btnQuitar" CommandArgument='<%#Eval("id") %>' CommandName="id">
                                     <i class="bi bi-trash3-fill"></i>
                                 </asp:LinkButton>                            
                             </td>

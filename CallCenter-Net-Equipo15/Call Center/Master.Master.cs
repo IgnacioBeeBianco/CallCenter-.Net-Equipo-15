@@ -24,7 +24,7 @@ namespace Call_Center
 
                 if (!IsLogged())
                 {
-                    Response.Redirect("Login.aspx",false);
+                    Response.Redirect("Login.aspx", false);
                     return;
                 }
                 else
@@ -33,12 +33,12 @@ namespace Call_Center
                     Cuenta = (Cuenta)Session["Cuenta"];
                     Username.Text = (Usuario.Nombre + " " + Usuario.Apellido);
                 }
-                
-                if (!IsAdmin())
+
+                if (!IsAllowedToSeeAdminPanel())
                 {
                     adminDashboard.Style["display"] = "none";
                 }
-                if (IsClient())
+                if (IsClient(Session["Cuenta"]))
                 {
                     incidenciaDashboard.Style["display"] = "none";
                     incidenciaCrear.Style["display"] = "none";
@@ -51,14 +51,14 @@ namespace Call_Center
 
         }
 
-        private bool IsAdmin()
+        public bool IsClient(object user)
         {
-            return Cuenta.Rol.Nombre == "Administrador";
+            return (user as Cuenta).Rol.Nombre == "Cliente";
         }
 
-        private bool IsClient()
+        private bool IsAllowedToSeeAdminPanel()
         {
-            return Cuenta.Rol.Nombre == "Cliente";
+            return Cuenta.Rol.Nombre == "Administrador" || Cuenta.Rol.Nombre == "Supervisor" || Cuenta.Rol.Nombre == "Telefonista";
         }
 
         private bool IsLogged()
@@ -135,6 +135,16 @@ namespace Call_Center
             {
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        protected void crearIncidencia_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CrearIncidencia.aspx", false);
+        }
+
+        public string GetUsername(object user)
+        {
+            return (user as Usuario).Nombre + " " + (user as Usuario).Apellido;
         }
     }
 }

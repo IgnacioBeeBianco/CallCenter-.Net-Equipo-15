@@ -1,4 +1,5 @@
-﻿using DAO;
+﻿using Call_Center.Admin;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +16,14 @@ namespace Call_Center.ABML
         {
             try
             {
-                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                Site1 MasterPage = (Site1)this.Master;
+                RolDAO rolDAO = new RolDAO();
+                rptRol.DataSource = rolDAO.List().Where(rol => rol.Estado);
+                rptRol.DataBind();
+                if (MasterPage.IsTelefonista())
                 {
-                    RolDAO rolDAO = new RolDAO();
-
-                    //Aca cargamos el repeater
-                    rptRol.DataSource = rolDAO.List().Where(rol => rol.Estado);
-                    rptRol.DataBind();
-                }
-                else
-                {
-                    Response.Redirect("~/Login.aspx",false);
+                    MasterPage.DisableButtonsInRepeater(rptRol);
+                    btnCrear.Enabled = false;
                 }
             }
             catch(Exception)

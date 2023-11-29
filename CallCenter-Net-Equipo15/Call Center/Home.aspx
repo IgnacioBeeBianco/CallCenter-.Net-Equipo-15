@@ -49,7 +49,6 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
                 <h1 class="mb-3">Bienvenido <span class="fw-bold" id="h1NomApe" runat="server"></span>!</h1>
-                <asp:Button Text="Crear incidencia" runat="server" ID="crearIncidencia" OnClick="crearIncidencia_Click" Visible="false" CssClass="btn btn-primary btn-sm m-2" />
 
             </div>
         </div>

@@ -13,6 +13,14 @@ namespace Call_Center
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
         }
+
+        public bool IsTelefonista()
+        {
+            return (Session["Cuenta"] as Cuenta).Rol.Nombre == "Telefonista";
+        }
+
+        
     }
 }

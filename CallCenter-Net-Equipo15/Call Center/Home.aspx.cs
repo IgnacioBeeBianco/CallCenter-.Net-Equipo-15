@@ -20,61 +20,69 @@ namespace Call_Center
             try
             {
                 int id = getIDsesion();
+                Master MasterPage = (Master)Master;
+                Dominio.Cuenta cuenta = Session["Cuenta"] as Dominio.Cuenta;
+                string rolUsuario = cuenta.Rol.Nombre;
+                h1NomApe.InnerText = MasterPage.GetUsername(Session["Usuario"]);
 
-                if (Session["Usuario"] != null && Session["Cuenta"] != null)
+                ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
+
+                if (!IsPostBack)
                 {
-                    Dominio.Cuenta cuenta = Session["Cuenta"] as Dominio.Cuenta;
-                    string rolUsuario = cuenta.Rol.Nombre;
-
-                    h1NomApe.InnerText = (Session["Usuario"] as Dominio.Usuario).Nombre + " " + (Session["Usuario"] as Dominio.Usuario).Apellido;
-
-                    ScriptManager.RegisterStartupScript(this, GetType(), "ConfigurarRolUsuario", $"var rolUsuario = '{rolUsuario}';", true);
-
-                    if (!IsPostBack)
+                    if (IsAllowedToSeeAllTickets())
                     {
-                        if (rolUsuario == "Cliente")
-                        {
-                            Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
-
-                            rptIncidencias.DataSource = Session["listaIncidencias"];
-                            rptIncidencias.DataBind();
-
-                            mostrarObjetosCliente();
-                        }
-                        else if (rolUsuario == "Telefonista")
-                        {
-                            Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
-                            rptIncidencias.DataSource = Session["listaIncidencias"];
-                            rptIncidencias.DataBind();
-
-                            Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
-                            rptUsuarios.DataSource = Session["listaUsuario"];
-                            rptUsuarios.DataBind();
-
-                            CargarIncidencias(id);
-                            mostrarObjetos();
-                        }
-                        else if (rolUsuario == "Supervisor" || rolUsuario == "Administrador")
-                        {
-                            Session["listaIncidencias"] = incidenciaDAO.List();
-                            rptIncidencias.DataSource = Session["listaIncidencias"];
-                            rptIncidencias.DataBind();
-
-
-                            Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
-                            rptUsuarios.DataSource = Session["listaUsuario"];
-                            rptUsuarios.DataBind();
-
-                            CargarIncidencias(id);
-                            mostrarObjetos();
-                        }
+                        Session["listaIncidencias"] = incidenciaDAO.List();
                     }
+                    else
+                    {
+                        Session["listaIncidencias"] = incidenciaDAO.ListByUsuarioId(id);
+                    }
+
+                    if(!IsNotAllowedToSearchTickets())
+                    {
+                        Session["listaUsuario"] = usuarioDAO.GetUsuariosClientes();
+                    }
+
+                    if (MasterPage.IsClient(Session["Cuenta"]))
+                    {
+                        mostrarObjetosCliente();
+                    }
+                    else
+                    {
+                        mostrarObjetos();
+                    }
+                    CargarIncidencias(id);
+                    LoadRepeaters();
+                    
                 }
             }
             catch (Exception)
             {
                 Response.Redirect("Error.aspx");
             }
+        }
+
+        private bool IsClient()
+        {
+            return (Session["Cuenta"] as Cuenta).Rol.Nombre == "Cliente";
+        }
+
+        private void LoadRepeaters()
+        {
+            rptIncidencias.DataSource = Session["listaIncidencias"];
+            rptIncidencias.DataBind();
+            rptUsuarios.DataSource = Session["listaUsuario"];
+            rptUsuarios.DataBind();
+        }
+
+        private bool IsAllowedToSeeAllTickets()
+        {
+            return (Session["Cuenta"] as Cuenta).Rol.Nombre == "Supervisor" || (Session["Cuenta"] as Cuenta).Rol.Nombre == "Administrador";
+        }
+
+        private bool IsNotAllowedToSearchTickets()
+        {
+            return (Session["Cuenta"] as Cuenta).Rol.Nombre == "Cliente";
         }
 
         protected int getIDsesion()
@@ -136,7 +144,6 @@ namespace Call_Center
             usuDatos.Visible = true;
             txbFiltraDNI.Visible = true;
             lblFiltro.Visible = true;
-            crearIncidencia.Visible = true;
             lblEstado.Visible = true;
             filtroEstado.Visible = true;
             lblPrioridad.Visible = true;
@@ -256,11 +263,6 @@ namespace Call_Center
             {
                 Response.Redirect("Error.aspx");
             }
-        }
-
-        protected void crearIncidencia_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("CrearIncidencia.aspx", false);
         }
 
         protected void filtroEstado_TextChanged(object sender, EventArgs e)
