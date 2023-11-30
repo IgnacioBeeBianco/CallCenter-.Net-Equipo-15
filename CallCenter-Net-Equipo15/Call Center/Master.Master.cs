@@ -42,6 +42,7 @@ namespace Call_Center
                 {
                     incidenciaDashboard.Style["display"] = "none";
                     incidenciaCrear.Style["display"] = "none";
+                    crearIncidencia.Style["display"] = "none";
                 }
             }
             catch (Exception)
